@@ -1,33 +1,1456 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+ 
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --collection-1-orderquantity: 1px;
+    --level-0: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
+    --level-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --level-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --level-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+    --level-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+    --level-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+    --material-theme-body-large-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-body-large-font-size: 16px;
+    --material-theme-body-large-font-style: normal;
+    --material-theme-body-large-font-weight: 400;
+    --material-theme-body-large-letter-spacing: 0px;
+    --material-theme-body-large-line-height: 24px;
+    --material-theme-body-medium-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-body-medium-font-size: 14px;
+    --material-theme-body-medium-font-style: normal;
+    --material-theme-body-medium-font-weight: 400;
+    --material-theme-body-medium-letter-spacing: 0px;
+    --material-theme-body-medium-line-height: 20px;
+    --material-theme-body-small-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-body-small-font-size: 12px;
+    --material-theme-body-small-font-style: normal;
+    --material-theme-body-small-font-weight: 400;
+    --material-theme-body-small-letter-spacing: 0px;
+    --material-theme-body-small-line-height: 16px;
+    --material-theme-display-large-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-display-large-font-size: 57px;
+    --material-theme-display-large-font-style: normal;
+    --material-theme-display-large-font-weight: 400;
+    --material-theme-display-large-letter-spacing: 0px;
+    --material-theme-display-large-line-height: 64px;
+    --material-theme-display-medium-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-display-medium-font-size: 45px;
+    --material-theme-display-medium-font-style: normal;
+    --material-theme-display-medium-font-weight: 400;
+    --material-theme-display-medium-letter-spacing: 0px;
+    --material-theme-display-medium-line-height: 52px;
+    --material-theme-display-small-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-display-small-font-size: 36px;
+    --material-theme-display-small-font-style: normal;
+    --material-theme-display-small-font-weight: 400;
+    --material-theme-display-small-letter-spacing: 0px;
+    --material-theme-display-small-line-height: 44px;
+    --material-theme-headline-large-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-headline-large-font-size: 32px;
+    --material-theme-headline-large-font-style: normal;
+    --material-theme-headline-large-font-weight: 400;
+    --material-theme-headline-large-letter-spacing: 0px;
+    --material-theme-headline-large-line-height: 40px;
+    --material-theme-headline-medium-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-headline-medium-font-size: 28px;
+    --material-theme-headline-medium-font-style: normal;
+    --material-theme-headline-medium-font-weight: 400;
+    --material-theme-headline-medium-letter-spacing: 0px;
+    --material-theme-headline-medium-line-height: 36px;
+    --material-theme-headline-small-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-headline-small-font-size: 24px;
+    --material-theme-headline-small-font-style: normal;
+    --material-theme-headline-small-font-weight: 400;
+    --material-theme-headline-small-letter-spacing: 0px;
+    --material-theme-headline-small-line-height: 32px;
+    --material-theme-label-large-font-family: "Roboto-Medium", Helvetica;
+    --material-theme-label-large-font-size: 14px;
+    --material-theme-label-large-font-style: normal;
+    --material-theme-label-large-font-weight: 500;
+    --material-theme-label-large-letter-spacing: 0px;
+    --material-theme-label-large-line-height: 20px;
+    --material-theme-label-medium-font-family: "Roboto-Medium", Helvetica;
+    --material-theme-label-medium-font-size: 12px;
+    --material-theme-label-medium-font-style: normal;
+    --material-theme-label-medium-font-weight: 500;
+    --material-theme-label-medium-letter-spacing: 0px;
+    --material-theme-label-medium-line-height: 16px;
+    --material-theme-label-small-font-family: "Roboto-Medium", Helvetica;
+    --material-theme-label-small-font-size: 11px;
+    --material-theme-label-small-font-style: normal;
+    --material-theme-label-small-font-weight: 500;
+    --material-theme-label-small-letter-spacing: 0px;
+    --material-theme-label-small-line-height: 16px;
+    --material-theme-title-large-font-family: "Roboto-Regular", Helvetica;
+    --material-theme-title-large-font-size: 22px;
+    --material-theme-title-large-font-style: normal;
+    --material-theme-title-large-font-weight: 400;
+    --material-theme-title-large-letter-spacing: 0px;
+    --material-theme-title-large-line-height: 28px;
+    --material-theme-title-medium-font-family: "Roboto-Medium", Helvetica;
+    --material-theme-title-medium-font-size: 16px;
+    --material-theme-title-medium-font-style: normal;
+    --material-theme-title-medium-font-weight: 500;
+    --material-theme-title-medium-letter-spacing: 0px;
+    --material-theme-title-medium-line-height: 24px;
+    --material-theme-title-small-font-family: "Roboto-Medium", Helvetica;
+    --material-theme-title-small-font-size: 14px;
+    --material-theme-title-small-font-style: normal;
+    --material-theme-title-small-font-weight: 500;
+    --material-theme-title-small-letter-spacing: 0px;
+    --material-theme-title-small-line-height: 20px;
+    --material-themeblack: rgba(0, 0, 0, 1);
+    --material-themekey-colorsprimary: rgba(5, 10, 48, 1);
+    --material-themereferrorerror0: rgba(0, 0, 0, 1);
+    --material-themereferrorerror10: rgba(65, 0, 2, 1);
+    --material-themereferrorerror100: rgba(255, 255, 255, 1);
+    --material-themereferrorerror12: rgba(73, 0, 2, 1);
+    --material-themereferrorerror17: rgba(92, 0, 4, 1);
+    --material-themereferrorerror20: rgba(105, 0, 5, 1);
+    --material-themereferrorerror22: rgba(113, 0, 5, 1);
+    --material-themereferrorerror24: rgba(121, 0, 6, 1);
+    --material-themereferrorerror25: rgba(126, 0, 7, 1);
+    --material-themereferrorerror30: rgba(147, 0, 10, 1);
+    --material-themereferrorerror35: rgba(168, 7, 16, 1);
+    --material-themereferrorerror4: rgba(40, 0, 1, 1);
+    --material-themereferrorerror40: rgba(186, 26, 26, 1);
+    --material-themereferrorerror5: rgba(45, 0, 1, 1);
+    --material-themereferrorerror50: rgba(222, 55, 48, 1);
+    --material-themereferrorerror6: rgba(49, 0, 1, 1);
+    --material-themereferrorerror60: rgba(255, 84, 73, 1);
+    --material-themereferrorerror70: rgba(255, 137, 125, 1);
+    --material-themereferrorerror80: rgba(255, 180, 171, 1);
+    --material-themereferrorerror87: rgba(255, 207, 201, 1);
+    --material-themereferrorerror90: rgba(255, 218, 214, 1);
+    --material-themereferrorerror92: rgba(255, 226, 222, 1);
+    --material-themereferrorerror94: rgba(255, 233, 230, 1);
+    --material-themereferrorerror95: rgba(255, 237, 234, 1);
+    --material-themereferrorerror96: rgba(255, 240, 238, 1);
+    --material-themereferrorerror98: rgba(255, 248, 247, 1);
+    --material-themereferrorerror99: rgba(255, 251, 255, 1);
+    --material-themerefneutral-variantneutral-variant0: rgba(0, 0, 0, 1);
+    --material-themerefneutral-variantneutral-variant10: rgba(26, 27, 35, 1);
+    --material-themerefneutral-variantneutral-variant100: rgba(255, 255, 255, 1);
+    --material-themerefneutral-variantneutral-variant12: rgba(30, 31, 39, 1);
+    --material-themerefneutral-variantneutral-variant17: rgba(41, 41, 49, 1);
+    --material-themerefneutral-variantneutral-variant20: rgba(47, 48, 56, 1);
+    --material-themerefneutral-variantneutral-variant22: rgba(52, 52, 60, 1);
+    --material-themerefneutral-variantneutral-variant24: rgba(56, 56, 65, 1);
+    --material-themerefneutral-variantneutral-variant25: rgba(58, 59, 67, 1);
+    --material-themerefneutral-variantneutral-variant30: rgba(70, 70, 79, 1);
+    --material-themerefneutral-variantneutral-variant35: rgba(82, 82, 91, 1);
+    --material-themerefneutral-variantneutral-variant4: rgba(13, 14, 21, 1);
+    --material-themerefneutral-variantneutral-variant40: rgba(94, 94, 103, 1);
+    --material-themerefneutral-variantneutral-variant5: rgba(16, 16, 24, 1);
+    --material-themerefneutral-variantneutral-variant50: rgba(119, 118, 128, 1);
+    --material-themerefneutral-variantneutral-variant6: rgba(18, 19, 26, 1);
+    --material-themerefneutral-variantneutral-variant60: rgba(144, 144, 154, 1);
+    --material-themerefneutral-variantneutral-variant70: rgba(171, 170, 180, 1);
+    --material-themerefneutral-variantneutral-variant80: rgba(199, 197, 208, 1);
+    --material-themerefneutral-variantneutral-variant87: rgba(218, 217, 228, 1);
+    --material-themerefneutral-variantneutral-variant90: rgba(227, 225, 236, 1);
+    --material-themerefneutral-variantneutral-variant92: rgba(233, 231, 242, 1);
+    --material-themerefneutral-variantneutral-variant94: rgba(238, 236, 248, 1);
+    --material-themerefneutral-variantneutral-variant95: rgba(241, 239, 250, 1);
+    --material-themerefneutral-variantneutral-variant96: rgba(244, 242, 253, 1);
+    --material-themerefneutral-variantneutral-variant98: rgba(251, 248, 255, 1);
+    --material-themerefneutral-variantneutral-variant99: rgba(255, 251, 255, 1);
+    --material-themerefneutralneutral0: rgba(0, 0, 0, 1);
+    --material-themerefneutralneutral10: rgba(27, 27, 31, 1);
+    --material-themerefneutralneutral100: rgba(255, 255, 255, 1);
+    --material-themerefneutralneutral12: rgba(31, 31, 35, 1);
+    --material-themerefneutralneutral17: rgba(42, 42, 45, 1);
+    --material-themerefneutralneutral20: rgba(48, 48, 52, 1);
+    --material-themerefneutralneutral22: rgba(53, 52, 56, 1);
+    --material-themerefneutralneutral24: rgba(57, 57, 60, 1);
+    --material-themerefneutralneutral25: rgba(59, 59, 63, 1);
+    --material-themerefneutralneutral30: rgba(71, 70, 74, 1);
+    --material-themerefneutralneutral35: rgba(83, 82, 86, 1);
+    --material-themerefneutralneutral4: rgba(14, 14, 17, 1);
+    --material-themerefneutralneutral40: rgba(95, 94, 98, 1);
+    --material-themerefneutralneutral5: rgba(17, 17, 20, 1);
+    --material-themerefneutralneutral50: rgba(120, 118, 122, 1);
+    --material-themerefneutralneutral6: rgba(19, 19, 22, 1);
+    --material-themerefneutralneutral60: rgba(146, 144, 148, 1);
+    --material-themerefneutralneutral70: rgba(172, 170, 175, 1);
+    --material-themerefneutralneutral80: rgba(200, 197, 202, 1);
+    --material-themerefneutralneutral87: rgba(220, 217, 222, 1);
+    --material-themerefneutralneutral90: rgba(228, 225, 230, 1);
+    --material-themerefneutralneutral92: rgba(234, 231, 236, 1);
+    --material-themerefneutralneutral94: rgba(240, 237, 241, 1);
+    --material-themerefneutralneutral95: rgba(243, 240, 244, 1);
+    --material-themerefneutralneutral96: rgba(246, 242, 247, 1);
+    --material-themerefneutralneutral98: rgba(251, 248, 253, 1);
+    --material-themerefneutralneutral99: rgba(255, 251, 255, 1);
+    --material-themerefprimaryprimary0: rgba(0, 0, 0, 1);
+    --material-themerefprimaryprimary10: rgba(0, 13, 96, 1);
+    --material-themerefprimaryprimary100: rgba(255, 255, 255, 1);
+    --material-themerefprimaryprimary12: rgba(1, 17, 104, 1);
+    --material-themerefprimaryprimary17: rgba(17, 31, 114, 1);
+    --material-themerefprimaryprimary20: rgba(26, 38, 120, 1);
+    --material-themerefprimaryprimary22: rgba(31, 43, 125, 1);
+    --material-themerefprimaryprimary24: rgba(36, 48, 129, 1);
+    --material-themerefprimaryprimary25: rgba(38, 51, 132, 1);
+    --material-themerefprimaryprimary30: rgba(51, 63, 144, 1);
+    --material-themerefprimaryprimary35: rgba(63, 75, 156, 1);
+    --material-themerefprimaryprimary4: rgba(0, 5, 60, 1);
+    --material-themerefprimaryprimary40: rgba(75, 87, 169, 1);
+    --material-themerefprimaryprimary5: rgba(0, 7, 67, 1);
+    --material-themerefprimaryprimary50: rgba(100, 112, 196, 1);
+    --material-themerefprimaryprimary6: rgba(0, 8, 74, 1);
+    --material-themerefprimaryprimary60: rgba(126, 138, 224, 1);
+    --material-themerefprimaryprimary70: rgba(153, 165, 253, 1);
+    --material-themerefprimaryprimary80: rgba(187, 195, 255, 1);
+    --material-themerefprimaryprimary87: rgba(212, 215, 255, 1);
+    --material-themerefprimaryprimary90: rgba(223, 224, 255, 1);
+    --material-themerefprimaryprimary92: rgba(230, 230, 255, 1);
+    --material-themerefprimaryprimary94: rgba(237, 236, 255, 1);
+    --material-themerefprimaryprimary95: rgba(240, 239, 255, 1);
+    --material-themerefprimaryprimary96: rgba(244, 242, 255, 1);
+    --material-themerefprimaryprimary98: rgba(251, 248, 255, 1);
+    --material-themerefprimaryprimary99: rgba(255, 251, 255, 1);
+    --material-themerefsecondarysecondary0: rgba(0, 0, 0, 1);
+    --material-themerefsecondarysecondary10: rgba(24, 26, 44, 1);
+    --material-themerefsecondarysecondary100: rgba(255, 255, 255, 1);
+    --material-themerefsecondarysecondary12: rgba(28, 30, 48, 1);
+    --material-themerefsecondarysecondary17: rgba(38, 41, 59, 1);
+    --material-themerefsecondarysecondary20: rgba(45, 47, 66, 1);
+    --material-themerefsecondarysecondary22: rgba(49, 51, 70, 1);
+    --material-themerefsecondarysecondary24: rgba(54, 56, 75, 1);
+    --material-themerefsecondarysecondary25: rgba(56, 58, 77, 1);
+    --material-themerefsecondarysecondary30: rgba(67, 69, 89, 1);
+    --material-themerefsecondarysecondary35: rgba(79, 81, 101, 1);
+    --material-themerefsecondarysecondary4: rgba(10, 13, 30, 1);
+    --material-themerefsecondarysecondary40: rgba(91, 93, 114, 1);
+    --material-themerefsecondarysecondary5: rgba(13, 16, 33, 1);
+    --material-themerefsecondarysecondary50: rgba(116, 118, 139, 1);
+    --material-themerefsecondarysecondary6: rgba(16, 18, 35, 1);
+    --material-themerefsecondarysecondary60: rgba(142, 143, 166, 1);
+    --material-themerefsecondarysecondary70: rgba(168, 169, 193, 1);
+    --material-themerefsecondarysecondary80: rgba(196, 197, 221, 1);
+    --material-themerefsecondarysecondary87: rgba(215, 216, 241, 1);
+    --material-themerefsecondarysecondary90: rgba(224, 225, 249, 1);
+    --material-themerefsecondarysecondary92: rgba(230, 230, 255, 1);
+    --material-themerefsecondarysecondary94: rgba(237, 236, 255, 1);
+    --material-themerefsecondarysecondary95: rgba(240, 239, 255, 1);
+    --material-themerefsecondarysecondary96: rgba(244, 242, 255, 1);
+    --material-themerefsecondarysecondary98: rgba(251, 248, 255, 1);
+    --material-themerefsecondarysecondary99: rgba(255, 251, 255, 1);
+    --material-themereftertiarytertiary0: rgba(0, 0, 0, 1);
+    --material-themereftertiarytertiary10: rgba(45, 17, 39, 1);
+    --material-themereftertiarytertiary100: rgba(255, 255, 255, 1);
+    --material-themereftertiarytertiary12: rgba(50, 22, 43, 1);
+    --material-themereftertiarytertiary17: rgba(62, 32, 54, 1);
+    --material-themereftertiarytertiary20: rgba(69, 38, 61, 1);
+    --material-themereftertiarytertiary22: rgba(74, 43, 65, 1);
+    --material-themereftertiarytertiary24: rgba(78, 47, 70, 1);
+    --material-themereftertiarytertiary25: rgba(81, 49, 72, 1);
+    --material-themereftertiarytertiary30: rgba(93, 60, 84, 1);
+    --material-themereftertiarytertiary35: rgba(106, 72, 96, 1);
+    --material-themereftertiarytertiary4: rgba(30, 5, 25, 1);
+    --material-themereftertiarytertiary40: rgba(119, 83, 108, 1);
+    --material-themereftertiarytertiary5: rgba(33, 7, 28, 1);
+    --material-themereftertiarytertiary50: rgba(146, 108, 134, 1);
+    --material-themereftertiarytertiary6: rgba(36, 9, 31, 1);
+    --material-themereftertiarytertiary60: rgba(173, 133, 160, 1);
+    --material-themereftertiarytertiary70: rgba(201, 159, 187, 1);
+    --material-themereftertiarytertiary80: rgba(230, 186, 215, 1);
+    --material-themereftertiarytertiary87: rgba(251, 205, 235, 1);
+    --material-themereftertiarytertiary90: rgba(255, 215, 240, 1);
+    --material-themereftertiarytertiary92: rgba(255, 223, 242, 1);
+    --material-themereftertiarytertiary94: rgba(255, 232, 244, 1);
+    --material-themereftertiarytertiary95: rgba(255, 236, 245, 1);
+    --material-themereftertiarytertiary96: rgba(255, 240, 247, 1);
+    --material-themereftertiarytertiary98: rgba(255, 247, 249, 1);
+    --material-themereftertiarytertiary99: rgba(255, 251, 255, 1);
+    --material-themesourceseed: rgba(5, 10, 48, 1);
+    --material-themesysdarkbackground: rgba(27, 27, 31, 1);
+    --material-themesysdarkerror: rgba(255, 180, 171, 1);
+    --material-themesysdarkerror-container: rgba(147, 0, 10, 1);
+    --material-themesysdarkinverse-on-surface: rgba(27, 27, 31, 1);
+    --material-themesysdarkinverse-primary: rgba(75, 87, 169, 1);
+    --material-themesysdarkinverse-surface: rgba(228, 225, 230, 1);
+    --material-themesysdarkon-background: rgba(228, 225, 230, 1);
+    --material-themesysdarkon-error: rgba(105, 0, 5, 1);
+    --material-themesysdarkon-error-container: rgba(255, 218, 214, 1);
+    --material-themesysdarkon-primary: rgba(26, 38, 120, 1);
+    --material-themesysdarkon-primary-container: rgba(223, 224, 255, 1);
+    --material-themesysdarkon-primary-fixed: rgba(0, 13, 96, 1);
+    --material-themesysdarkon-primary-fixed-variant: rgba(51, 63, 144, 1);
+    --material-themesysdarkon-secondary: rgba(45, 47, 66, 1);
+    --material-themesysdarkon-secondary-container: rgba(224, 225, 249, 1);
+    --material-themesysdarkon-secondary-fixed: rgba(24, 26, 44, 1);
+    --material-themesysdarkon-secondary-fixed-variant: rgba(67, 69, 89, 1);
+    --material-themesysdarkon-surface: rgba(200, 197, 202, 1);
+    --material-themesysdarkon-surface-variant: rgba(199, 197, 208, 1);
+    --material-themesysdarkon-tertiary: rgba(69, 38, 61, 1);
+    --material-themesysdarkon-tertiary-container: rgba(255, 215, 240, 1);
+    --material-themesysdarkon-tertiary-fixed: rgba(45, 17, 39, 1);
+    --material-themesysdarkon-tertiary-fixed-variant: rgba(93, 60, 84, 1);
+    --material-themesysdarkoutline: rgba(144, 144, 154, 1);
+    --material-themesysdarkoutline-variant: rgba(70, 70, 79, 1);
+    --material-themesysdarkprimary: rgba(187, 195, 255, 1);
+    --material-themesysdarkprimary-container: rgba(51, 63, 144, 1);
+    --material-themesysdarkprimary-fixed: rgba(223, 224, 255, 1);
+    --material-themesysdarkprimary-fixed-dim: rgba(187, 195, 255, 1);
+    --material-themesysdarkscrim: rgba(0, 0, 0, 1);
+    --material-themesysdarksecondary: rgba(196, 197, 221, 1);
+    --material-themesysdarksecondary-container: rgba(67, 69, 89, 1);
+    --material-themesysdarksecondary-fixed: rgba(224, 225, 249, 1);
+    --material-themesysdarksecondary-fixed-dim: rgba(196, 197, 221, 1);
+    --material-themesysdarkshadow: rgba(0, 0, 0, 1);
+    --material-themesysdarksurface: rgba(19, 19, 22, 1);
+    --material-themesysdarksurface-bright: rgba(57, 57, 60, 1);
+    --material-themesysdarksurface-container: rgba(31, 31, 35, 1);
+    --material-themesysdarksurface-container-high: rgba(42, 42, 45, 1);
+    --material-themesysdarksurface-container-highest: rgba(53, 52, 56, 1);
+    --material-themesysdarksurface-container-low: rgba(27, 27, 31, 1);
+    --material-themesysdarksurface-container-lowest: rgba(14, 14, 17, 1);
+    --material-themesysdarksurface-dim: rgba(19, 19, 22, 1);
+    --material-themesysdarksurface-tint: rgba(187, 195, 255, 1);
+    --material-themesysdarksurface-variant: rgba(70, 70, 79, 1);
+    --material-themesysdarktertiary: rgba(230, 186, 215, 1);
+    --material-themesysdarktertiary-container: rgba(93, 60, 84, 1);
+    --material-themesysdarktertiary-fixed: rgba(255, 215, 240, 1);
+    --material-themesysdarktertiary-fixed-dim: rgba(230, 186, 215, 1);
+    --material-themesyslightbackground: rgba(255, 251, 255, 1);
+    --material-themesyslighterror: rgba(186, 26, 26, 1);
+    --material-themesyslighterror-container: rgba(255, 218, 214, 1);
+    --material-themesyslightinverse-on-surface: rgba(243, 240, 244, 1);
+    --material-themesyslightinverse-primary: rgba(187, 195, 255, 1);
+    --material-themesyslightinverse-surface: rgba(48, 48, 52, 1);
+    --material-themesyslighton-background: rgba(27, 27, 31, 1);
+    --material-themesyslighton-error: rgba(255, 255, 255, 1);
+    --material-themesyslighton-error-container: rgba(65, 0, 2, 1);
+    --material-themesyslighton-primary: rgba(255, 255, 255, 1);
+    --material-themesyslighton-primary-container: rgba(0, 13, 96, 1);
+    --material-themesyslighton-primary-fixed: rgba(0, 13, 96, 1);
+    --material-themesyslighton-primary-fixed-variant: rgba(51, 63, 144, 1);
+    --material-themesyslighton-secondary: rgba(255, 255, 255, 1);
+    --material-themesyslighton-secondary-container: rgba(24, 26, 44, 1);
+    --material-themesyslighton-secondary-fixed: rgba(24, 26, 44, 1);
+    --material-themesyslighton-secondary-fixed-variant: rgba(67, 69, 89, 1);
+    --material-themesyslighton-surface: rgba(27, 27, 31, 1);
+    --material-themesyslighton-surface-variant: rgba(70, 70, 79, 1);
+    --material-themesyslighton-tertiary: rgba(255, 255, 255, 1);
+    --material-themesyslighton-tertiary-container: rgba(45, 17, 39, 1);
+    --material-themesyslighton-tertiary-fixed: rgba(45, 17, 39, 1);
+    --material-themesyslighton-tertiary-fixed-variant: rgba(93, 60, 84, 1);
+    --material-themesyslightoutline: rgba(119, 118, 128, 1);
+    --material-themesyslightoutline-variant: rgba(199, 197, 208, 1);
+    --material-themesyslightprimary: rgba(75, 87, 169, 1);
+    --material-themesyslightprimary-container: rgba(223, 224, 255, 1);
+    --material-themesyslightprimary-fixed: rgba(223, 224, 255, 1);
+    --material-themesyslightprimary-fixed-dim: rgba(187, 195, 255, 1);
+    --material-themesyslightscrim: rgba(0, 0, 0, 1);
+    --material-themesyslightsecondary: rgba(91, 93, 114, 1);
+    --material-themesyslightsecondary-container: rgba(224, 225, 249, 1);
+    --material-themesyslightsecondary-fixed: rgba(224, 225, 249, 1);
+    --material-themesyslightsecondary-fixed-dim: rgba(196, 197, 221, 1);
+    --material-themesyslightshadow: rgba(0, 0, 0, 1);
+    --material-themesyslightsurface: rgba(251, 248, 253, 1);
+    --material-themesyslightsurface-bright: rgba(251, 248, 253, 1);
+    --material-themesyslightsurface-container: rgba(240, 237, 241, 1);
+    --material-themesyslightsurface-container-high: rgba(234, 231, 236, 1);
+    --material-themesyslightsurface-container-highest: rgba(228, 225, 230, 1);
+    --material-themesyslightsurface-container-low: rgba(246, 242, 247, 1);
+    --material-themesyslightsurface-container-lowest: rgba(255, 255, 255, 1);
+    --material-themesyslightsurface-dim: rgba(220, 217, 222, 1);
+    --material-themesyslightsurface-tint: rgba(75, 87, 169, 1);
+    --material-themesyslightsurface-variant: rgba(227, 225, 236, 1);
+    --material-themesyslighttertiary: rgba(119, 83, 108, 1);
+    --material-themesyslighttertiary-container: rgba(255, 215, 240, 1);
+    --material-themesyslighttertiary-fixed: rgba(255, 215, 240, 1);
+    --material-themesyslighttertiary-fixed-dim: rgba(230, 186, 215, 1);
+    --material-themewhite: rgba(255, 255, 255, 1);
+    --on-primary-opacity-12: rgba(255, 255, 255, 0.12);
+    --on-primary-opacity-8: rgba(255, 255, 255, 0.08);
+    --on-secondary-container-opacity-10: rgba(254, 217, 230, 0.1);
+    --on-secondary-container-opacity-12: rgba(254, 217, 230, 0.12);
+    --on-secondary-container-opacity-8: rgba(254, 217, 230, 0.08);
+    --on-surface-opacity-12: rgba(31, 26, 28, 0.12);
+    --on-surface-opacity-38: rgba(31, 26, 28, 0.38);
+    --on-surface-opacity-8: rgba(27, 27, 31, 0.08);
+    --on-surface-variant-opacity-8: rgba(70, 70, 79, 0.08);
+    --primary-opacity-12: rgba(182, 0, 116, 0.12);
+    --primary-opacity-8: rgba(255, 176, 208, 0.08);
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+/* STYLING FOR FILLED BUTTONS STARTS HERE*/
+
+.filled-enabled-with-and-without-icon {
+  align-items: center;
+  background-color: var(--material-themesyslightprimary);
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  } 
+
+  .filled-enabled-with-and-without-icon:hover {
+    box-shadow: var(--level-1);
+    } 
+
+  .filled-enabled-with-and-without-icon:focus {
+    box-shadow: var(--level-1);
+    } 
+
+  .filled-enabled-with-icon-state-layer {
+    align-items: center;
+    align-self: stretch;
+    border-radius: 20px;
+    display: flex;
+    flex: 1;
+    flex-grow: 1;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px 24px 10px 16px;
+    position: relative;
+    width: 100%; 
+    } 
+
+  .filled-enabled-without-icon-state-layer {
+    align-items: center;
+    align-self: stretch;
+    border-radius: 20px;
+    display: flex;
+    flex: 1;
+    flex-grow: 1;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px 25px;
+    position: relative;
+    width: 100%;
+    } 
+
+  .filled-enabled-with-icon-state-layer:hover {
+    background-color: var(--on-primary-opacity-8);
+    } 
+
+  .filled-enabled-without-icon-state-layer:hover {
+    background-color: var(--on-primary-opacity-8);
+    } 
+
+  .filled-enabled-with-icon-state-layer:focus {
+    background-color: var(--on-primary-opacity-12);
+    } 
+    
+  .filled-enabled-without-icon-state-layer:focus {
+    background-color: var(--on-primary-opacity-12);
+  } 
+
+    .filled-enabled-icon-styling {
+      flex: 0 0 auto;
+      position: relative; 
+      color: var(--material-themesyslighton-primary); 
+    }
+
+    .filled-enabled-with-and-without-icon-text-wrapper {
+      color: var(--material-themesyslighton-primary);
+      font-family: var(--material-theme-label-large-font-family);
+      font-size: var(--material-theme-label-large-font-size);
+      font-style: var(--material-theme-label-large-font-style);
+      font-weight: var(--material-theme-label-large-font-weight);
+      letter-spacing: var(--material-theme-label-large-letter-spacing);
+      line-height: var(--material-theme-label-large-line-height);
+      margin-top: -1px;
+      position: relative;
+      white-space: nowrap;
+      width: fit-content;
+      }
+
+      .filled-disabled-with-and-without-icon {
+        align-items: center;
+        border-radius: 20px;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 8px;
+        height: 40px;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        cursor:context-menu;
+        }
+    
+      .filled-disabled-with-icon-state-layer {
+        align-items: center;
+        align-self: stretch;
+        background-color: var(--on-surface-opacity-12);
+        border-radius: 20px;
+        display: flex;
+        flex: 1;
+        flex-grow: 1;
+        gap: 8px;
+        justify-content: center;
+        padding: 10px 24px 10px 16px;
+        position: relative;
+        width: 100%;
+        cursor:context-menu;
+        }
+      
+      .filled-disabled-without-icon-state-layer {
+        align-items: center;
+        align-self: stretch;
+        background-color: var(--on-surface-opacity-12);
+        border-radius: 20px;
+        display: flex;
+        flex: 1;
+        flex-grow: 1;
+        gap: 8px;
+        justify-content: center;
+        padding: 10px 25px;
+        position: relative;
+        width: 100%;
+        cursor:context-menu;
+        } 
+        
+        .filled-disabled-icon-styling {
+          flex: 0 0 auto;
+          position: relative; 
+          color: var(--material-themesyslighton-surface); 
+          opacity: 0.38; 
+        }
+
+      .filled-disabled-with-and-without-icon-text-wrapper {
+        color: var(--material-themesyslighton-surface);
+        font-family: var(--material-theme-label-large-font-family);
+        font-size: var(--material-theme-label-large-font-size);
+        font-style: var(--material-theme-label-large-font-style);
+        font-weight: var(--material-theme-label-large-font-weight);
+        letter-spacing: var(--material-theme-label-large-letter-spacing);
+        line-height: var(--material-theme-label-large-line-height);
+        margin-top: -1px;
+        opacity: 0.38;
+        position: relative;
+        white-space: nowrap;
+        width: fit-content;
+        }
+
+      /* STYLING FOR FILLED BUTTONS ENDS HERE*/
+
+      /* STYLING FOR ELEVATED BUTTONS STARTS HERE*/
+.elevated-enabled-with-and-without-icon {
+  align-items: center;
+  background-color: var(--material-themesyslightsurface-container-low);
+  border-radius: 20px;
+  box-shadow: var(--level-1);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  }
+  
+.elevated-enabled-with-and-without-icon:hover {
+  box-shadow: var(--level-2);
+  } 
+
+.elevated-enabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  } 
+
+.elevated-enabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  } 
+
+.elevated-enabled-with-icon-state-layer:hover {
+  background-color: var(--primary-opacity-8);
+  } 
+
+.elevated-enabled-without-icon-state-layer:hover {
+  background-color: var(--primary-opacity-8);
+  } 
+
+.elevated-enabled-with-icon-state-layer:focus {
+  background-color: var(--primary-opacity-12);
+  } 
+
+.elevated-enabled-without-icon-state-layer:focus {
+  background-color: var(--primary-opacity-12);
+  } 
+
+.elevated-enabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--material-themesyslightprimary);
+  } 
+
+.elevated-enabled-with-and-without-icon-text-wrapper {
+  color: var(--material-themesyslightprimary);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  } 
+
+.elevated-disabled-with-and-without-icon {
+  align-items: center;
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  } 
+
+.elevated-disabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--on-surface-opacity-12);
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  } 
+
+.elevated-disabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--on-surface-opacity-12);
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  }
+  
+
+.elevated-disabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--on-surface-opacity-38);
+  } 
+
+.elevated-disabled-with-and-without-icon-text-wrapper {
+  color: var(--on-surface-opacity-38);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  }
+      /* STYLING FOR ELEVATED BUTTONS ENDS HERE*/
+
+      /* STYLING FOR OUTLINE BUTTONS STARTS HERE */
+
+.outlined-enabled-with-and-without-icon {
+  align-items: center;
+  border: 1px solid;
+  border-color: var(--material-themesyslightoutline);
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  } 
+
+.outlined-enabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  } 
+
+.outlined-enabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  }
+  
+
+.outlined-enabled-with-icon-state-layer:hover {
+  background-color: var(--primary-opacity-8);
+  } 
+
+.outlined-enabled-without-icon-state-layer:hover {
+  background-color: var(--primary-opacity-8);
+  } 
+
+.outlined-enabled-with-icon-state-layer:focus {
+  background-color: var(--primary-opacity-12);
+  } 
+
+.outlined-enabled-without-icon-state-layer:focus {
+  background-color: var(--primary-opacity-12);
+  } 
+
+.outlined-enabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--material-themesyslightprimary);
+  } 
+
+.outlined-disabled-with-and-without-icon {
+  align-items: center;
+  border: 1px solid;
+  border-color: var(--on-surface-opacity-12);
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  cursor:context-menu;
+  } 
+
+.outlined-disabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  }
+
+.outlined-disabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  } 
+
+.outlined-disabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--on-surface-opacity-38);
+  } 
+
+.outlined-disabled-with-and-without-icon-text-wrapper {
+  color: var(--on-surface-opacity-38);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  }
+  
+  
+
+.outlined-enabled-with-and-without-icon-text-wrapper {
+  color: var(--material-themesyslightprimary);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  } 
+
+      /* STYLING FOR OUTLINE BUTTONS ENDS HERE */
+
+      /* STYLING FOR TONAL BUTTONS STARTS HERE */
+.tonal-enabled-with-and-without-icon {
+  align-items: center;
+  background-color: var(--material-themesyslightsecondary-container);
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  }
+
+.tonal-disabled-with-and-without-icon {
+  align-items: center;
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  cursor:context-menu;
+  } 
+
+.tonal-enabled-with-and-without-icon:hover {
+  box-shadow: var(--level-1);
+  }
+
+.tonal-enabled-with-and-without-icon:focus {
+  box-shadow: var(--level-0);
+  align-items: center;
+  background-color: var(--material-themesyslightsecondary-container);
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  } 
+  
+.tonal-enabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  } 
+
+.tonal-enabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  } 
+
+.tonal-disabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--on-surface-opacity-12);
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  }
+
+.tonal-disabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--on-surface-opacity-12);
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  } 
+  
+
+.tonal-enabled-with-icon-state-layer:hover {
+  background-color: var(--on-secondary-container-opacity-8);
+  } 
+
+.tonal-enabled-without-icon-state-layer:hover {
+  background-color: var(--on-secondary-container-opacity-8);
+  } 
+
+.tonal-enabled-with-icon-state-layer:focus {
+  background-color: var(--on-secondary-container-opacity-10);
+  } 
+
+.tonal-enabled-without-icon-state-layer:focus {
+  background-color: var(--on-secondary-container-opacity-10);
+  } 
+
+.tonal-enabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--material-themesyslighton-secondary-container);
+  } 
+
+.tonal-disabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--on-surface-opacity-38);
+  }
+  
+
+.tonal-enabled-with-and-without-icon-text-wrapper {
+  color: var(--material-themesyslighton-secondary-container);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  } 
+
+.tonal-disabled-with-and-without-icon-text-wrapper {
+  color: var(--on-surface-opacity-38);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  }
+  
+      /* STYLING FOR TONAL BUTTONS ENDS HERE */
+
+      /* STYLING FOR TEXT BUTTONS STARTS HERE */
+.text-enabled-with-and-without-icon {
+  align-items: center;
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  min-width: 100px;
+  } 
+
+.text-disabled-with-and-without-icon {
+  align-items: center;
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  } 
+
+.text-disabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  } 
+
+.text-disabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  cursor:context-menu;
+  } 
+
+.text-enabled-with-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px 10px 16px;
+  position: relative;
+  width: 100%;
+  } 
+
+.text-enabled-without-icon-state-layer {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  }
+  
+.text-enabled-without-icon-state-layer:hover {
+  background-color: var(--primary-opacity-8);
+  } 
+
+
+.text-enabled-with-icon-state-layer:hover {
+  background-color: var(--primary-opacity-8);
+  } 
+
+.text-enabled-without-icon-state-layer:focus {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--primary-opacity-12);
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 25px;
+  position: relative;
+  width: 100%;
+  } 
+
+
+.text-enabled-with-icon-state-layer:focus {
+  background-color: var(--primary-opacity-12);
+  }
+  
+
+.text-enabled-icon-styling {
+  height: 18px;
+  position: relative;
+  width: 18px;
+  color: var(--material-themesyslightprimary);
+  } 
+
+.text-disabled-icon-styling {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--on-surface-opacity-38);
+  } 
+
+.text-enabled-with-and-without-icon-text-wrapper {
+  color: var(--material-themesyslightprimary);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  }
+
+.text-disabled-with-and-without-icon-text-wrapper {
+  color: var(--on-surface-opacity-38);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  } 
+
+      /* STYLING FOR TEXT BUTTONS ENDS HERE */
+
+.inactive-enabled-container {
+  align-items: flex-start;
+  display: flex;
+  gap: 12px;
+  height: 56px;
+  width: 336px;
+  position: relative;
+  border-radius: 28px;
+  }
+  
+.inactive-enabled-state-layer {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 12px;
+  padding: 16px 24px 16px 16px;
+  position: relative;
+  border-radius:28px;
+  }
+
+.inactive-enabled-label {
+  color: var(--material-themesyslighton-surface-variant);
+  flex: 1;
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  position: relative;
+  }
+  
+.inactive-enabled-badge {
+  color: var(--material-themesyslighton-surface-variant);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height);
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  }
+
+.inactive-enabled-state-layer:hover {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--on-surface-opacity-8);
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 12px;
+  padding: 16px 24px 16px 16px;
+  position: relative;
+  }
+
+.inactive-enabled-state-layer:focus {
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--on-surface-opacity-12);
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 12px;
+  padding: 16px 24px 16px 16px;
+  position: relative;
+  }
+  
+  
+.navigation-drawer {
+  max-width: 368px;
+  height: 85vh;
+  background-color: var(--material-themesyslightsurface);
+  border-radius: 16px;
+  padding: 12px;
+  overflow-y:scroll;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.side-sheets {
+  max-width: 382px;
+  background-color: var(--material-themesyslightsurface);
+  border-radius: 16px;
+  padding: 12px;
 }
+
+.active-enabled-state-layer {
+  background-color: var(--material-themesyslightsecondary-container) !important;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 12px;
+  padding: 16px 24px 16px 16px;
+  position: relative; 
+  border-radius:28px;
+}
+    
+.overAllContainer {
+  background-color: var(--material-themesyslightsurface-variant);
+}
+
+.top-app-bar-container {
+  background-color: var(--material-themesyslightsurface);
+  height:64px;
+  position:sticky;
+  top:0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.main-content {
+  /*
+  background-color: var(--material-themesyslightsurface); 
+  */
+  margin-bottom: 85px;
+}
+
+.post-card-container {
+  box-shadow: var(--level-1);
+  background-color: var(--material-themesyslightsurface);
+}
+
+.post-card-container:hover {
+  box-shadow: var(--level-2);
+  background-color: var(--material-themesyslighton-primary)
+}
+
+.post-description-text {
+  color:var(--material-themesyslighton-surface-variant)
+}
+
+.assist-chips-with-icon {
+  border: 1px solid;
+  border-color: var(--material-themesyslightoutline);
+  height: 32px;
+  cursor: pointer;
+}
+
+.assist-chips-with-icon:hover {
+  background-color: var(--material-themesyslightsurface);
+}
+
+.assist-chips-with-icon-state-layer:hover {
+  background-color: var(--on-surface-variant-opacity-8);
+}
+
+.assist-chips-with-icon-enabled-textwrapper {
+  color: var(--material-themesyslighton-surface);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height); 
+}
+
+.assist-chips-with-icon-enabled-icon {
+  color: var(--material-themesyslightprimary);
+}
+
+.top-search-bar-container {
+  background-color: var(--material-themesyslightsurface-container-high);
+}
+
+.top-search-bar {
+  background-color: var(--material-themesyslightsurface-container-high);
+}
+
+.top-search-bar:focus {
+  outline:none;
+  border-color: var(--material-themesyslightsurface-container-high);
+}
+
+.main-content-state-layer {
+  background-color: var(--material-themesyslightsurface);
+}
+
+.radio-button-label {
+  color: var(--material-themesyslighton-surface);
+  font-family: var(--material-theme-label-large-font-family);
+  font-size: var(--material-theme-label-large-font-size);
+  font-style: var(--material-theme-label-large-font-style);
+  font-weight: var(--material-theme-label-large-font-weight);
+  letter-spacing: var(--material-theme-label-large-letter-spacing);
+  line-height: var(--material-theme-label-large-line-height); 
+}
+
+.navigation-drawer-mobile {
+  height: 100vh;
+  background-color: var(--material-themesyslightsurface);
+  border-radius: 16px;
+  padding: 12px;
+  overflow-y:scroll;
+}
+
+.inactive-enabled-container-mobile {
+  align-items: flex-start;
+  display: flex;
+  gap: 12px;
+  height: 56px;
+  width: auto;
+  position: relative;
+  border-radius: 28px;
+  }
+
+  .content-sub-container {
+    background-color: var(--material-themesyslightsurface);
+  }
+
+  .shadcn-card {
+    background-color: var(--material-themesyslightsurface);
+  }
+
+  .error-message {
+    color: var(--material-themesyslighterror)
+  }
+
+  input::placeholder {
+    color: var(--material-themesyslighton-secondary-container);
+  }
+  
+  .sign-up-input {
+    color: var(--material-themesyslighton-secondary-container);
+  }
