@@ -409,23 +409,23 @@ useEffect(()=>{
                                 <label htmlFor="institutionType" className="">Select Type of Institution</label>
                                 <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="institutionType" id="institutionType" onChange={(e) => {setInstitutionType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
                                     <option value = "Select">--select--</option>
-                                    <option value = "Universities">University</option>
-                                    <option value = "Polytechnics">Polytechnic</option>
-                                    <option value = "Colleges-of-Education">College of Education</option>
-                                    <option value = "Monotechnics">Monotechnic</option>
+                                    <option value = "universities">University</option>
+                                    <option value = "polytechnics">Polytechnic</option>
+                                    <option value = "colleges-of-Education">College of Education</option>
+                                    <option value = "monotechnics">Monotechnic</option>
                                 </select>
                         </div>
                         <div className = "flex mt-4 justify-between">
                                 <label htmlFor="ownershipType" className="">Select Type of Ownership</label>
                                 <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="ownershipType" id="ownershipType" onChange={(e) => { setOwnershipType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
-                                    <option value = "Select">--select--</option>
-                                    <option value = "Federal">Federal</option>
-                                    <option value = "State">State</option>
-                                    <option value = "Private">Private</option>
+                                    <option value = "select">--select--</option>
+                                    <option value = "federal">Federal</option>
+                                    <option value = "state">State</option>
+                                    <option value = "private">Private</option>
                                 </select>
                         </div>
                         {/* CONDITIONAL RENDERING: FOR FEDERAL UNIVERSITIES STARTS HERE */}
-{institutionType === "Universities" && ownershipType === "Federal" &&
+{institutionType === "universities" && ownershipType === "federal" &&
   <Popover open={open} onOpenChange={setOpen}>
     <PopoverTrigger asChild>
       <Button
@@ -485,7 +485,7 @@ useEffect(()=>{
 {/* CONDITIONAL RENDERING: FOR FEDERAL UNIVERSITIES ENDS HERE */}
 
 {/* CONDITIONAL RENDERING: FOR STATE UNIVERSITIES STARTS HERE */}
-{institutionType === "Universities" && ownershipType === "State" &&
+{institutionType === "universities" && ownershipType === "state" &&
   <Popover open={openStateUniversity} onOpenChange={setOpenStateUniversity}>
     <PopoverTrigger asChild>
       <Button
