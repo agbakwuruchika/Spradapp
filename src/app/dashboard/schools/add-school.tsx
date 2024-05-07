@@ -37,37 +37,37 @@ import {
     {
       value: "abubakar-tafawa-balewa-university",
       label: "Abubakar Tafawa Balewa University (ATBU)",
-      acronym: "ATBU",
-      location: "Bauchi",
-      state: "Bauchi"
+      acronym: "atbu",
+      location: "bauchi",
+      state: "bauchi"
     },
     {
       value: "african-aviation-and-aerospace-university",
       label: "African Aviation And Aerospace University (AAAU)",
-      acronym: "AAAU",
-      location: "FCT",
-      state: "Abuja"
+      acronym: "aaau",
+      location: "fct",
+      state: "abuja"
     },
     {
       value: "ahmadu-bello-university",
       label: "Ahmadu Bello University (ABU)",
-      acronym: "ABU",
-      location: "Zaria",
-      state: "Kaduna"
+      acronym: "abu",
+      location: "zaria",
+      state: "kaduna"
     },
     {
       value: "alex-ekwueme-federal-university",
       label: "Alex Ekwueme Federal University (AE-FUNAI)",
-      acronym: "AE-FUNAI",
-      location: "Ndufu-Alike",
-      state: "Ebonyi"
+      acronym: "ae-funai",
+      location: "ndufu-alike",
+      state: "ebonyi"
     },
     {
       value: "bayero-university-kano",
       label: "Bayero University Kano (BUK)",
-      acronym: "BUK",
-      location: "Kano",
-      state: "Kano"
+      acronym: "buk",
+      location: "kano",
+      state: "kano"
     },
   ];
 
@@ -76,37 +76,37 @@ import {
     {
       value: "abia-state-university",
       label: "Abia State University, Uturu (ABSU)",
-      acronym: "ABSU",
-      location: "Uturu",
-      state: "Abia"
+      acronym: "absu",
+      location: "uturu",
+      state: "abia"
     },
     {
       value: "adamawa-state-university",
       label: "Adamawa State University, Mubi (ADSU)",
-      acronym: "ADSU",
-      location: "Mubi",
-      state: "Adamawa"
+      acronym: "adsu",
+      location: "mubi",
+      state: "adamawa"
     },
     {
       value: "adekunle-ajasin-university",
       label: "Adekunle Ajasin University, Akungba-Akoko, (AAUA)",
-      acronym: "AAUA",
-      location: "Akungba-Akoko",
-      state: "Ondo"
+      acronym: "aaua",
+      location: "akungba-akoko",
+      state: "ondo"
     },
     {
       value: "akwa-ibom-state-university",
       label: "Akwa Ibom State University, Ikot-Akpaden, (AKSU)",
-      acronym: "AKSU",
-      location: "Ikot-Akpaden",
-      state: "Akwa-Ibom"
+      acronym: "aksu",
+      location: "ikot-akpaden",
+      state: "akwa-ibom"
     },
     {
       value: "ambrose-ali-university",
       label: "Ambrose Ali University, Ekpoma, (AAU)",
-      acronym: "AAU",
-      location: "Ekpoma",
-      state: "Edo"
+      acronym: "aau",
+      location: "ekpoma",
+      state: "edo"
     },
   ];  
 
@@ -189,7 +189,7 @@ export default function ProductOrderForm() {
     const [schoolsAdmissionCapacityPageUrl, setSchoolsAdmissionCapacityPageUrl] = useState("")
     const [addedBy, setAddedBy] = useState("")
     const [open, setOpen] = useState(false)
-    const [serverMessage, setServerMessage] = useState("")
+    const [serverMessage, setServerMessage] = useState(false)
     const [processing, setProcessing] = useState(false)
     const [value, setValue] = React.useState("")
     const [openStateUniversity, setOpenStateUniversity] = React.useState(false)
@@ -208,7 +208,40 @@ export default function ProductOrderForm() {
           }
       }
   };
-  
+
+
+  const resetAllInputs = () => {
+    setInstitutionType("");
+    setOwnershipType("");
+    setSchoolName("");
+    setSchoolDescription("");
+    setSchoolAcronym("")
+    setLogoUrl("")
+    setSchoolPageUrl("")
+    setStateLocated("")
+    setYearFounded(0)
+    setSchoolsInSameStateUrl("");
+    setSchoolsInSameLocationUrl("")
+    setAreaLocated("")
+    setSchoolsOfSameOwnershipUrl("")
+    setSchoolHead("")
+    setSchoolHeadPageUrl("")
+    setSchoolHeadType("")
+    setRankingPosition(0)
+    setSchoolsRankingPageUrl("")
+    setNumberOfCourses(0)
+    setSchoolsCoursesPageUrl("")
+    setSchoolsFeesLowest(0)
+    setSchoolsFeesHighest(0)
+    setSchoolsFeesPageUrl("")
+    setJambCutOffLowest(0)
+    setJambCutOffHighest(0)
+    setSchoolsJambCutOffPageUrl("")
+    setSchoolsHostel("")
+    setSchoolsHostelPageUrl("")
+    setSchoolsAdmissionCapacity(0)
+    setSchoolsAdmissionCapacityPageUrl("")
+  }
 
 
     useEffect(()=>{
@@ -317,9 +350,6 @@ useEffect(()=>{
             const myLogo = logoUrl
             const myProduct = "Long Jack XXXL"
             const myState = stateLocated
-            if (serverMessage === "Success") {
-                window.location.href = "/order-placement-successful?name=" + myName + "&phone=" + myDescription + "&email=" + myAcronym + "&address=" + myLogo + "&product=" + myProduct + "&pack=" + myPage + "&quantity=" + myState + "&id=" + myYear + ""
-            }
         }
         redirection();
     })
@@ -360,33 +390,9 @@ useEffect(()=>{
         const orderTime = new Date()
         const added = await addDataToFireStore(institutionType, ownershipType, schoolName, schoolDescription, schoolAcronym, logoUrl, schoolPageUrl, stateLocated, yearFounded, schoolsInSameStateUrl, schoolsInSameLocationUrl, areaLocated, schoolsOfSameOwnershipUrl, schoolHead, schoolHeadPageUrl, rankingPosition, schoolsRankingPageUrl, numberOfCourses, schoolsCoursesPageUrl, schoolsFeesLowest, schoolsFeesHighest, schoolsFeesPageUrl, jambCutOffLowest, jambCutOffHighest, schoolsJambCutOffPageUrl, schoolsHostel, schoolsHostelPageUrl, schoolsAdmissionCapacity, schoolsAdmissionCapacityPageUrl, addedBy);
         if (added) {
-            const response = await fetch("/api/new-order-email-notification", {
-                method: "POST",
-                body:JSON.stringify({
-                    name: schoolName,
-                    description: schoolDescription,
-                    acronym: schoolAcronym,
-                    logo: logoUrl,
-                    product: "Long Jack XXXL",
-                    schoolsInSameState: schoolsInSameStateUrl,
-                    page: schoolPageUrl,
-                    state: stateLocated,
-                    year: yearFounded,
-                    status: "unconfirmed"
-    
-                })
-            })
-            console.log(response)
-            if(response.ok){             
-                const successResponse = await response.json()
-                setServerMessage(successResponse.message)
-            }else{
-                const errorResponse = await response.json()
-                setServerMessage(errorResponse.message)
-                setProcessing(false)
-            }
-
-            //setServerMessage("Success");
+            setProcessing(false)
+            resetAllInputs()
+            setServerMessage(true)
         }
     }
 
@@ -401,7 +407,7 @@ useEffect(()=>{
                     <form onSubmit={handleSubmit(handleOrder)}>
                     <div className = "flex mt-4 justify-between">
                                 <label htmlFor="institutionType" className="">Select Type of Institution</label>
-                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="institutionType" id="institutionType" onChange={(e) => {setInstitutionType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); resetInput();}}>
+                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="institutionType" id="institutionType" onChange={(e) => {setInstitutionType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
                                     <option value = "Select">--select--</option>
                                     <option value = "Universities">University</option>
                                     <option value = "Polytechnics">Polytechnic</option>
@@ -411,7 +417,7 @@ useEffect(()=>{
                         </div>
                         <div className = "flex mt-4 justify-between">
                                 <label htmlFor="ownershipType" className="">Select Type of Ownership</label>
-                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="ownershipType" id="ownershipType" onChange={(e) => { setOwnershipType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); resetInput();}}>
+                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="ownershipType" id="ownershipType" onChange={(e) => { setOwnershipType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
                                     <option value = "Select">--select--</option>
                                     <option value = "Federal">Federal</option>
                                     <option value = "State">State</option>
@@ -719,6 +725,48 @@ useEffect(()=>{
                                 <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Submit" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
                             }
                         </div>
+
+                        {serverMessage &&
+                        
+                        <>
+                    <div
+                        style={{
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
+                            zIndex: 9998, // Overlay should be behind the modal
+                        }}
+                    ></div>
+                    <div
+                        style={{
+                            position: "fixed",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            border: "1px solid black",
+                            minWidth: "300px",
+                            maxWidth: "90vw",
+                            maxHeight: "95vh",
+                            overflow: "auto",
+                            backgroundColor: "white",
+                            borderRadius: "15px",
+                            zIndex: 9999, // Modal should be above the overlay
+                        }}
+                        className="enrollment-modal-container"
+                    >
+                        <div className="p-2 d-flex justify-content-between align-items-center" style={{ border: "1px solid black", borderRadius: "15px 15px 0 0", backgroundColor: "#000042" }}>
+                            <p className="text-white text-center">School added successfully!</p>
+                        </div>
+                        <div className="p-2">
+                        <input type = "button" value = "Close" onClick={()=>{window.location.href = "/dashboard/schools"}}/>
+                        </div>
+                    </div>
+                </>
+
+                        }
                     </form>
                 </div>
             </div>
