@@ -300,16 +300,16 @@ export default function ProductOrderForm() {
 
 useEffect(()=>{
   const ChooseSchoolHeadType = ()=>{
-    if(institutionType === "Universities"){
+    if(institutionType === "universities"){
       setSchoolHeadType("VC")
       setSchoolsRankingPageUrl("/"+"universities"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
-    }else if(institutionType === "Polytechnics"){
+    }else if(institutionType === "polytechnics"){
       setSchoolHeadType("Rector")
       setSchoolsRankingPageUrl("/"+"polytechnics"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
-    }else if(institutionType === "Colleges-of-Education"){
+    }else if(institutionType === "colleges-of-education"){
       setSchoolHeadType("Provost")
       setSchoolsRankingPageUrl("/"+"colleges-of-education"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
-    }else if(institutionType === "Monotechnics"){
+    }else if(institutionType === "monotechnics"){
       setSchoolHeadType("Director")
       setSchoolsRankingPageUrl("/"+"monotechnics"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
     }
@@ -411,7 +411,7 @@ useEffect(()=>{
                                     <option value = "Select">--select--</option>
                                     <option value = "universities">University</option>
                                     <option value = "polytechnics">Polytechnic</option>
-                                    <option value = "colleges-of-Education">College of Education</option>
+                                    <option value = "colleges-of-education">College of Education</option>
                                     <option value = "monotechnics">Monotechnic</option>
                                 </select>
                         </div>
@@ -564,25 +564,25 @@ useEffect(()=>{
                             {errors.schoolName && <span className='text-red-500 error-message'>{errors.schoolName.message}</span>}
                         </div>
                     */}
-                    {institutionType === "Universities" &&
+                    {institutionType === "universities" &&
                       <div>
                       <input type="text" id="nameOfVC" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Vice Chancellor" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
                       
                   </div>
                     }
-                    {institutionType === "Polytechnics" &&
+                    {institutionType === "polytechnics" &&
                       <div>
                       <input type="text" id="nameOfRector" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Rector" required onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
                       
                   </div>
                     }
-                    {institutionType === "Colleges-of-Education" &&
+                    {institutionType === "colleges-of-education" &&
                       <div>
                       <input type="text" id="nameOfProvost" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Provost" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
                       
                   </div>
                     }
-                    {institutionType === "Monotechnics" &&
+                    {institutionType === "monotechnics" &&
                       <div>
                       <input type="text" id="nameOfDirector" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Director" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
                       
