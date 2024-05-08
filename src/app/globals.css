@@ -461,6 +461,7 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  padding: 10px 24px 10px 16px;
   } 
 
   .filled-enabled-with-and-without-icon:hover {
@@ -915,6 +916,7 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  padding: 10px 24px 10px 16px;
   }
 
 .tonal-disabled-with-and-without-icon {
@@ -1080,6 +1082,7 @@
   overflow: hidden;
   position: relative;
   min-width: 100px;
+  padding: 10px 24px 10px 16px;
   } 
 
 .text-disabled-with-and-without-icon {

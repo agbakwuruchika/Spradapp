@@ -15,6 +15,7 @@ import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import ButtonWithOutIcon from "@/components/button-without-icon"
+import ButtonWithIcon from '@/components/button-with-icon';
 import {
     Command,
     CommandDialog,
@@ -68,6 +69,48 @@ import {
       acronym: "buk",
       location: "kano",
       state: "kano"
+    },
+    {
+      value: "federal-university-of-transportation",
+      label: "Federal University of Transportation (FUTD)",
+      acronym: "futd",
+      location: "daura",
+      state: "katsina"
+    },
+    {
+      value: "federal-university-birnin-kebbi",
+      label: "Federal University Birnin-Kebbi (FUBK)",
+      acronym: "fubk",
+      location: "birnin-kebbi",
+      state: "kebbi"
+    },
+    {
+      value: "federal-university-dutse",
+      label: "Federal University Dutse (FUD)",
+      acronym: "fud",
+      location: "dutse",
+      state: "jigawa"
+    },
+    {
+      value: "federal-university-dutsin-ma",
+      label: "Federal University Dutsin-Ma (FUDMA)",
+      acronym: "fudma",
+      location: "dutsin-ma",
+      state: "katsina"
+    },
+    {
+      value: "federal-university-gashua",
+      label: "Federal University Gashua (FUGASHUA)",
+      acronym: "fugashua",
+      location: "gashua",
+      state: "yobe"
+    },
+    {
+      value: "federal-university-gusau",
+      label: "Federal University Guasau (FUGUS)",
+      acronym: "fugus",
+      location: "gusau",
+      state: "zamfara"
     },
   ];
 
@@ -200,12 +243,47 @@ export default function ProductOrderForm() {
     const resetInput = () => {
       const radioInputsYes = document.getElementById("thereIsHostel") as HTMLInputElement;
       const radioInputsNo = document.getElementById("thereIsNoHostel") as HTMLInputElement;
-      
+      const yearFoundedInput = document.getElementById("yearFounded") as HTMLInputElement;
+      const rankingPositionInput = document.getElementById("rankingPosition") as HTMLInputElement;
+      const numberOfCoursesInput = document.getElementById("numberOfCourses") as HTMLInputElement;
+      const schoolsFeesLowestInput = document.getElementById("schoolsFeesLowest") as HTMLInputElement;
+      const schoolsFeesHighestInput = document.getElementById("schoolsFeesHighest") as HTMLInputElement;
+      const jambCutOffLowestInput = document.getElementById("jambCutOffLowest") as HTMLInputElement;
+      const jambCutOffHighestInput = document.getElementById("jambCutOffHighest") as HTMLInputElement;
+      const schoolsAdmissionCapacityInput = document.getElementById("schoolsAdmissionCapacity") as HTMLInputElement;
+      const schoolDescriptionInput = document.getElementById("schoolDescription") as HTMLInputElement;
+      const nameOfVCInput = document.getElementById("nameOfVC") as HTMLInputElement;
+      const nameOfRectorInput = document.getElementById("nameOfRector") as HTMLInputElement;
+      const nameOfProvostInput = document.getElementById("nameOfProvost") as HTMLInputElement;
+      const nameOfDirectorInput = document.getElementById("nameOfDirector") as HTMLInputElement;
+
       if (radioInputsYes && radioInputsNo) { // Null check
           if (radioInputsYes.type === "radio" && radioInputsNo.type === "radio") {
               radioInputsYes.checked = false;
               radioInputsNo.checked = false;
           }
+      }
+      if(yearFoundedInput && rankingPositionInput && numberOfCoursesInput && schoolsFeesLowestInput && schoolsFeesHighestInput && jambCutOffLowestInput && jambCutOffHighestInput && schoolsAdmissionCapacityInput && schoolDescriptionInput){
+        if(yearFoundedInput !== null && rankingPositionInput !== null && numberOfCoursesInput !== null && schoolsFeesLowestInput !== null && schoolsFeesHighestInput !== null && jambCutOffLowestInput !== null && jambCutOffHighestInput !== null && schoolsAdmissionCapacityInput !== null && schoolDescriptionInput !== null){
+          yearFoundedInput.value = "";
+          rankingPositionInput.value = "";
+          numberOfCoursesInput.value = "";
+          schoolsFeesLowestInput.value = "";
+          schoolsFeesHighestInput.value = "";
+          jambCutOffLowestInput.value = "";
+          jambCutOffHighestInput.value = "";
+          schoolsAdmissionCapacityInput.value = "";
+          schoolDescriptionInput.value = "";
+          
+        }
+      }
+      if(nameOfVCInput && nameOfRectorInput && nameOfProvostInput && nameOfDirectorInput){
+        if(nameOfVCInput !== null || nameOfRectorInput !== null || nameOfProvostInput !== null || nameOfDirectorInput !== null){
+          nameOfVCInput.value = "";
+          nameOfRectorInput.value = "";
+          nameOfProvostInput.value = "";
+          nameOfDirectorInput.value = "";
+        }
       }
   };
 
@@ -260,7 +338,7 @@ export default function ProductOrderForm() {
                 setSchoolPageUrl("/"+schoolName+"-"+schoolAcronym)
                 setSchoolsCoursesPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"courses")
                 setSchoolsFeesPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"school-fees")
-                setSchoolsJambCutOffPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"Jamb-Cut-Off-Mark")
+                setSchoolsJambCutOffPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"jamb-cut-off-mark")
                 setSchoolsHostelPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"hostel")
                 setSchoolsAdmissionCapacityPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"admission-capacity")
             }
@@ -291,7 +369,7 @@ export default function ProductOrderForm() {
   useEffect(()=>{
     const GenerateLinkToSchoolOfSameOwnership = ()=>{
         if(institutionType !== "" && ownershipType !== ""){
-            setSchoolsOfSameOwnershipUrl("/"+ownershipType+"-"+institutionType+"-"+"in"+"-"+"Nigeria");
+            setSchoolsOfSameOwnershipUrl("/"+ownershipType+"-"+institutionType+"-"+"in"+"-"+"nigeria");
         }
     }
     GenerateLinkToSchoolOfSameOwnership()
@@ -301,16 +379,16 @@ export default function ProductOrderForm() {
 useEffect(()=>{
   const ChooseSchoolHeadType = ()=>{
     if(institutionType === "universities"){
-      setSchoolHeadType("VC")
+      setSchoolHeadType("vc")
       setSchoolsRankingPageUrl("/"+"universities"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
     }else if(institutionType === "polytechnics"){
-      setSchoolHeadType("Rector")
+      setSchoolHeadType("rector")
       setSchoolsRankingPageUrl("/"+"polytechnics"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
     }else if(institutionType === "colleges-of-education"){
-      setSchoolHeadType("Provost")
+      setSchoolHeadType("provost")
       setSchoolsRankingPageUrl("/"+"colleges-of-education"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
     }else if(institutionType === "monotechnics"){
-      setSchoolHeadType("Director")
+      setSchoolHeadType("director")
       setSchoolsRankingPageUrl("/"+"monotechnics"+"-"+"ranking"+"-"+"in"+"-"+"nigeria")
     }
   }
@@ -564,40 +642,13 @@ useEffect(()=>{
                             {errors.schoolName && <span className='text-red-500 error-message'>{errors.schoolName.message}</span>}
                         </div>
                     */}
-                    {institutionType === "universities" &&
-                      <div>
-                      <input type="text" id="nameOfVC" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Vice Chancellor" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
-                      
-                  </div>
-                    }
-                    {institutionType === "polytechnics" &&
-                      <div>
-                      <input type="text" id="nameOfRector" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Rector" required onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
-                      
-                  </div>
-                    }
-                    {institutionType === "colleges-of-education" &&
-                      <div>
-                      <input type="text" id="nameOfProvost" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Provost" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
-                      
-                  </div>
-                    }
-                    {institutionType === "monotechnics" &&
-                      <div>
-                      <input type="text" id="nameOfDirector" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Director" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
-                      
-                  </div>
-                    }
+                    
                     {schoolHeadPageUrl !== "" &&
     <div className="flex mt-4 justify-between">
         <label htmlFor = "generatedSchoolHeadPageUrl">{schoolAcronym} {schoolHeadType} Page Url Already Generated</label>
         <input type = "text" id = "generatedSchoolHeadPageUrl" value = {schoolHeadPageUrl} className="lowercase ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full"/>
     </div>
     }
-                        <div className="mt-2">
-                            <textarea id = "schoolDescription" className = "mt-4 p-2 h-15 outline outline-2 outline-slate-100 rounded w-full" placeholder = "School description" required {...register("schoolDescription")} onChange={(e) => { setSchoolDescription(e.currentTarget.value) }}></textarea>
-                            {errors.schoolDescription && <span className='text-red-500 error-message'>{errors.schoolDescription.message}</span>}
-                        </div>
                         {stateLocated !== "" &&
     <div className="flex mt-4 justify-between">
         <label htmlFor = "stateOfLocation">State Where School Is Located Already Generated</label>
@@ -670,7 +721,35 @@ useEffect(()=>{
         <input type = "text" id = "addedBy" value = {addedBy} className="lowercase ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" readOnly/>
     </div>
     }
-                        <input type = "button" value = "Display" onClick = {(e)=>{console.log("/"+institutionType+"-"+"in"+"-"+stateLocated+"-"+"state"+schoolName+schoolAcronym+logoUrl+schoolsHostel+schoolsAdmissionCapacity)}} />
+    <hr className = "mt-4 mb-4 outline-dotted outline-blue-500"/>
+                        {institutionType === "universities" &&
+                      <div>
+                      <input type="text" id="nameOfVC" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Vice Chancellor" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
+                      
+                  </div>
+                    }
+                    {institutionType === "polytechnics" &&
+                      <div>
+                      <input type="text" id="nameOfRector" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Rector" required onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
+                      
+                  </div>
+                    }
+                    {institutionType === "colleges-of-education" &&
+                      <div>
+                      <input type="text" id="nameOfProvost" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Provost" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
+                      
+                  </div>
+                    }
+                    {institutionType === "monotechnics" &&
+                      <div>
+                      <input type="text" id="nameOfDirector" className = "mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" placeholder="Name of the Director" onChange={(e) => { setSchoolHead(e.currentTarget.value) }} />
+                      
+                  </div>
+                    }
+                    <div className="mt-2">
+                            <textarea id = "schoolDescription" className = "mt-4 p-2 h-15 outline outline-2 outline-slate-100 rounded w-full" placeholder = "School description" required {...register("schoolDescription")} onChange={(e) => { setSchoolDescription(e.currentTarget.value) }}></textarea>
+                            {errors.schoolDescription && <span className='text-red-500 error-message'>{errors.schoolDescription.message}</span>}
+                        </div>
                         <div className="mt-2">
                             <input type="number" id="yearFounded" placeholder = "Year The School Was Founded" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" required {...register("yearFounded")} onChange={(e) => { const year = parseInt(e.currentTarget.value); setYearFounded(isNaN(year) ? 0 : year); }} />
                             {errors.yearFounded && <span className='text-red-500 error-message'>{errors.yearFounded.message}</span>}
@@ -721,7 +800,7 @@ useEffect(()=>{
                         </div>
     */}
                         <div className="mt-2">
-                            {processing ? <button type="button" className="btn btn-primary form-control d-flex justify-content-center align-items-center"><ClipLoader color="#36d7b7" /><span>Processing...</span></button> :
+                            {processing ? <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" icon = {<ClipLoader color='rgba(255, 255, 255, 1)'/>} iconStyle = "filled-enabled-icon-styling" label = "Processing..." stateLayer = "filled-enabled-with-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/> :
                                 <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Submit" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
                             }
                         </div>
@@ -757,11 +836,11 @@ useEffect(()=>{
                         }}
                         className="enrollment-modal-container"
                     >
-                        <div className="p-2 d-flex justify-content-between align-items-center" style={{ border: "1px solid black", borderRadius: "15px 15px 0 0", backgroundColor: "#000042" }}>
-                            <p className="text-white text-center">School added successfully!</p>
+                        <div className="p-2 d-flex justify-content-between align-items-center" style={{borderRadius: "15px 15px 0 0", backgroundColor: "white" }}>
+                            <p className="">School added successfully!</p>
                         </div>
-                        <div className="p-2">
-                        <input type = "button" value = "Close" onClick={()=>{window.location.href = "/dashboard/schools"}}/>
+                        <div className="p-2 flex justify-end">
+                        <ButtonWithOutIcon type = "button" style = "text-enabled-with-and-without-icon" label = "Close" statelayer = "text-enabled-without-icon-state-layer" textWrapper = "text-enabled-with-and-without-icon-text-wrapper" action = {()=>{window.location.href = "/dashboard/schools"}}/>
                         </div>
                     </div>
                 </>

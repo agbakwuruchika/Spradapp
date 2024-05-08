@@ -213,7 +213,7 @@ console.log(federalUniversities)
                                         <h3 className = "text-base font-medium">Year Founded:</h3>
                                         <p className = "mt-0">{school.Year}</p>
                                         {school.SchoolPage &&
-                                        <p>Learn more about <Link href = {school.SchoolPage} className = "text-blue-600"><span className = "capitalize">{school.Acronym}</span> History</Link></p>
+                                        <p>Learn more about <Link href = {school.SchoolPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> History</Link></p>
                                         }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
