@@ -112,6 +112,62 @@ import {
       location: "gusau",
       state: "zamfara"
     },
+    {
+      value: "federal-university-kashere",
+      label: "Federal University Kashere (FUKASHERE)",
+      acronym: "fukashere",
+      location: "kashere",
+      state: "gombe"
+    },
+    {
+      value: "federal-university-of-lafia",
+      label: "Federal University of Lafia (FULAFIA)",
+      acronym: "fulafia",
+      location: "lafia",
+      state: "nasarawa"
+    },
+    {
+      value: "federal-university-lokoja",
+      label: "Federal University Lokoja (FULOKOJA)",
+      acronym: "fulokoja",
+      location: "lokoja",
+      state: "kogi"
+    },
+    {
+      value: "federal-university-otuoke",
+      label: "Federal University Otuoke (FUOTUOKE)",
+      acronym: "fuotuoke",
+      location: "otuoke",
+      state: "bayelsa"
+    },
+    {
+      value: "federal-university-oye-ekiti",
+      label: "Federal University Oye-Ekiti (FUOYE)",
+      acronym: "fuoye",
+      location: "oye-ekiti",
+      state: "ekiti"
+    },
+    {
+      value: "federal-university-wukari",
+      label: "Federal University Wukari (FUWUKARI)",
+      acronym: "fuwukari",
+      location: "wukari",
+      state: "taraba"
+    },
+    {
+      value: "joseph-sarwuan-tarka-university",
+      label: "Joseph Sarwuan Tarka University Makurdi (JSTUM)",
+      acronym: "jstum",
+      location: "makurdi",
+      state: "benue"
+    },
+    {
+      value: "modibbo-adama-university",
+      label: "Modibbo Adama University Yola (MAUTECH)",
+      acronym: "mautech",
+      location: "yola",
+      state: "adamawa"
+    },
   ];
 
 
