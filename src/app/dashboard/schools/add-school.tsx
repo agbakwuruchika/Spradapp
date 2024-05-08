@@ -182,6 +182,76 @@ import {
       location: "kaduna",
       state: "kaduna"
     },
+    {
+      value: "nigerian-police-academy",
+      label: "Nigerian Police Academy Wudil (POLAC)",
+      acronym: "polac",
+      location: "wudil",
+      state: "kano"
+    },
+    {
+      value: "nnamdi-azikiwe-university",
+      label: "Nnamdi Azikiwe University Awka (UNIZIK)",
+      acronym: "unizik",
+      location: "awka",
+      state: "anambra"
+    },
+    {
+      value: "obafemi-awolowo-university",
+      label: "Obafemi Awolowo University Ile-Ife (OAU)",
+      acronym: "oau",
+      location: "ile-ife",
+      state: "osun"
+    },
+    {
+      value: "university-of-abuja",
+      label: "University of Abuja Gwagwalada (UNIABUJA)",
+      acronym: "uniabuja",
+      location: "gwagwalada",
+      state: "abuja"
+    },
+    {
+      value: "university-of-benin",
+      label: "University of Benin (UNIBEN)",
+      acronym: "uniben",
+      location: "benin",
+      state: "edo"
+    },
+    {
+      value: "university-of-calabar",
+      label: "University of Calabar (UNICAL)",
+      acronym: "unical",
+      location: "calabar",
+      state: "cross-river"
+    },
+    {
+      value: "university-of-ibadan",
+      label: "University of Ibadan (UI)",
+      acronym: "ui",
+      location: "ibadan",
+      state: "oyo"
+    },
+    {
+      value: "university-of-ilorin",
+      label: "University of Ilorin (UNILORIN)",
+      acronym: "unilorin",
+      location: "ilorin",
+      state: "kwara"
+    },
+    {
+      value: "university-of-jos",
+      label: "University of Jos (UNIJOS)",
+      acronym: "unijos",
+      location: "jos",
+      state: "plateau"
+    },
+    {
+      value: "university-of-lagos",
+      label: "University of Lagos Akoka (UNILAG)",
+      acronym: "unilag",
+      location: "akoka",
+      state: "lagos"
+    },
   ];
 
 
