@@ -168,6 +168,20 @@ import {
       location: "yola",
       state: "adamawa"
     },
+    {
+      value: "nigerian-army-university",
+      label: "Nigerian Army University Biu (NAUB)",
+      acronym: "naub",
+      location: "biu",
+      state: "borno"
+    },
+    {
+      value: "nigerian-defence-academy",
+      label: "Nigerian Defence Academy Kaduna (NDA)",
+      acronym: "nda",
+      location: "kaduna",
+      state: "kaduna"
+    },
   ];
 
 
