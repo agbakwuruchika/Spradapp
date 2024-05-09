@@ -252,6 +252,147 @@ import {
       location: "akoka",
       state: "lagos"
     },
+    {
+      value: "university-of-maiduguri",
+      label: "University of Maiduguri (UNIMAID)",
+      acronym: "unimaid",
+      location: "maiduguri",
+      state: "borno"
+    },
+    {
+      value: "university-of-nigeria-nsukka",
+      label: "University of Nigeria Nsukka (UNN)",
+      acronym: "unn",
+      location: "nsukka",
+      state: "enugu"
+    },
+    {
+      value: "university-of-port-harcourt",
+      label: "University of Port Harcourt (UNIPORT)",
+      acronym: "uniport",
+      location: "port-harcourt",
+      state: "rivers"
+    },
+    {
+      value: "university-of-uyo",
+      label: "University of Uyo (UNIUYO)",
+      acronym: "uniuyo",
+      location: "uyo",
+      state: "akwa-ibom"
+    },
+    {
+      value: "usmanu-danfodiyo-university",
+      label: "Usmanu Danfodiyo University Sokoto (UDUSOK)",
+      acronym: "udusok",
+      location: "sokoto",
+      state: "sokoto"
+    },
+    {
+      value: "federal-university-of-agriculture-abeokuta",
+      label: "University of Agriculture Abeokuta (FUNAAB)",
+      acronym: "funaab",
+      location: "abeokuta",
+      state: "ogun"
+    },
+    {
+      value: "federal-university-of-agriculture-zuru",
+      label: "Federal University of Agriculture Zuru (FUAZ)",
+      acronym: "fuaz",
+      location: "zuru",
+      state: "kebbi"
+    },
+    {
+      value: "michael-okpara-university-of-agriculture-umudike",
+      label: "Michael Okpara University of Agriculture Umudike (MOUAU)",
+      acronym: "mouau",
+      location: "umudike",
+      state: "abia"
+    },
+    {
+      value: "king-david-university-of-medical-sciences",
+      label: "King David University of Medical Sciences Uburu (KDUMS)",
+      acronym: "kdums",
+      location: "uburu",
+      state: "ebonyi"
+    },
+    {
+      value: "federal-university-of-health-sciences-azare",
+      label: "Federal University of Health Sciences Azare (FUHSA)",
+      acronym: "fuhsa",
+      location: "azare",
+      state: "bauchi"
+    },
+    {
+      value: "federal-university-of-health-sciences-ila-orangun",
+      label: "Federal University of Health Sciences Ila-Orangun (FUHSI)",
+      acronym: "fuhsi",
+      location: "ile-orangun",
+      state: "osun"
+    },
+    {
+      value: "federal-university-of-health-sciences-otukpo",
+      label: "Federal University of Health Sciences Otukpo (FUHSO)",
+      acronym: "fuhso",
+      location: "otukpo",
+      state: "benue"
+    },
+    {
+      value: "air-force-institute-of-technology-kaduna",
+      label: "Air Force Institute of Technology Kaduna (AFIT)",
+      acronym: "afit",
+      location: "kaduna",
+      state: "kaduna"
+    },
+    {
+      value: "federal-university-of-petroleum-resources",
+      label: "Federal University of Petroleum Resources Effurun (FUPRE)",
+      acronym: "fupre",
+      location: "effurun",
+      state: "delta"
+    },
+    {
+      value: "federal-university-of-technology-akure",
+      label: "Federal University of Technology Akure (FUTA)",
+      acronym: "futa",
+      location: "akure",
+      state: "ondo"
+    },
+    {
+      value: "federal-university-of-technology-babura",
+      label: "Federal University of Technology Babura (FUTB)",
+      acronym: "futb",
+      location: "babura",
+      state: "jigawa"
+    },
+    {
+      value: "federal-university-of-technology-ikot-abasi",
+      label: "Federal University of Technology Ikot Abasi (FUTIA)",
+      acronym: "futia",
+      location: "ikot-abasi",
+      state: "akwa-ibom"
+    },
+    {
+      value: "federal-university-of-technology-minna",
+      label: "Federal University of Technology Minna (FUTMINNA)",
+      acronym: "futminna",
+      location: "minna",
+      state: "niger"
+    },
+    {
+      value: "federal-university-of-technology-owerri",
+      label: "Federal University of Technology Owerri (FUTO)",
+      acronym: "futo",
+      location: "owerri",
+      state: "imo"
+    },
+    {
+      value: "nigerian-maritime-university",
+      label: "Nigerian Maritime University Okerenkoko (NMU)",
+      acronym: "nmu",
+      location: "okerenkoko",
+      state: "delta"
+    },
+
   ];
 
 
@@ -939,11 +1080,16 @@ useEffect(()=>{
                             <input type="text" id="orderID" value={orderID} className="form-control" placeholder="enter your phone number here" required {...register("orderID")} />
                         </div>
     */}
+    {institutionType !== "" && ownershipType !== "" && schoolName !== "" && schoolDescription !== "" && schoolAcronym !== "" && logoUrl !== "" && schoolPageUrl !== "" && stateLocated !== "" && yearFounded > 0 && schoolsInSameStateUrl !== "" && schoolsInSameLocationUrl !== "" && areaLocated !== "" && schoolsOfSameOwnershipUrl !== "" && schoolHead !== "" && schoolHeadPageUrl !== "" && rankingPosition > 0 && schoolsRankingPageUrl !== "" && numberOfCourses > 0 && schoolsCoursesPageUrl !== "" && schoolsFeesLowest > 0 && schoolsFeesHighest > 0 && schoolsFeesPageUrl !== "" && jambCutOffLowest > 0 && jambCutOffHighest > 0 && schoolsJambCutOffPageUrl !== "" && schoolsHostel !== "" && schoolsHostelPageUrl !== "" && schoolsAdmissionCapacity > 0 && schoolsAdmissionCapacityPageUrl !== "" ?
                         <div className="mt-2">
                             {processing ? <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" icon = {<ClipLoader color='rgba(255, 255, 255, 1)'/>} iconStyle = "filled-enabled-icon-styling" label = "Processing..." stateLayer = "filled-enabled-with-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/> :
                                 <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Submit" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
                             }
+                        </div> :
+                        <div className = "mt-2">
+                          <ButtonWithOutIcon type = "button" style = "filled-disabled-with-and-without-icon" label = "Submit" stateLayer = "filled-disabled-without-icon-state-layer" textWrapper = "filled-disabled-icon-text-wrapper"/>
                         </div>
+                        }
 
                         {serverMessage &&
                         
