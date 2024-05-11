@@ -616,12 +616,12 @@ export default function ProductOrderForm() {
     useEffect(()=>{
         const GeneratePageLink= ()=>{
             if(schoolName !== "" && schoolAcronym !== ""){
-                setSchoolPageUrl("/"+schoolName+"-"+schoolAcronym)
-                setSchoolsCoursesPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"courses")
-                setSchoolsFeesPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"school-fees")
-                setSchoolsJambCutOffPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"jamb-cut-off-mark")
-                setSchoolsHostelPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"hostel")
-                setSchoolsAdmissionCapacityPageUrl("/"+schoolName+"-"+schoolAcronym+"-"+"admission-capacity")
+                setSchoolPageUrl("/"+schoolAcronym)
+                setSchoolsCoursesPageUrl("/"+schoolAcronym+"-"+"courses")
+                setSchoolsFeesPageUrl("/"+schoolAcronym+"-"+"school-fees")
+                setSchoolsJambCutOffPageUrl("/"+schoolAcronym+"-"+"jamb-cut-off-mark")
+                setSchoolsHostelPageUrl("/"+schoolAcronym+"-"+"hostel")
+                setSchoolsAdmissionCapacityPageUrl("/"+schoolAcronym+"-"+"admission-capacity")
             }
         }
         GeneratePageLink()
