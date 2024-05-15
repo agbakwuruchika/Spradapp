@@ -432,6 +432,216 @@ import {
       location: "ekpoma",
       state: "edo"
     },
+    {
+      value: "bauchi-state-university",
+      label: "Bauchi State University, Gadau, (BASUG)",
+      acronym: "basug",
+      location: "gadau",
+      state: "bauchi"
+    },
+    {
+      value: "bayelsa-medical-university",
+      label: "Bayelsa Medical University, Yenagoa, (BMU)",
+      acronym: "bmu",
+      location: "yenagoa",
+      state: "bayelsa"
+    },
+    {
+      value: "benue-state-university",
+      label: "Benue State University, Makurdi, (BSUM)",
+      acronym: "bsum",
+      location: "makurdi",
+      state: "benue"
+    },
+    {
+      value: "borno-state-university",
+      label: "Borno State University, Maiduguri, (BOSU)",
+      acronym: "bosu",
+      location: "maiduguri",
+      state: "borno"
+    },
+    {
+      value: "chukwuemeka-odumegwu-ojukwu-university",
+      label: "Chukwuemeka Odumegwu Ojukwu University, Uli, (COOU)",
+      acronym: "coou",
+      location: "uli",
+      state: "anambra"
+    },
+    {
+      value: "delta-state-university",
+      label: "Delta State University, Abraka, (DELSU)",
+      acronym: "delsu",
+      location: "abraka",
+      state: "delta"
+    },
+    {
+      value: "dennis-osadebay-university",
+      label: "Dennis Osadebay University, Asaba, (DOU)",
+      acronym: "dou",
+      location: "asaba",
+      state: "delta"
+    },
+    {
+      value: "ebonyi-state-university",
+      label: "Ebonyi State University, Abakaliki, (EBSU)",
+      acronym: "ebsu",
+      location: "abakaliki",
+      state: "ebonyi"
+    },
+    {
+      value: "edo-state-university",
+      label: "Edo State University, Uzairue, (EDSU)",
+      acronym: "edsu",
+      location: "uzairue",
+      state: "edo"
+    },
+    {
+      value: "ekiti-state-university",
+      label: "Ekiti State University, Ado-Ekiti, (EKSU)",
+      acronym: "eksu",
+      location: "ado-ekiti",
+      state: "ekiti"
+    },
+    {
+      value: "emmanuel-alayande-university-of-education",
+      label: "Emmanuel Alayande University of Education, Oyo, (EAUED)",
+      acronym: "eaued",
+      location: "oyo",
+      state: "oyo"
+    },
+    {
+      value: "first-technical-university",
+      label: "First Technical University, Ibadan, (TECH-U)",
+      acronym: "tech-u",
+      location: "ibadan",
+      state: "oyo"
+    },
+    {
+      value: "gombe-state-university",
+      label: "Gombe State University, Tudun Wada, (GSU)",
+      acronym: "gsu",
+      location: "tudun-wada",
+      state: "gombe"
+    },
+    {
+      value: "ibrahim-badamasi-babangida-university",
+      label: "Ibrahim Badamasi Babangida University, Lapai, (IBBU)",
+      acronym: "ibbu",
+      location: "lapai",
+      state: "niger"
+    },
+    {
+      value: "ignatius-ajuru-university-of-education",
+      label: "Ignatius Ajuru University of Education, Port Harcourt, (IAUE)",
+      acronym: "iaue",
+      location: "port-harcourt",
+      state: "rivers"
+    },
+    {
+      value: "imo-state-university",
+      label: "Imo State University, Owerri, (IMSU)",
+      acronym: "imsu",
+      location: "owerri",
+      state: "imo"
+    },
+    {
+      value: "kaduna-state-university",
+      label: "Kaduna State University, Kaduna, (KASU)",
+      acronym: "kasu",
+      location: "kaduna",
+      state: "kaduna"
+    },
+    {
+      value: "prince-abubakar-audu-university",
+      label: "Prince Abubakar Audu University, Anyigba, (PAAU)",
+      acronym: "paau",
+      location: "anyigba",
+      state: "kogi"
+    },
+    {
+      value: "kwara-state-university",
+      label: "Kwara State University, Malete, (KWASU)",
+      acronym: "kwasu",
+      location: "malete",
+      state: "kwara"
+    },
+    {
+      value: "lagos-state-university-of-education",
+      label: "Lagos State University of Education, Oto/Ijanikin, (LASUED)",
+      acronym: "lasued",
+      location: "oto-ijanikin",
+      state: "lagos"
+    },
+    {
+      value: "lagos-state-university",
+      label: "Lagos State University, Ojo, (LASU)",
+      acronym: "lasu",
+      location: "ojo",
+      state: "lagos"
+    },
+    {
+      value: "nasarawa-state-university",
+      label: "Nasarawa State University, Keffi, (NSUK)",
+      acronym: "nsuk",
+      location: "keffi",
+      state: "nasarawa"
+    },
+    {
+      value: "niger-delta-university",
+      label: "Niger Delta University, Wilberforce Island, (NDU)",
+      acronym: "ndu",
+      location: "wilberforce-island",
+      state: "bayelsa"
+    },
+    {
+      value: "abdulkadir-kure-university",
+      label: "Abdulkadir Kure University, Minna, (AKUM)",
+      acronym: "akum",
+      location: "minna",
+      state: "niger"
+    },
+    {
+      value: "olabisi-onabanjo-university",
+      label: "Olabisi Onabanjo University, Ago-Iwoye, (OOU)",
+      acronym: "oou",
+      location: "ago-iwoye",
+      state: "ogun"
+    },
+    {
+      value: "osun-state-university",
+      label: "Osun State University, Osogbo, (UNIOSUN)",
+      acronym: "uniosun",
+      location: "osogbo",
+      state: "osun"
+    },
+    {
+      value: "kogi-state-university",
+      label: "Kogi State University, Kabba, (KSUKABBA)",
+      acronym: "ksukabba",
+      location: "kabba",
+      state: "kogi"
+    },
+    {
+      value: "plateau-state-university",
+      label: "Plateau State University, Bokkos, (PLASU)",
+      acronym: "plasu",
+      location: "bokkos",
+      state: "plateau"
+    },
+    {
+      value: "sa'adatu-rimi-university-of-education",
+      label: "Sa'adatu Rimi University of Education, Kumbotso, (SRUOE)",
+      acronym: "sruoe",
+      location: "kumbotso",
+      state: "kano"
+    },
+    {
+      value: "shehu-shagari-university-of-education",
+      label: "Shehu Shagari University of Education, Sokoto, (SSUES)",
+      acronym: "ssues",
+      location: "sokoto",
+      state: "sokoto"
+    },
   ];  
 
 
