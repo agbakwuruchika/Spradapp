@@ -726,6 +726,55 @@ import {
       location: "talata-mafara",
       state: "zamfara"
     },
+    {
+      value: "university-of-agriculture-and-environmental-sciences",
+      label: "University of Agriculture and Environmental Sciences, Umuagwo, (UAES)",
+      acronym: "uaes",
+      location: "umuagwo",
+      state: "imo"
+    },
+    {
+      value: "university-of-medical-sciences",
+      label: "University of Medical Sciences, Laje Road, (UNIMED)",
+      acronym: "unimed",
+      location: "laje-road",
+      state: "ondo"
+    },
+    {
+      value: "state-university-of-medical-and-applied-sciences",
+      label: "State University of Medical and Applied Sciences, Igbo Eno, (SUMAS)",
+      acronym: "sumas",
+      location: "igbo-eno",
+      state: "enugu"
+    },
+    {
+      value: "bamidele-olumilua-university-of-education-science-and-technology",
+      label: "Bamidele Olumilua University of Education, Science, and Technology, Ikere-Ekiti, (BOUESTI)",
+      acronym: "bouesti",
+      location: "ikere-ekiti",
+      state: "ekiti"
+    },
+    {
+      value: "confluence-university-of-science-and-technology",
+      label: "Confluence University of Science and Technology, Osara, (CUSTECH)",
+      acronym: "custech",
+      location: "osara",
+      state: "kogi"
+    },
+    {
+      value: "delta-state-university-of-science-and-technology",
+      label: "Delta State University of Science and Technology, Ozoro, (DSUST)",
+      acronym: "dsust",
+      location: "ozoro",
+      state: "delta"
+    },
+    {
+      value: "enugu-state-university-of-science-and-technology",
+      label: "Enugu State University of Science and Technology, Enugu, (ESUT)",
+      acronym: "esut",
+      location: "enugu",
+      state: "enugu"
+    },
   ];  
 
 
