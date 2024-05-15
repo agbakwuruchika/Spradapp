@@ -642,6 +642,90 @@ import {
       location: "sokoto",
       state: "sokoto"
     },
+    {
+      value: "sokoto-state-university",
+      label: "Sokoto State University, Sokoto, (SSU)",
+      acronym: "ssu",
+      location: "sokoto",
+      state: "sokoto"
+    },
+    {
+      value: "sule-lamido-university",
+      label: "Sule Lamido University, Kafin Hausa, (SLU)",
+      acronym: "slu",
+      location: "kafin-hausa",
+      state: "jigawa"
+    },
+    {
+      value: "tai-solarin-university-of-education",
+      label: "Tai Solarin University of Education, Ijebu-Ode, (TASUED)",
+      acronym: "tasued",
+      location: "ijebu-ode",
+      state: "ogun"
+    },
+    {
+      value: "taraba-state-university",
+      label: "Taraba State University, Jalingo, (TSU)",
+      acronym: "tsu",
+      location: "jalingo",
+      state: "taraba"
+    },
+    {
+      value: "umaru-musa-yar'adua-university",
+      label: "Umaru Musa Yar'adua University, Katsina, (UMYU)",
+      acronym: "umyu",
+      location: "katsina",
+      state: "katsina"
+    },
+    {
+      value: "university-of-africa-toru-orua",
+      label: "University of Africa, Toru-Orua, (UAT)",
+      acronym: "uat",
+      location: "toru-orua",
+      state: "bayelsa"
+    },
+    {
+      value: "university-of-cross-river-state",
+      label: "University of Cross River State, Calabar, (UNICROSS)",
+      acronym: "unicross",
+      location: "calabar",
+      state: "cross-river"
+    },
+    {
+      value: "university-of-delta",
+      label: "University of Delta, Agbor, (UNIDEL)",
+      acronym: "unidel",
+      location: "agbor",
+      state: "delta"
+    },
+    {
+      value: "university-of-ilesa",
+      label: "University of Ilesa, Ilesa, (UNILESA)",
+      acronym: "unilesa",
+      location: "ilesa",
+      state: "osun"
+    },
+    {
+      value: "yobe-state-university",
+      label: "Yobe State University, Damaturu, (YSU)",
+      acronym: "ysu",
+      location: "damaturu",
+      state: "yobe"
+    },
+    {
+      value: "yusuf-maitama-sule-university",
+      label: "Yusuf Maitama Sule University, Kano, (YUMSUK)",
+      acronym: "yumsuk",
+      location: "kano",
+      state: "kano"
+    },
+    {
+      value: "zamfara-state-university",
+      label: "Zamfara State University, Talata Mafara, (ZAMSUT)",
+      acronym: "zamsut",
+      location: "talata-mafara",
+      state: "zamfara"
+    },
   ];  
 
 
