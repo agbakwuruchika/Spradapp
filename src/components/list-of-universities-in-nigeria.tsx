@@ -43,7 +43,7 @@ const influencers = [
         authorUsername: "@sixtusagba",
         authorStatus: "Student",
         authorCourse: "Philosophy",
-        authorSchool: "University of Lagos",
+        authorSchool: "abubakar tafawa balewa university",
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "300 Level",
         authorProfilePics: "/chika-agbakwuru.jpg",
@@ -51,15 +51,27 @@ const influencers = [
 
     },
     {
+        author: "Chika Agbakwuru",
+        authorUsername: "@sixtusagba",
+        authorStatus: "Student",
+        authorCourse: "Philosophy",
+        authorSchool: "ahmadu bello university",
+        authorTypeOfStudy: "Undergraduate",
+        authorLevel: "300 Level",
+        authorProfilePics: "/chika-agbakwuru.jpg",
+        authorID: 2
+
+    },
+    {
         author: "Tobiloba Chika",
         authorUsername: "@tobiano",
         authorStatus: "Student",
         authorCourse: "Accounting",
-        authorSchool: "Obafemi Awolowo University",
+        authorSchool: "obafemi awolowo university",
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "300 Level",
         authorProfilePics: "/unilag logo.png",
-        authorID: 2
+        authorID: 3
 
     },
     {
@@ -71,7 +83,7 @@ const influencers = [
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "100 Level",
         authorProfilePics: "/benjamin.jpg",
-        authorID: 3
+        authorID: 4
 
     },
     {
@@ -83,7 +95,7 @@ const influencers = [
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "0 Level",
         authorProfilePics: "/davido.jpg",
-        authorID: 4
+        authorID: 5
 
     },
     {
@@ -95,7 +107,7 @@ const influencers = [
         authorTypeOfStudy: "Postgraduate",
         authorLevel: "500 Level",
         authorProfilePics: "/ini-edo.png",
-        authorID: 5
+        authorID: 6
 
     }
 ]
@@ -111,6 +123,22 @@ async function FetchFederalUniversities() {
     });
     return data;
 }
+
+
+
+
+async function FetchInfluencers(influencerSchool:any) {
+    const q = query(collection(db, "Profiles"), where("School", "==", influencerSchool), orderBy("Followers", "desc"));
+    const querySnapshot = await getDocs(q);
+    const data:any = [];
+    querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+}
+
+
+
 
 
 interface School {
@@ -143,8 +171,24 @@ interface School {
 }
 
 
+
+interface InfluencersToFollow {
+    id: string;
+    Course: string;
+    Followers?: string;
+    Level: number;
+    Name: string;
+    Picture: string;
+    School: string;
+    Status: string;
+    Type?: string;
+    Username: string;
+}
+
+
 export default function ListOfUniversitiesInNigeria(){
     const [federalUniversities, setFederalUniversities] = useState<School[]>([]);
+    const [schoolInfluencers, setSchoolInfluencers] = useState<InfluencersToFollow[]>([]);
 
 
     useEffect(()=>{
@@ -159,6 +203,18 @@ export default function ListOfUniversitiesInNigeria(){
         fetchData()
     },[])
 
+
+    const fetchInfluencersForSchool = async (influencerSchool:any) => {
+        const influencers: InfluencersToFollow[] = await FetchInfluencers(influencerSchool);
+        // Do something with influencers data
+        const modifiedInfluencersData = influencers.map(influence =>({
+            ...influence,
+            Name: influence.Name.replace(/-/g, ' ')
+        }))
+        setSchoolInfluencers(modifiedInfluencersData)
+        console.log("Influencers for school", influencerSchool, influencers);
+    };
+
 console.log(federalUniversities)
     return(
         <div>
@@ -168,7 +224,7 @@ console.log(federalUniversities)
                 {federalUniversities.map((school:any)=>{
                     return(
                         <AccordionItem key = {school.id} value = {school.id}>
-                            <AccordionTrigger>
+                            <AccordionTrigger onClick={() => fetchInfluencersForSchool(school.Name)}>
                         <li className = "flex items-center gap-x-2 capitalize">
                             <Image src = {school.Logo} alt = {school.Name} width = {40} height = {40} />
                             {school.Name} <span className = "uppercase">({school.Acronym})</span>
@@ -272,36 +328,37 @@ console.log(federalUniversities)
                                         }
                                     </div>
                                 </div>
+                                {schoolInfluencers.length > 0 &&
                                 <div>
                                 <Card className = "mt-4 shadcn-card">
                                     <CardHeader>
                                         <CardTitle>Follow To Connect With <span className = "uppercase">{school.Acronym}</span> Students/Aspirants</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                {influencers.map((influencer)=>{
+                {schoolInfluencers.map((influencer)=>{
                     return(
-                        <div key = {influencer.authorID} className = "flex mt-4 py-2 hover:bg-gray-200" style = {{gap:5}}>
+                        <div key = {influencer.id} className = "flex mt-4 py-2 hover:bg-gray-200" style = {{gap:5}}>
                             <div style = {{borderRadius:20, display:"flex", height:40, width:40}}>
-                                <Image src = {influencer.authorProfilePics} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
+                                <Image src = {influencer.Picture} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
                             </div>
                             <div className = "flex flex-col flex-grow">
                                 <HoverCard>
                                     <HoverCardTrigger asChild>
-                                        <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.author}</span> </p>
+                                        <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.Name}</span> </p>
                                     </HoverCardTrigger>
                                     <HoverCardContent className = "w-80">
                                         <div className = "flex justify-between space-x-4">
                                             <div style = {{borderRadius:20, display:"flex", height:40, width:40}}>
-                                                <Image src = {influencer.authorProfilePics} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
+                                                <Image src = {influencer.Picture} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
                                             </div>
                                             <div className = "space-y-1">
-                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.author}</span> </p>
-                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.authorUsername}</span> </p>
+                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.Name}</span> </p>
+                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.Username}</span> </p>
                                             </div>
                                         </div>
                                     </HoverCardContent>
                                 </HoverCard>
-                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.authorUsername}</span> </p>
+                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.Username}</span> </p>
                             </div>
                             <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" stateLayer = "filled-enabled-with-icon-state-layer" icon = {<FaPlus />} iconStyle = "filled-enabled-icon-styling" label = "Follow" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
                         </div>
@@ -313,6 +370,7 @@ console.log(federalUniversities)
                                     </CardContent>
                                 </Card>
                                 </div>
+                                }
                                 <Card className = "flex flex-col justify-center mt-4 shadcn-card">
                                     <CardHeader>
                                         <CardTitle>Trending Posts on <span className = "uppercase">{school.Acronym}</span></CardTitle>
