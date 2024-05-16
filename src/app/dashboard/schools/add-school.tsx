@@ -775,6 +775,55 @@ import {
       location: "enugu",
       state: "enugu"
     },
+    {
+      value: "gombe-state-university-of-science-and-technology",
+      label: "Gombe State University of Science and Technology, Kumo, (GSUST)",
+      acronym: "gsust",
+      location: "kumo",
+      state: "gombe"
+    },
+    {
+      value: "aliko-dangote-university-of-science-and-technology",
+      label: "Aliko Dangote University of Science and Technology, Wudil, (ADUSTECH)",
+      acronym: "adustech",
+      location: "wudil",
+      state: "kano"
+    },
+    {
+      value: "kebbi-state-university-of-science-and-technology",
+      label: "Kebbi State University of Science and Technology, Aliero, (KSUSTA)",
+      acronym: "ksusta",
+      location: "aliero",
+      state: "kebbi"
+    },
+    {
+      value: "ladoke-akintola-university-of-technology",
+      label: "Ladoke Akintola University of Technology, Ogbomoso (LAUTECH)",
+      acronym: "lautech",
+      location: "ogbomoso",
+      state: "oyo"
+    },
+    {
+      value: "lagos-state-university-of-science-and-technology",
+      label: "Lagos State University of Science and Technology, Ikorodu, (LASUSTECH)",
+      acronym: "lasustech",
+      location: "ikorodu",
+      state: "lagos"
+    },
+    {
+      value: "olusegun-agagu-university-of-science-and-technology",
+      label: "Olusegun Agagu University of Science and Technology, Okitipupa, (OAUSTECH)",
+      acronym: "oaustech",
+      location: "okitipupa",
+      state: "ondo"
+    },
+    {
+      value: "rivers-state-university",
+      label: "Rivers State University, Port Harcourt, (RVSU)",
+      acronym: "rvsu",
+      location: "port-harcourt",
+      state: "rivers"
+    },
   ];  
 
 
