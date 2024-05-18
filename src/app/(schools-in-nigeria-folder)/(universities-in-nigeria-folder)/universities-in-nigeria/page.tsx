@@ -42,10 +42,12 @@ export default function UniversitiesInNigeria() {
             <li><Link href = "#stateUniversities">State Universities</Link></li>
             <li><Link href = "#privateUniversities">Private Universities</Link></li>
           </ol>
-          <h3 className = "text-2xl mt-2" id = "federalUniversities">List of Federal Universities in Nigeria</h3>
+          <div id = "federalUniversities">
           <ListOfUniversitiesInNigeria />
-          <h3 className = "text-2xl mt-2" id = "stateUniversities">List of State Universities in Nigeria</h3>
+          </div>
+          <div id = "stateUniversities">
           <ListOfStateUniversitiesInNigeria />
+          </div>
           <h3 className = "text-2xl mt-2" id = "stateUniversities">List of Private Universities in Nigeria</h3>
           <ListOfPrivateUniversitiesInNigeria />
 

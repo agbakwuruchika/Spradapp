@@ -189,6 +189,7 @@ interface InfluencersToFollow {
 export default function ListOfUniversitiesInNigeria(){
     const [federalUniversities, setFederalUniversities] = useState<School[]>([]);
     const [schoolInfluencers, setSchoolInfluencers] = useState<InfluencersToFollow[]>([]);
+    const [numberOfFederalUniversities, setNumberOfFederalUniversities] = useState(0)
 
 
     useEffect(()=>{
@@ -215,9 +216,22 @@ export default function ListOfUniversitiesInNigeria(){
         console.log("Influencers for school", influencerSchool, influencers);
     };
 
+
+
+    useEffect(()=>{
+        const updateNumber = () => {
+            setNumberOfFederalUniversities(federalUniversities.length)
+        }
+
+        updateNumber()
+    }, [federalUniversities])
+
+
+
 console.log(federalUniversities)
     return(
         <div>
+            <h2 className = "text-2xl mt-2">List of Federal Universities in Nigeria ({numberOfFederalUniversities})</h2>
             {federalUniversities.length > 0 ? (
             <Accordion type="single" collapsible className="w-full">
             <ol>
