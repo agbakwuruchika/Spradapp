@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 import { BsX } from "react-icons/bs";
 import { LuMoreHorizontal } from "react-icons/lu";
 import Image from "next/image";
@@ -17,7 +17,9 @@ import { BiHide } from "react-icons/bi";
 import { MdBlock } from "react-icons/md";
 import { CiFlag1 } from "react-icons/ci";
 import { AiFillLike } from "react-icons/ai";
-import { useState } from "react";
+import { fetchPosts, Post } from './fetch-posts';
+import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
+import { useInView } from 'react-intersection-observer';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
 import {
@@ -106,16 +108,68 @@ const allPost = [
     }
 ]
 
+
+
+
 export default function SocialMediaPostCard() {
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { ref, inView } = useInView();
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast()
+
+
+
+    const fetchInitialPosts = useCallback(async () => {
+        setLoading(true);
+        try {
+          const { data, lastDoc } = await fetchPosts();
+          setPosts(data);
+          setLastDoc(lastDoc);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        } finally {
+          setLoading(false);
+        }
+      }, []);
+    
+      const fetchMorePosts = useCallback(async () => {
+        if (loading || !lastDoc) return;
+    
+        setLoading(true);
+        try {
+          const { data, lastDoc: newLastDoc } = await fetchPosts(lastDoc);
+          setPosts((prevPosts) => [...prevPosts, ...data]);
+          setLastDoc(newLastDoc);
+        } catch (error) {
+          console.error('Error fetching more posts:', error);
+        } finally {
+          setLoading(false);
+        }
+      }, [lastDoc, loading]);
+    
+      useEffect(() => {
+        fetchInitialPosts();
+      }, [fetchInitialPosts]);
+    
+      useEffect(() => {
+        if (inView) {
+          fetchMorePosts();
+        }
+      }, [inView, fetchMorePosts]);
+    
+
+
+
+
     return (
         <div>
-            {allPost.map((post) => {
+            {posts.map((post) => {
                 return (
-                    <div key = {post.ID} style={{ borderRadius: 12, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, marginBottom: 16 }} className="post-card-container w-full">
+                    <div key = {post.id} style={{ borderRadius: 12, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, marginBottom: 16 }} className="post-card-container w-full">
                         <div style={{ borderBottom: 5, borderColor: "black", display: "flex", alignItems: "center", justifyContent: "space-between" }} className="">
-                            <p>{post.reasonForShowing}</p>
+                            <p>{post.Post_Types}</p>
                             <div style={{ display: "flex", gap: 12 }}>
                                 <AlertDialog>
                                     <DropdownMenu>
@@ -161,7 +215,7 @@ export default function SocialMediaPostCard() {
                                                 <AlertDialogTrigger className = "flex" onClick = {()=>{
                                                     setpopupContent(<MdBlock />)
                                                 }}>
-                                                    <MdBlock style={{ height: 24, width: 24 }} className="pr-2" />Block {post.author}&apos;s profile
+                                                    <MdBlock style={{ height: 24, width: 24 }} className="pr-2" />Block {post.Author_Name}&apos;s profile
                                                 </AlertDialogTrigger>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem>
@@ -191,28 +245,28 @@ export default function SocialMediaPostCard() {
                         <hr />
                         <div className="flex mt-4">
                             <div style={{ borderRadius: 28, display: "flex", height: 56, width: 56 }}>
-                                <Image src={post.authorProfilePics} alt="Profile Picture" height={56} width={56} style={{ borderRadius: 28 }} />
+                                <Image src={post.Author_Profile_Picture} alt="Profile Picture" height={56} width={56} style={{ borderRadius: 28 }} />
                             </div>
                             <div className="flex flex-col flex-grow">
-                                <p style={{ lineHeight: 1.2 }}><span style={{ fontSize: 15, fontWeight: "bold", paddingLeft: 5 }}>{post.author}</span> <span style={{ fontSize: 15, color: "gray" }}>{post.authorUsername}</span>, </p>
-                                <p style={{ fontSize: 14, color: "gray", paddingLeft: 5, lineHeight: 1.2 }}>{post.authorCourse} {post.authorStatus}, {post.authorSchool}</p>
-                                <p style={{ fontSize: 14, color: "gray", paddingLeft: 5, lineHeight: 1.2 }}>{post.authorTypeOfStudy} ({post.authorLevel})</p>
+                                <p style={{ lineHeight: 1.2 }}><span style={{ fontSize: 15, fontWeight: "bold", paddingLeft: 5 }}>{post.Author_Name}</span> <span style={{ fontSize: 15, color: "gray" }}>{post.Author_Username}</span>, </p>
+                                <p style={{ fontSize: 14, color: "gray", paddingLeft: 5, lineHeight: 1.2 }}>{post.Author_Course} {post.Author_Academic_Status}, {post.Author_School}</p>
+                                <p style={{ fontSize: 14, color: "gray", paddingLeft: 5, lineHeight: 1.2 }}>{post.Author_Type_Of_Study} ({post.Author_Level})</p>
                             </div>
                             <ButtonWithIcon type="button" style="text-enabled-with-and-without-icon" stateLayer="text-enabled-with-icon-state-layer" icon={<FaPlus />} iconStyle="text-enabled-icon-styling" label="Follow" textWrapper="text-enabled-with-and-without-icon-text-wrapper" />
                         </div>
                         <div style={{ marginTop: 10 }}>
-                            <p style={{ fontSize: 16, lineHeight: 1.3 }} className="post-description-text">{post.postDescription}</p>
+                            <p style={{ fontSize: 16, lineHeight: 1.3 }} className="post-description-text">{post.Post_Content}</p>
                         </div>
                         <div style={{ marginTop: 10 }}>
-                            <Image src={post.postMedia} alt="Uploaded picture" height={200} width={600} className="w-full" />
+                            <Image src={post.Post_Media} alt="Uploaded picture" height={200} width={600} className="w-full" />
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 5 }}>
                             <div>
-                                <p style={{ fontSize: 12, cursor: "pointer" }}>{post.postLikes} Likes</p>
+                                <p style={{ fontSize: 12, cursor: "pointer" }}>{post.Number_Of_Likes} Likes</p>
                             </div>
                             <div style={{ display: "flex", gap: 15 }}>
-                                <p style={{ fontSize: 12, cursor: "pointer" }}>{post.comments} Comments</p>
-                                <p style={{ fontSize: 12, cursor: "pointer" }}>{post.shares} Shares</p>
+                                <p style={{ fontSize: 12, cursor: "pointer" }}>{post.Number_Of_Comments} Comments</p>
+                                <p style={{ fontSize: 12, cursor: "pointer" }}>{post.Number_Of_Shares} Shares</p>
                             </div>
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10 }}>
@@ -224,6 +278,9 @@ export default function SocialMediaPostCard() {
                     </div>
                 )
             })}
+            <div ref={ref}>
+        {loading && <p>Loading more posts...</p>}
+      </div>
         </div>
     )
 }
