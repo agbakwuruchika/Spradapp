@@ -109,6 +109,7 @@ const allPost = [
 ]
 
 
+const POSTS_PAGE_SIZE = 3;
 
 
 export default function SocialMediaPostCard() {

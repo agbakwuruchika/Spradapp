@@ -52,9 +52,10 @@ export const fetchPosts = async (lastDoc: QueryDocumentSnapshot<DocumentData> | 
       data.push({ id: doc.id, ...doc.data() } as Post);
     });
 
-    const newLastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+    const newLastDoc = querySnapshot.docs.length > 0 ? querySnapshot.docs[querySnapshot.docs.length - 1] : null;
 
-    return { data, lastDoc: newLastDoc || null };
+
+    return { data, lastDoc: newLastDoc };
   } catch (error) {
     throw error;
   }
