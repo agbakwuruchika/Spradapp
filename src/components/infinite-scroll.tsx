@@ -1,5 +1,7 @@
 'use client'
 import React, { useEffect, useState, useCallback } from 'react';
+import { db } from '@/firebase/config';
+import { collection, query, where, orderBy, limit, getDocs, startAfter, QueryDocumentSnapshot, DocumentData, Timestamp } from 'firebase/firestore';
 import { BsX } from "react-icons/bs";
 import { LuMoreHorizontal } from "react-icons/lu";
 import Image from "next/image";
@@ -17,9 +19,6 @@ import { BiHide } from "react-icons/bi";
 import { MdBlock } from "react-icons/md";
 import { CiFlag1 } from "react-icons/ci";
 import { AiFillLike } from "react-icons/ai";
-import { fetchPosts, Post } from './fetch-posts';
-import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
-import { useInView } from 'react-intersection-observer';
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
 import {
@@ -48,123 +47,91 @@ import {
 } from "@/components/ui/alert-dialog"
 
 
-const allPost = [
-    {
-        reasonForShowing: "Sponsored",
-        author: "Spraditech",
-        authorUsername: "@spraditech",
-        authorStatus: "Student",
-        authorCourse: "Computer Science",
-        authorSchool: "University of Lagos",
-        authorTypeOfStudy: "Postgraduate",
-        authorLevel: "400 Level",
-        authorProfilePics: "/unilag logo.png",
-        postDescription: "The Department of Computer Sciences is located in a three-storey building in the Science Complex of the University of Lagos with a basement to itself.",
-        postMedia: "/unilagcs.jpg",
-        postMediaType: "Images",
-        postLikes: 114,
-        comments: 53,
-        shares: 21,
-        ID: 1
 
-    },
-    {
-        reasonForShowing: "Suggested",
-        author: "Chika Agbakwuru",
-        authorUsername: "@sixtusagba",
-        authorStatus: "Student",
-        authorCourse: "Philosophy",
-        authorSchool: "University of Lagos",
-        authorTypeOfStudy: "Undergraduate",
-        authorLevel: "300 Level",
-        authorProfilePics: "/chika-agbakwuru.jpg",
-        postDescription: "UNILAG Alumni Association organizes annual general meeting where new excos were elected. Thank God for a successful meeting",
-        postMedia: "/unilag-alumni.jpg",
-        postMediaType: "Images",
-        postLikes: 386,
-        comments: 73,
-        shares: 42,
-        ID: 2
+export interface Post {
+  id: string;
+  Author_Academic_Status: string;
+  Author_Course: string;
+  Author_Level: number;
+  Author_Name: string;
+  Author_Profile_Picture: string;
+  Author_School: string;
+  Author_Type_Of_Study: string;
+  Author_UID: string;
+  Author_Username: string;
+  Number_Of_Comments: number;
+  Number_Of_Likes: number;
+  Number_Of_Shares: number;
+  Post_Content: string;
+  Post_Create_At: Timestamp;
+  Post_Media: string;
+  Post_Media_Type: string;
+  Post_Types: string;
+}
 
-    },
-    {
-        reasonForShowing: "Suggested",
-        author: "Tobiloba Osundiya",
-        authorUsername: "@tobilobaosun",
-        authorStatus: "Student",
-        authorCourse: "Economics",
-        authorSchool: "Obafemi Awolowo University",
-        authorTypeOfStudy: "Undergraduate",
-        authorLevel: "100 Level",
-        authorProfilePics: "pte.svg",
-        postDescription: "UNILAG Alumni Association organizes annual general meeting where new excos were elected. Thank God for a successful meeting",
-        postMedia: "/boost-libido.jpeg",
-        postMediaType: "Images",
-        postLikes: 56,
-        comments: 13,
-        shares: 2,
-        ID: 3
-
-    }
-]
-
-
-const POSTS_PAGE_SIZE = 3;
-
-
-export default function SocialMediaPostCard() {
+const InfiniteScroll = () => {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
-  const [loading, setLoading] = useState(false);
-  const { ref, inView } = useInView();
+    const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);;
+    const [loading, setLoading] = useState(false)
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast()
 
 
 
-    const fetchInitialPosts = useCallback(async () => {
-    setLoading(true);
-    try {
-      const { data, lastDoc } = await fetchPosts();
-      setPosts(data);
-      setLastDoc(lastDoc);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const fetchMorePosts = useCallback(async () => {
-    if (loading || !lastDoc) return;
-
-    setLoading(true);
-    try {
-      const { data, lastDoc: newLastDoc } = await fetchPosts(lastDoc);
-      setPosts((prevPosts) => [...prevPosts, ...data]);
-      setLastDoc(newLastDoc);
-    } catch (error) {
-      console.error('Error fetching more posts:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [lastDoc, loading]);
-
-  useEffect(() => {
-    fetchInitialPosts();
-  }, [fetchInitialPosts]);
-
-  useEffect(() => {
-    if (inView && !loading) {
-      fetchMorePosts();
-    }
-  }, [inView, fetchMorePosts, loading]);
+    useEffect(()=>{
+        const fetchPosts = async () =>{
+            setLoading(true);
+            let q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'));
+            if(lastVisible){
+               q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), startAfter(lastVisible), limit(3))
+            }
+            const querySnapshot = await getDocs(q);
+    const data: Post[] = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() } as Post);
+    });
+    setPosts((prevPosts)=>[...prevPosts, ...data])
     
+    const newLastDoc = querySnapshot.docs.length > 0 ? querySnapshot.docs[querySnapshot.docs.length - 1] : null;
+    setLastVisible(newLastDoc)
+    setLoading(false)
+        }
+        fetchPosts()
+    }, [lastVisible])
 
 
+    const handleSCroll = () => {
+        if(window.scrollY + window.innerHeight >= document.body.offsetHeight){
+            fetchMorePosts()
+        }
+    }
 
 
-    return (
+    const fetchMorePosts = async () =>{
+        if(loading) return;
+        const fetchPosts = async () =>{
+            setLoading(true);
+            let q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'));
+            if(lastVisible){
+               q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), startAfter(lastVisible), limit(3))
+            }
+            const querySnapshot = await getDocs(q);
+    const data: Post[] = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() } as Post);
+    });
+    setPosts((prevPosts)=>[...prevPosts, ...data])
+    
+    const newLastDoc = querySnapshot.docs.length > 0 ? querySnapshot.docs[querySnapshot.docs.length - 1] : null;
+    setLastVisible(newLastDoc)
+    setLoading(false)
+
+        }
+        fetchPosts()
+    }
+
+
+    return(
         <div>
             {posts.map((post) => {
                 return (
@@ -279,9 +246,10 @@ export default function SocialMediaPostCard() {
                     </div>
                 )
             })}
-            <div ref={ref}>
-        {loading && <p>Loading more posts...</p>}
-      </div>
+ 
         </div>
     )
 }
+
+
+export default InfiniteScroll

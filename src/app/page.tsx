@@ -4,6 +4,7 @@ import BottomAppBar from '@/components/bottom-app-bar'
 import NavigationDrawer from '@/components/navigation-drawer'
 import SideSheets from '@/components/side-sheets'
 import SocialMediaPostCard from '@/components/social-media-post-card'
+import InfiniteScroll from '@/components/infinite-scroll'
 
 export default function Home() {
   return (
@@ -14,7 +15,10 @@ export default function Home() {
           <NavigationDrawer />  
         </div>
         <div className = "main-content md:ml-96 md:mr-4 w-full md:flex-grow">
+          <InfiniteScroll />
+          {/* 
           <SocialMediaPostCard />
+          */}
           <h1>Page Title</h1>
         </div>
         <div className = "right-side-bar w-96 hidden md:block">
