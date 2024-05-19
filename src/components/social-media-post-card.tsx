@@ -154,10 +154,10 @@ export default function SocialMediaPostCard() {
       }, [fetchInitialPosts]);
     
       useEffect(() => {
-        if (inView) {
+        if (inView && !loading) {
           fetchMorePosts();
         }
-      }, [inView, fetchMorePosts]);
+      }, [inView, fetchMorePosts, loading]);
     
 
 
