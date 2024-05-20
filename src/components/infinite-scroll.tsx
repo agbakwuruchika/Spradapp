@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { db } from '@/firebase/config';
 import { collection, query, where, orderBy, limit, getDocs, startAfter, QueryDocumentSnapshot, DocumentData, Timestamp } from 'firebase/firestore';
 import { BsX } from "react-icons/bs";
+import { useInView } from 'react-intersection-observer';
 import { LuMoreHorizontal } from "react-icons/lu";
 import Image from "next/image";
 import ButtonWithIcon from "./button-with-icon";
@@ -75,6 +76,7 @@ const InfiniteScroll = () => {
     const [loading, setLoading] = useState(false)
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast()
+    const { ref, inView } = useInView();
 
 
 
@@ -99,12 +101,7 @@ const InfiniteScroll = () => {
         fetchPosts()
     }, [lastVisible])
 
-
-    const handleSCroll = () => {
-        if(window.scrollY + window.innerHeight >= document.body.offsetHeight){
-            fetchMorePosts()
-        }
-    }
+        
 
 
     const fetchMorePosts = async () =>{
@@ -129,6 +126,13 @@ const InfiniteScroll = () => {
         }
         fetchPosts()
     }
+
+
+    useEffect(() => {
+        if (inView && !loading) {
+          fetchMorePosts();
+        }
+      }, [inView, fetchMorePosts, loading]);
 
 
     return(
@@ -246,6 +250,9 @@ const InfiniteScroll = () => {
                     </div>
                 )
             })}
+            <div ref={ref}>
+        {loading && <p>Loading more posts...</p>}
+      </div>
  
         </div>
     )
