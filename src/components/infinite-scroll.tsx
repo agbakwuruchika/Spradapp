@@ -67,7 +67,7 @@ const InfiniteScroll = () => {
 
     const fetchPosts = async (initialFetch = false) => {
         setLoading(true);
-        let q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), limit(3));
+        let q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), limit(2));
 
         if (!initialFetch && lastVisible) {
             q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), startAfter(lastVisible), limit(3));
