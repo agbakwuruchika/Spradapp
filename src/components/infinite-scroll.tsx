@@ -76,7 +76,12 @@ const InfiniteScroll = () => {
         const querySnapshot = await getDocs(q);
         const data: Post[] = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Post));
 
-        setPosts((prevPosts) => [...prevPosts, ...data]);
+        if (initialFetch) {
+            setPosts(data);
+        } else {
+            setPosts((prevPosts) => [...prevPosts, ...data]);
+        }
+
         setLastVisible(querySnapshot.docs.length > 0 ? querySnapshot.docs[querySnapshot.docs.length - 1] : null);
         setLoading(false);
     };
