@@ -16,7 +16,6 @@ import { ImEmbed2 } from "react-icons/im";
 import { BiHide } from "react-icons/bi";
 import { MdBlock } from "react-icons/md";
 import { CiFlag1 } from "react-icons/ci";
-import { AiFillLike } from "react-icons/ai";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import {
@@ -61,16 +60,19 @@ const InfiniteScroll = () => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
     const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast();
     const { ref, inView } = useInView();
 
     const fetchPosts = async (initialFetch = false) => {
+        if (!hasMore) return;
+
         setLoading(true);
         let q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), limit(2));
 
         if (!initialFetch && lastVisible) {
-            q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), startAfter(lastVisible), limit(3));
+            q = query(collection(db, 'Posts'), orderBy('Post_Create_At', 'desc'), startAfter(lastVisible), limit(2));
         }
 
         const querySnapshot = await getDocs(q);
@@ -83,6 +85,7 @@ const InfiniteScroll = () => {
         }
 
         setLastVisible(querySnapshot.docs.length > 0 ? querySnapshot.docs[querySnapshot.docs.length - 1] : null);
+        setHasMore(querySnapshot.docs.length === 2);
         setLoading(false);
     };
 
@@ -197,6 +200,7 @@ const InfiniteScroll = () => {
             ))}
             <div ref={ref}>
                 {loading && <p>Loading more posts...</p>}
+                {!hasMore && <p>No more posts to load.</p>}
             </div>
         </div>
     );
