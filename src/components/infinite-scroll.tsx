@@ -7,10 +7,11 @@ import { useInView } from 'react-intersection-observer';
 import { LuMoreHorizontal } from "react-icons/lu";
 import Image from "next/image";
 import ButtonWithIcon from "./button-with-icon";
-import { FaPlus } from "react-icons/fa";
+import { FaBullseye, FaPlus } from "react-icons/fa";
 import ChipsWithIcon from "./chips-with-icon";
 import { FaRegShareFromSquare } from "react-icons/fa6";
 import { FaRegThumbsUp, FaRegCommentDots, FaRegBookmark, FaRegBell } from "react-icons/fa";
+import LoginAndSignupFormModal from './login-and-signup-form-modal';
 import { CgLink } from "react-icons/cg";
 import { ImEmbed2 } from "react-icons/im";
 import { BiHide } from "react-icons/bi";
@@ -34,6 +35,10 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+
+
+
+
 
 export interface Post {
     id: string;
@@ -61,6 +66,8 @@ const InfiniteScroll = () => {
     const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [session, setSession] = useState(false)
+    const [loginAndSignUpModal, setLoginAndSignUpModal] = useState(false)
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast();
     const { ref, inView } = useInView();
@@ -98,6 +105,17 @@ const InfiniteScroll = () => {
             fetchPosts();
         }
     }, [inView, loading]);
+
+
+
+    const LikePost = () => {
+        if(session){
+    
+            console.log("you are logged in")
+        }else{
+            setLoginAndSignUpModal(true)
+        }
+    }
 
     return (
         <div>
@@ -191,11 +209,14 @@ const InfiniteScroll = () => {
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
-                        <ChipsWithIcon icon={<FaRegThumbsUp style={{ height: 18, width: 18 }} />} label="Like" />
+                        <ChipsWithIcon icon={<FaRegThumbsUp style={{ height: 18, width: 18 }} />} label="Like" action = {LikePost}/>
                         <ChipsWithIcon icon={<FaRegCommentDots style={{ height: 18, width: 18 }} />} label="Comment" />
                         <ChipsWithIcon icon={<FaRegBookmark style={{ height: 18, width: 18 }} />} label="Save" />
                         <ChipsWithIcon icon={<FaRegShareFromSquare style={{ height: 18, width: 18 }} />} label="Share" />
                     </div>
+                    {loginAndSignUpModal && 
+                    <LoginAndSignupFormModal closeModal = {()=>{setLoginAndSignUpModal(false)}}/>
+                    }
                 </div>
             ))}
             <div ref={ref}>

@@ -1457,3 +1457,22 @@
   .sign-up-input {
     color: var(--material-themesyslighton-secondary-container);
   }
+
+  .login-signup-tabs-container {
+    background-color: var(--material-themesyslightprimary);
+    color: var(--material-themesyslighton-primary);
+    border-radius: 10px 10px 0px 0px;
+  }
+
+  .product-description-tabs-active {
+    background-color: var(--material-themesyslighton-primary);
+    color: var(--material-themesyslightprimary);
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  .product-description-tabs:hover {
+    border-radius: 10px 10px 0px 0px;
+    cursor: pointer;
+    color: var(--material-themesyslightinverse-primary);
+    font-weight: bold;
+  }
