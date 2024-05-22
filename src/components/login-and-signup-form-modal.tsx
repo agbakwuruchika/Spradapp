@@ -5,6 +5,8 @@ import SignUpForm from './sign-up-form';
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ButtonWithOutIcon from './button-without-icon';
+import Image from 'next/image';
+import LoginForm from './login-form';
 
 
 
@@ -57,26 +59,27 @@ export default function LoginAndSignupFormModal(props:any) {
                         }
                         {signUpSection ?
                             <div className="w-2/4 p-2 product-description-tabs-active">
-                                <h3 className="h4">Sign Up</h3>
+                                <h3 className="h4">Create Account</h3>
                             </div> :
                             <div className="w-2/4 p-2 product-description-tabs" onClick={() => {
                                 setLoginSection(false);
                                 setSignUpSection(true);
                             }}>
-                                <h3 className="h4">Sign Up</h3>
+                                <h3 className="h4">Create Account</h3>
                             </div>
                         }
 
                     </div>
                     <div>
+                    <Image src="/spradapp-logo.png" alt="Spradapp Logo" className="img-fluid mx-auto d-block" height={100} width={100}></Image>
                         {loginSection &&
-                        <div>Login</div>
+                        <div><LoginForm /></div>
                         }
                         {signUpSection &&
                         <div><SignUpForm /> </div>
                         }
                     </div>
-                    <div className = "flex">
+                    <div className = "text-right shadow-sm">
                     <ButtonWithOutIcon type = "button" style = "text-enabled-with-and-without-icon" label = "Close" statelayer = "text-enabled-without-icon-state-layer" textWrapper = "text-enabled-with-and-without-icon-text-wrapper" action = {props.closeModal} />
                     </div>
 

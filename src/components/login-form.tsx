@@ -18,7 +18,8 @@ import ButtonWithOutIcon from './button-without-icon'
 
 
 
-export default function SignUpForm() {
+
+export default function LoginForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -69,7 +70,7 @@ export default function SignUpForm() {
     return (
         <div>
 
-            <h2 className = "text-center font-bold">Create Account</h2>
+            <h2 className = "text-center font-bold">Login</h2>
             <div className="rounded shadow p-2 m-2 content-with-white-background">
                 <h3 className="text-center h3">Fill The Form Below To Place Order</h3>
                 <div className="mb-2">
@@ -92,11 +93,11 @@ export default function SignUpForm() {
                         {email !== "" && password !== "" && confirmPassword !== "" ?
                         <div className="mt-2">
                             {processing ? <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" icon = {<ClipLoader color='rgba(255, 255, 255, 1)'/>} iconStyle = "filled-enabled-icon-styling" label = "Processing..." stateLayer = "filled-enabled-with-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/> :
-                                <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Create Account" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
+                                <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Login" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
                             }
                         </div> :
                         <div className = "mt-2">
-                          <ButtonWithOutIcon type = "button" style = "filled-disabled-with-and-without-icon" label = "Create Account" stateLayer = "filled-disabled-without-icon-state-layer" textWrapper = "filled-disabled-icon-text-wrapper"/>
+                          <ButtonWithOutIcon type = "button" style = "filled-disabled-with-and-without-icon" label = "Login" stateLayer = "filled-disabled-without-icon-state-layer" textWrapper = "filled-disabled-icon-text-wrapper"/>
                         </div>
                         }
                     </form>
