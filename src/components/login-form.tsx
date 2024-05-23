@@ -112,7 +112,7 @@ export default function LoginForm(props:any) {
                         </div>
                         }
                     </form>
-                    <div className = "flex gap-x-2">
+                    <div className = "flex flex-col md:gap-x-2 md:flex-row">
                     <p className = "mt-2">Not yet on Spradapp? </p>
                     <span className = "mt-2 link-text-color font-bold cursor-pointer hover:underline" onClick={props.goToSignUp}> Create Account</span>
                     
