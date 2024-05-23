@@ -13,7 +13,7 @@ import LoginForm from './login-form';
 
 export default function LoginAndSignupFormModal(props:any) {
     const [loginSection, setLoginSection] = useState(true);
-    const [signUpSection, setSignUpSection] = useState(false)
+    const [signUpSection, setSignUpSection] = useState(false);
     return (
         <div>
             <>
@@ -73,7 +73,7 @@ export default function LoginAndSignupFormModal(props:any) {
                     <div>
                     <Image src="/spradapp-logo.png" alt="Spradapp Logo" className="img-fluid mx-auto d-block" height={100} width={100}></Image>
                         {loginSection &&
-                        <div><LoginForm /></div>
+                        <div><LoginForm goToSignUp = {()=>{setLoginSection(false); setSignUpSection(true)}}/></div>
                         }
                         {signUpSection &&
                         <div><SignUpForm goToLogin = {()=>{setSignUpSection(false);

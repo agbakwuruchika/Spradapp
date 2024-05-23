@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { db } from '../firebase/config'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth'
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -24,6 +24,18 @@ export default function SignUpForm(props:any) {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [serverMessage, setServerMessage] = useState("")
     const [processing, setProcessing] = useState(false)
+
+
+
+    useEffect(() => {
+        const redirection = () => {
+            if (serverMessage !== "") {
+                window.location.href = "/verify-email"
+            }
+        }
+        redirection();
+    }, [serverMessage])
+
 
 
 
@@ -52,23 +64,39 @@ export default function SignUpForm(props:any) {
 
 
     const handleOrder = async () => {
-        setProcessing(true)
+        setProcessing(true);
         const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-        //Signed up
-        const user = userCredential.user;
-    })
-    .catch((error)=>{
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    })
-    }
+    
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            // Signed up
+            const user = userCredential.user;
+    
+            // Send email verification
+            await sendEmailVerification(user);
+            console.log('Email verification sent!');
+    
+            // Optionally, you can sign the user out after sending the verification email
+            // and prompt them to check their email for verification before logging in again.
+            await signOut(auth);
+            console.log('User signed out after sending verification email.');
+    
+            // Inform the user to check their email for the verification link
+            setServerMessage('A verification email has been sent to your email address. Please verify your email before logging in.');
+    
+        } catch (error:any) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(`Error ${errorCode}: ${errorMessage}`);
+            // Handle error appropriately in the UI
+        } finally {
+            setProcessing(false);
+        }
+    };
 
 
     return (
         <div>
-
             <h2 className = "text-center font-bold">Create Account</h2>
             <div className="rounded shadow p-2 m-2 content-with-white-background">
                 <h3 className="text-center h3">Fill The Form Below To Create an Account</h3>
