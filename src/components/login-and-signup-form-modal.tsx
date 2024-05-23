@@ -76,7 +76,8 @@ export default function LoginAndSignupFormModal(props:any) {
                         <div><LoginForm /></div>
                         }
                         {signUpSection &&
-                        <div><SignUpForm /> </div>
+                        <div><SignUpForm goToLogin = {()=>{setSignUpSection(false);
+                            setLoginSection(true);}}/> </div>
                         }
                     </div>
                     <div className = "text-right shadow-sm">

@@ -1476,3 +1476,7 @@
     color: var(--material-themesyslightinverse-primary);
     font-weight: bold;
   }
+
+  .link-text-color {
+    color: var(--material-themesyslightprimary);
+  }
