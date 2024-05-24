@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '@/firebase/config';
 import { collection, query, orderBy, limit, getDocs, startAfter, QueryDocumentSnapshot, DocumentData, Timestamp } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth'
 import { BsX } from "react-icons/bs";
 import { useInView } from 'react-intersection-observer';
 import { LuMoreHorizontal } from "react-icons/lu";
@@ -72,6 +73,24 @@ const InfiniteScroll = () => {
     const { toast } = useToast();
     const { ref, inView } = useInView();
 
+
+    //User Authentication and Session Establishment
+    useEffect(()=>{
+        const CheckIfUserExistOnProfileDB = () => {
+            const auth = getAuth();
+            auth.onAuthStateChanged((user) => {
+                if (user && user.emailVerified) {
+                    // Check if User is profile database. If they are, set session
+                    setSession(true)
+                } else {
+                    // No user is signed in
+                    setSession(false);
+                }
+            });
+        }
+        CheckIfUserExistOnProfileDB()
+    }, [])
+
     const fetchPosts = async (initialFetch = false) => {
         if (!hasMore) return;
 
@@ -105,7 +124,6 @@ const InfiniteScroll = () => {
             fetchPosts();
         }
     }, [inView, loading]);
-
 
 
     const LikePost = () => {

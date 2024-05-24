@@ -3,9 +3,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getDocs, collection, query, where, orderBy, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase/config'
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { z, ZodType } from 'zod';
@@ -18,11 +18,22 @@ import ButtonWithOutIcon from './button-without-icon'
 
 
 
+async function FetchInfluencers(influencerSchool:any) {
+    const q = query(collection(db, "Profiles"), where("School", "==", influencerSchool), orderBy("Followers", "desc"));
+    const querySnapshot = await getDocs(q);
+    const data:any = [];
+    querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+}
+
 
 
 export default function LoginForm(props:any) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [session, setSession] = useState(false)
     const [serverMessage, setServerMessage] = useState("")
     const [processing, setProcessing] = useState(false)
 
@@ -55,14 +66,18 @@ export default function LoginForm(props:any) {
             const user = userCredential.user;
     
             if (user.emailVerified) {
+                const uid = user.uid
+                console.log(uid)
                 console.log('Login successful. User is verified.');
                 console.log(user)
+                setSession(true)
                 // Redirect the user to the dashboard or home page
                 // Example: navigate('/dashboard');
             } else {
                 console.log('Email not verified.');
                 alert('Please verify your email before logging in.');
                 await signOut(auth);
+                setSession(false);
                 console.log('User signed out due to unverified email.');
             }
     

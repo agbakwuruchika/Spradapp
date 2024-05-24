@@ -828,6 +828,59 @@ import {
 
 
 
+  const listOfPrivateUniversities = [
+    {
+      value: "achievers-university",
+      label: "Achievers University, Owo (AUO)",
+      acronym: "auo",
+      location: "owo",
+      state: "ondo"
+    },
+    {
+      value: "adeleke-university",
+      label: "Adeleke University, Ede (AU)",
+      acronym: "au",
+      location: "ede",
+      state: "osun"
+    },
+    {
+      value: "admiralty-university-of-nigeria",
+      label: "Admiralty University of Nigeria (ADUN)",
+      acronym: "adun",
+      location: "ibusa",
+      state: "delta"
+    },
+    {
+      value: "afe-babalola-university",
+      label: "Afe Babalola University, Ado-Ekiti (ABUAD)",
+      acronym: "abuad",
+      location: "ado-ekiti",
+      state: "ekiti"
+    },
+    {
+      value: "african-university-of-science-and-technology",
+      label: "African University of Science and Technology, Garki (AUST)",
+      acronym: "aust",
+      location: "garki",
+      state: "abuja"
+    },
+    {
+      value: "ahman-pategi-university",
+      label: "Ahman Pategi University, Patigi (APU)",
+      acronym: "apu",
+      location: "patigi",
+      state: "kwara"
+    },
+    {
+      value: "ajayi-crowther-university",
+      label: "Ajayi Crowther University, Oyo (ACU)",
+      acronym: "acu",
+      location: "oyo",
+      state: "oyo"
+    },
+  ]
+
+
 async function addDataToFireStore(institutionType: string, ownershipType: string, schoolName: string, schoolDescription: string, schoolAcronym: string, logoUrl: string, schoolPageUrl: string, stateLocated: string, yearFounded: number, schoolsInSameStateUrl: string, schoolsInSameLocationUrl: string, areaLocated: string, schoolsOfSameOwnershipUrl: string, schoolHead: string, schoolHeadPageUrl: string, rankingPosition: number, schoolsRankingPageUrl: string, numberOfCourses:number, schoolsCoursesPageUrl:string, schoolsFeesLowest:number, schoolsFeesHighest:number, schoolsFeesPageUrl:string, jambCutOffLowest:number, jambCutOffHighest:number, schoolsJambCutOffPageUrl:string, schoolsHostel:any, schoolsHostelPageUrl:string, schoolsAdmissionCapacity:number, schoolsAdmissionCapacityPageUrl:string, addedBy:string) {
     try {
         const docRef = await addDoc(collection(db, "Schools in Nigeria"), {

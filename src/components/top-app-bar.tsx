@@ -11,6 +11,7 @@ import { MdMoreVert } from "react-icons/md";
 import { FaPlusCircle } from "react-icons/fa";
 import { FcSearch } from "react-icons/fc";
 import { LiaUserCircleSolid } from "react-icons/lia";
+import { getAuth, signOut } from 'firebase/auth'
 import NavigationDrawerMobile from "./navigation-drawer-mobile";
 import {
     AlertDialog,
@@ -88,11 +89,32 @@ import {
 
 
 export default function TopAppBar(props: any) {
-    const [session, setSession] = useState(false)
+    const [session, setSession] = useState<boolean | undefined>(undefined);
     const surface = "#FBF8FD"
     const surfaceContainer = "#F0EDF1"
     const [screenSize, setScreenSize] = useState(0);
     const [bgColor, setBgColor] = useState(surface)
+
+
+
+    useEffect(()=>{
+        const CheckIfUserExistOnProfileDB = () => {
+            const auth = getAuth();
+            auth.onAuthStateChanged((user) => {
+                if (user && user.emailVerified) {
+                    // Check if User is profile database. If they are, set session
+                    setSession(true)
+                } else {
+                    // No user is signed in
+                    setSession(false);
+                }
+            });
+        }
+        CheckIfUserExistOnProfileDB()
+    }, [])
+
+
+
     const changeBgColor = () => {
         setBgColor(surfaceContainer)
     }
@@ -110,6 +132,36 @@ export default function TopAppBar(props: any) {
 
     },[])
     {session && console.log(session)}
+
+
+
+    const handleLogout = async () => {
+        const auth = getAuth();
+    
+        try {
+            await signOut(auth);
+            setSession(false)
+            console.log('User signed out successfully.');
+            // Redirect the user to the login page or home page
+            // Example: navigate('/login');
+        } catch (error:any) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(`Error ${errorCode}: ${errorMessage}`);
+            // Handle error appropriately in the UI
+            alert(`Logout failed: ${errorMessage}`);
+        }
+    };
+
+
+
+    if (session === undefined) {
+        return null; // Render nothing while the session state is being determined
+    }
+
+
+
+
     return (
         
         
@@ -236,7 +288,7 @@ export default function TopAppBar(props: any) {
     <DropdownMenuContent>
         <DropdownMenuItem>Edit Profile</DropdownMenuItem>
         <DropdownMenuItem>
-            <ButtonWithOutIcon label = "Log Out" action = {()=>{setSession(false)}}/>
+            <ButtonWithOutIcon label = "Log Out" action = {handleLogout}/>
         </DropdownMenuItem>
     </DropdownMenuContent>
     </DropdownMenu>
