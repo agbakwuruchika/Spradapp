@@ -11,6 +11,8 @@ import { MdMoreVert } from "react-icons/md";
 import { FaPlusCircle } from "react-icons/fa";
 import { FcSearch } from "react-icons/fc";
 import { LiaUserCircleSolid } from "react-icons/lia";
+import { db, auth } from '@/firebase/config';
+import { getDocs, collection, query, where, orderBy, updateDoc, doc } from 'firebase/firestore';
 import { getAuth, signOut } from 'firebase/auth'
 import NavigationDrawerMobile from "./navigation-drawer-mobile";
 import {
@@ -87,6 +89,47 @@ import {
 
 
 
+  type Profiles = {
+    id: string;
+    Course: string;
+    Email?: string;
+    Followers?: string[];
+    Level: number;
+    Name: string;
+    Picture: string;
+    School: string;
+    Status: string;
+    Type: string;
+    UID: string;
+    Username: string;
+};
+
+
+async function FetchUserProfile(): Promise<Profiles[]> {
+    return new Promise((resolve, reject) => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user && user.emailVerified) {
+                try {
+                    const userID = user.uid;
+                    const q = query(collection(db, "Profiles"), where("UID", "==", userID));
+                    const querySnapshot = await getDocs(q);
+                    const data: Profiles[] = [];
+                    querySnapshot.forEach((doc) => {
+                        data.push({ id: doc.id, ...doc.data() } as Profiles);
+                    });
+                    resolve(data);
+                } catch (error) {
+                    reject(error);
+                }
+            } else {
+                resolve([]);
+            }
+        });
+    });
+}
+
+
+
 
 export default function TopAppBar(props: any) {
     const [session, setSession] = useState<boolean | undefined>(undefined);
@@ -94,24 +137,76 @@ export default function TopAppBar(props: any) {
     const surfaceContainer = "#F0EDF1"
     const [screenSize, setScreenSize] = useState(0);
     const [bgColor, setBgColor] = useState(surface)
+   // const [userWithVerifiedEmail, setUserWithVerifiedEmail] = useState("")
+    //const [userProfile, setUserProfile] = useState<Profiles[]>([]);
+    const [isComponentLoaded, setIsComponentLoaded] = useState(false);
 
 
 
-    useEffect(()=>{
-        const CheckIfUserExistOnProfileDB = () => {
-            const auth = getAuth();
-            auth.onAuthStateChanged((user) => {
-                if (user && user.emailVerified) {
-                    // Check if User is profile database. If they are, set session
-                    setSession(true)
-                } else {
-                    // No user is signed in
-                    setSession(false);
-                }
-            });
+
+
+
+    async function CheckIfUserExistOnProfileDB() {
+        try {
+            const data: Profiles[] = await FetchUserProfile();
+            console.log(data);
+            if(data.length > 0){
+                setSession(true)
+            }else{
+                setSession(false)
+            }
+        } catch (error) {
+            console.error("Error fetching user profile:", error);
         }
-        CheckIfUserExistOnProfileDB()
-    }, [])
+    }
+
+
+    useEffect(() => {
+        // This effect runs only once when the component mounts
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user && user.emailVerified) {
+                setIsComponentLoaded(true); // Trigger the profile check after authentication
+            }
+        });
+
+        // Clean up the subscription on unmount
+        return () => unsubscribe();
+    }, []);
+
+
+
+    useEffect(() => {
+        if (isComponentLoaded) {
+            // This effect runs when isComponentLoaded becomes true
+            const checkUserProfile = async () => {
+                try {
+                    await CheckIfUserExistOnProfileDB();
+                } catch (error) {
+                    console.error("Error checking user profile:", error);
+                }
+            };
+
+            checkUserProfile();
+        }
+    }, [isComponentLoaded]); // Dependency array includes isComponentLoaded
+
+   // auth.onAuthStateChanged(async (user) => {
+   //     if (user && user.emailVerified) {
+   //         try {
+   //             await CheckIfUserExistOnProfileDB();
+   //         } catch (error) {
+   //             console.error("Error checking user profile:", error);
+   //         }
+   //     } else {
+  //          console.log("User is not authenticated or email is not verified.");
+   //     }
+   // });
+    
+
+    //setTimeout(CheckIfUserExistOnProfileDB, 200)
+   // useEffect(()=>{
+   //         CheckIfUserExistOnProfileDB()   
+   // }, [user])ou
 
 
 
@@ -136,7 +231,6 @@ export default function TopAppBar(props: any) {
 
 
     const handleLogout = async () => {
-        const auth = getAuth();
     
         try {
             await signOut(auth);

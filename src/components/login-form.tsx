@@ -18,8 +18,8 @@ import ButtonWithOutIcon from './button-without-icon'
 
 
 
-async function FetchInfluencers(influencerSchool:any) {
-    const q = query(collection(db, "Profiles"), where("School", "==", influencerSchool), orderBy("Followers", "desc"));
+async function FetchUserProfile(userID:any) {
+    const q = query(collection(db, "Profiles"), where("UID", "==", userID));
     const querySnapshot = await getDocs(q);
     const data:any = [];
     querySnapshot.forEach((doc) => {
@@ -36,6 +36,19 @@ export default function LoginForm(props:any) {
     const [session, setSession] = useState(false)
     const [serverMessage, setServerMessage] = useState("")
     const [processing, setProcessing] = useState(false)
+    const [userProfile, setUserProfile] = useState([]);
+    const [createProfile, setCreateProfile] = useState(false)
+
+
+
+    useEffect(() => {
+        const redirection = () => {
+            if (createProfile) {
+                window.location.href = "/profile"
+            }
+        }
+        redirection();
+    }, [createProfile])
 
 
 
@@ -67,12 +80,19 @@ export default function LoginForm(props:any) {
     
             if (user.emailVerified) {
                 const uid = user.uid
+                const data = await FetchUserProfile(uid);
+                setUserProfile(data);
+                console.log(userProfile)
                 console.log(uid)
-                console.log('Login successful. User is verified.');
+                if(userProfile.length > 0 && userProfile.length < 2){
+                    //Setup session, close modal and display toast
+                    setSession(true)
+                    console.log('Login successful. User is verified.');
                 console.log(user)
-                setSession(true)
-                // Redirect the user to the dashboard or home page
-                // Example: navigate('/dashboard');
+                }else{
+                    setCreateProfile(true)
+                    //Redirect the user to set up profile
+                }
             } else {
                 console.log('Email not verified.');
                 alert('Please verify your email before logging in.');

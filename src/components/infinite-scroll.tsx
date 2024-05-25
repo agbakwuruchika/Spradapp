@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { db } from '@/firebase/config';
-import { collection, query, orderBy, limit, getDocs, startAfter, QueryDocumentSnapshot, DocumentData, Timestamp } from 'firebase/firestore';
+import { db, auth } from '@/firebase/config';
+import { collection, query, orderBy, where, limit, getDocs, startAfter, QueryDocumentSnapshot, DocumentData, Timestamp } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
 import { BsX } from "react-icons/bs";
 import { useInView } from 'react-intersection-observer';
@@ -39,6 +39,47 @@ import {
 
 
 
+type Profiles = {
+    id: string;
+    Course: string;
+    Email?: string;
+    Followers?: string[];
+    Level: number;
+    Name: string;
+    Picture: string;
+    School: string;
+    Status: string;
+    Type: string;
+    UID: string;
+    Username: string;
+};
+
+
+async function FetchUserProfile(): Promise<Profiles[]> {
+    return new Promise((resolve, reject) => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user && user.emailVerified) {
+                try {
+                    const userID = user.uid;
+                    const q = query(collection(db, "Profiles"), where("UID", "==", userID));
+                    const querySnapshot = await getDocs(q);
+                    const data: Profiles[] = [];
+                    querySnapshot.forEach((doc) => {
+                        data.push({ id: doc.id, ...doc.data() } as Profiles);
+                    });
+                    resolve(data);
+                } catch (error) {
+                    reject(error);
+                }
+            } else {
+                resolve([]);
+            }
+        });
+    });
+}
+
+
+
 
 
 export interface Post {
@@ -67,29 +108,61 @@ const InfiniteScroll = () => {
     const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    const [session, setSession] = useState(false)
+    const [session, setSession] = useState<boolean | undefined>(undefined);
     const [loginAndSignUpModal, setLoginAndSignUpModal] = useState(false)
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast();
     const { ref, inView } = useInView();
+    const [isComponentLoaded, setIsComponentLoaded] = useState(false);
 
 
     //User Authentication and Session Establishment
-    useEffect(()=>{
-        const CheckIfUserExistOnProfileDB = () => {
-            const auth = getAuth();
-            auth.onAuthStateChanged((user) => {
-                if (user && user.emailVerified) {
-                    // Check if User is profile database. If they are, set session
-                    setSession(true)
-                } else {
-                    // No user is signed in
-                    setSession(false);
-                }
-            });
+    async function CheckIfUserExistOnProfileDB() {
+        try {
+            const data: Profiles[] = await FetchUserProfile();
+            console.log(data);
+            if(data.length > 0){
+                setSession(true)
+            }else{
+                setSession(false)
+            }
+        } catch (error) {
+            console.error("Error fetching user profile:", error);
         }
-        CheckIfUserExistOnProfileDB()
-    }, [])
+    }
+
+
+    useEffect(() => {
+        // This effect runs only once when the component mounts
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user && user.emailVerified) {
+                setIsComponentLoaded(true); // Trigger the profile check after authentication
+            }
+        });
+
+        // Clean up the subscription on unmount
+        return () => unsubscribe();
+    }, []);
+
+
+
+    useEffect(() => {
+        if (isComponentLoaded) {
+            // This effect runs when isComponentLoaded becomes true
+            const checkUserProfile = async () => {
+                try {
+                    await CheckIfUserExistOnProfileDB();
+                } catch (error) {
+                    console.error("Error checking user profile:", error);
+                }
+            };
+
+            checkUserProfile();
+        }
+    }, [isComponentLoaded]); // Dependency array includes isComponentLoaded
+
+
+
 
     const fetchPosts = async (initialFetch = false) => {
         if (!hasMore) return;
