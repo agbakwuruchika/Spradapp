@@ -140,6 +140,7 @@ export default function TopAppBar(props: any) {
    // const [userWithVerifiedEmail, setUserWithVerifiedEmail] = useState("")
     //const [userProfile, setUserProfile] = useState<Profiles[]>([]);
     const [isComponentLoaded, setIsComponentLoaded] = useState(false);
+    const [reloadPage, setReloadPage] = useState(false)
 
 
 
@@ -208,6 +209,16 @@ export default function TopAppBar(props: any) {
    //         CheckIfUserExistOnProfileDB()   
    // }, [user])ou
 
+   useEffect(() => {
+    const redirection = () => {
+        if (reloadPage) {
+            const pagePathname = window.location.pathname
+            window.location.href = pagePathname;
+        }
+    }
+    redirection();
+}, [reloadPage])
+
 
 
     const changeBgColor = () => {
@@ -236,6 +247,7 @@ export default function TopAppBar(props: any) {
             await signOut(auth);
             setSession(false)
             console.log('User signed out successfully.');
+            setReloadPage(true)
             // Redirect the user to the login page or home page
             // Example: navigate('/login');
         } catch (error:any) {
