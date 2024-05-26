@@ -208,13 +208,27 @@ const InfiniteScroll = () => {
     const LikePost = () => {
         if(session){
     
-            console.log("you are logged in")
+            console.log("you just like a post")
         }else if(createProfile){
             alert("Update your profile first")
         }else{
             setLoginAndSignUpModal(true)
         }
     }
+
+
+    
+    const CommentOnPost = () => {
+        if(session){
+    
+            console.log("You just commented on a post")
+        }else if(createProfile){
+            alert("Update your profile first")
+        }else{
+            setLoginAndSignUpModal(true)
+        }
+    }
+
 
     return (
         <div>
@@ -309,7 +323,7 @@ const InfiniteScroll = () => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
                         <ChipsWithIcon icon={<FaRegThumbsUp style={{ height: 18, width: 18 }} />} label="Like" action = {LikePost}/>
-                        <ChipsWithIcon icon={<FaRegCommentDots style={{ height: 18, width: 18 }} />} label="Comment" />
+                        <ChipsWithIcon icon={<FaRegCommentDots style={{ height: 18, width: 18 }} />} label="Comment" action ={CommentOnPost}/>
                         <ChipsWithIcon icon={<FaRegBookmark style={{ height: 18, width: 18 }} />} label="Save" />
                         <ChipsWithIcon icon={<FaRegShareFromSquare style={{ height: 18, width: 18 }} />} label="Share" />
                     </div>
