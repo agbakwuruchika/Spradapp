@@ -109,6 +109,7 @@ const InfiniteScroll = () => {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [session, setSession] = useState<boolean | undefined>(undefined);
+    const [createProfile, setCreateProfile] = useState<boolean | undefined>(undefined);
     const [loginAndSignUpModal, setLoginAndSignUpModal] = useState(false)
     const [popupContent, setpopupContent] = useState(<FaRegBell />)
     const { toast } = useToast();
@@ -123,8 +124,10 @@ const InfiniteScroll = () => {
             console.log(data);
             if(data.length > 0){
                 setSession(true)
+                setCreateProfile(false)
             }else{
                 setSession(false)
+                setCreateProfile(true)
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
@@ -139,6 +142,7 @@ const InfiniteScroll = () => {
                 setIsComponentLoaded(true); // Trigger the profile check after authentication
             }else{
                 setSession(false)
+                setCreateProfile(false)
             }
         });
 
@@ -205,6 +209,8 @@ const InfiniteScroll = () => {
         if(session){
     
             console.log("you are logged in")
+        }else if(createProfile){
+            alert("Update your profile first")
         }else{
             setLoginAndSignUpModal(true)
         }
