@@ -82,9 +82,8 @@ export default function LoginForm(props:any) {
                 const uid = user.uid
                 const data = await FetchUserProfile(uid);
                 setUserProfile(data);
-                console.log(userProfile)
                 console.log(uid)
-                if(userProfile.length > 0 && userProfile.length < 2){
+                if(data.length > 0 && data.length < 2){
                     //Setup session, close modal and display toast
                     setSession(true)
                     console.log('Login successful. User is verified.');
