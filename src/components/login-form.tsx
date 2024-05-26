@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getDocs, collection, query, where, orderBy, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase/config'
+import { db, auth } from '../firebase/config'
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -72,7 +72,6 @@ export default function LoginForm(props:any) {
 
     const handleLogin = async () => {
         setProcessing(true);
-        const auth = getAuth();
     
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);

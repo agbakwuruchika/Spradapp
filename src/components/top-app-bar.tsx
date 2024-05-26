@@ -443,7 +443,7 @@ export default function TopAppBar(props: any) {
                 }
                 </div>
             }
-            {session || createProfile &&
+            {session &&
             <DropdownMenu>
                 <DropdownMenuTrigger>
             <Avatar className = "p-0 bg-transparent hover:bg-gray-200" style = {{height:30, width:30}}>
@@ -454,18 +454,32 @@ export default function TopAppBar(props: any) {
     </Avatar>
     </DropdownMenuTrigger>
     <DropdownMenuContent>
-        {session && 
         <DropdownMenuItem>Edit Profile</DropdownMenuItem>
-        }
-        {createProfile && 
-        <DropdownMenuItem>Create Profile</DropdownMenuItem>
-        }
         <DropdownMenuItem>
             <ButtonWithOutIcon label = "Log Out" action = {handleLogout}/>
         </DropdownMenuItem>
     </DropdownMenuContent>
     </DropdownMenu>
     }
+
+    {createProfile &&
+        <DropdownMenu>
+            <DropdownMenuTrigger>
+        <Avatar className = "p-0 bg-transparent hover:bg-gray-200" style = {{height:30, width:30}}>
+  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" height = {30} width = {30}/>
+  <AvatarFallback className = "bg-transparent">
+  <LiaUserCircleSolid className = "w-full" style = {{height:30, width:30}}/>
+    </AvatarFallback>
+</Avatar>
+</DropdownMenuTrigger>
+<DropdownMenuContent>
+    <DropdownMenuItem>Create Profile</DropdownMenuItem>
+    <DropdownMenuItem>
+        <ButtonWithOutIcon label = "Log Out" action = {handleLogout}/>
+    </DropdownMenuItem>
+</DropdownMenuContent>
+</DropdownMenu>
+}
 
             <DropdownMenu>
                 <DropdownMenuTrigger>
