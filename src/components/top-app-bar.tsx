@@ -2,6 +2,7 @@
 import React from "react";
 import ButtonWithIcon from "./button-with-icon";
 import ButtonWithOutIcon from "./button-without-icon";
+import LoginAndSignupFormModal from "./login-and-signup-form-modal";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { useState, useEffect } from "react";
@@ -142,6 +143,7 @@ export default function TopAppBar(props: any) {
     //const [userProfile, setUserProfile] = useState<Profiles[]>([]);
     const [isComponentLoaded, setIsComponentLoaded] = useState(false);
     const [reloadPage, setReloadPage] = useState(false)
+    const [loginAndSignUpModal, setLoginAndSignUpModal] = useState(false)
 
 
 
@@ -333,54 +335,7 @@ export default function TopAppBar(props: any) {
             
             <div>
                 {!session && !createProfile &&
-                <AlertDialog>
-                    <AlertDialogTrigger>
-                        <ButtonWithOutIcon type="button" style="filled-enabled-with-and-without-icon" stateLayer="filled-enabled-without-icon-state-layer" label="Login" textWrapper="filled-enabled-with-and-without-icon-text-wrapper" />
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogDescription>
-                                <Tabs defaultValue="login" className="w-[400px]">
-                                    <TabsList>
-                                        <TabsTrigger value="login">Login To Already Existing Account</TabsTrigger>
-                                        <TabsTrigger value="register">Create a New Account</TabsTrigger>
-                                    </TabsList>
-                                    <TabsContent value="login">
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>Login Here</CardTitle>
-                                                <CardDescription>
-                                                    Make changes to your account here. Click save when you are done.
-                                                </CardDescription>
-                                            </CardHeader>
-                                            <CardContent className="space-y-2">
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="name">Name</Label>
-                                                    <Input id="name" defaultValue="Pedro Duarte" />
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="username">Username</Label>
-                                                    <Input id="username" defaultValue="@peduarte" />
-                                                </div>
-                                            </CardContent>
-                                            <CardFooter>
-                                                <Button>Save changes</Button>
-                                            </CardFooter>
-                                        </Card>
-
-                                    </TabsContent>
-                                    <TabsContent value="register">
-                                        <h2>Sign up Form Goes Here</h2>
-                                    </TabsContent>
-
-                                </Tabs>
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                        <ButtonWithOutIcon type="button" style="filled-enabled-with-and-without-icon" stateLayer="filled-enabled-without-icon-state-layer" label="Login" textWrapper="filled-enabled-with-and-without-icon-text-wrapper" action = {()=>{setLoginAndSignUpModal(true)}}/>  
                 }
                 </div>
                 <div>
@@ -499,6 +454,9 @@ export default function TopAppBar(props: any) {
                     <DropdownMenuItem><Link href = "/contact">Contact</Link></DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+            {loginAndSignUpModal && 
+                    <LoginAndSignupFormModal closeModal = {()=>{setLoginAndSignUpModal(false)}}/>
+                    }
 
         </div>
     )
