@@ -137,6 +137,8 @@ const InfiniteScroll = () => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user && user.emailVerified) {
                 setIsComponentLoaded(true); // Trigger the profile check after authentication
+            }else{
+                setSession(false)
             }
         });
 
