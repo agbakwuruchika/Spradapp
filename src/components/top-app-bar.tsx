@@ -172,6 +172,7 @@ export default function TopAppBar(props: any) {
                 setIsComponentLoaded(true); // Trigger the profile check after authentication
             }else{
                 setSession(false)
+                setCreateProfile(false)
             }
         });
 
@@ -386,7 +387,7 @@ export default function TopAppBar(props: any) {
                 {createProfile &&
                 <AlertDialog>
                     <AlertDialogTrigger>
-                        <ButtonWithOutIcon type="button" style="filled-enabled-with-and-without-icon" stateLayer="filled-enabled-without-icon-state-layer" label="Create Profile" textWrapper="filled-enabled-with-and-without-icon-text-wrapper" />
+                        <ButtonWithOutIcon type="button" style="elevated-enabled-with-and-without-icon" stateLayer="elevated-enabled-without-icon-state-layer" label="Create Profile" textWrapper="elevated-enabled-with-and-without-icon-text-wrapper" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
