@@ -133,6 +133,7 @@ async function FetchUserProfile(): Promise<Profiles[]> {
 
 export default function TopAppBar(props: any) {
     const [session, setSession] = useState<boolean | undefined>(undefined);
+    const [createProfile, setCreateProfile] = useState<boolean | undefined>(undefined);
     const surface = "#FBF8FD"
     const surfaceContainer = "#F0EDF1"
     const [screenSize, setScreenSize] = useState(0);
@@ -153,8 +154,10 @@ export default function TopAppBar(props: any) {
             console.log(data);
             if(data.length > 0){
                 setSession(true)
+                setCreateProfile(false)
             }else{
                 setSession(false)
+                setCreateProfile(true)
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
@@ -247,6 +250,7 @@ export default function TopAppBar(props: any) {
     
         try {
             await signOut(auth);
+            setCreateProfile(false);
             setSession(false)
             console.log('User signed out successfully.');
             setReloadPage(true)
@@ -263,7 +267,7 @@ export default function TopAppBar(props: any) {
 
 
 
-    if (session === undefined) {
+    if (session === undefined || createProfile === undefined) {
         return null; // Render nothing while the session state is being determined
     }
 
@@ -309,7 +313,10 @@ export default function TopAppBar(props: any) {
                                 <h2>Write you post here</h2>
                                 
                                 }
-                                {!session &&
+                                {createProfile &&
+                                <h2>Update your profile first</h2>
+                                }
+                                {!session && !createProfile &&
                                 <h2>Login First</h2>
                                 }
 
@@ -324,7 +331,7 @@ export default function TopAppBar(props: any) {
             }
             
             <div>
-                {!session &&
+                {!session && !createProfile &&
                 <AlertDialog>
                     <AlertDialogTrigger>
                         <ButtonWithOutIcon type="button" style="filled-enabled-with-and-without-icon" stateLayer="filled-enabled-without-icon-state-layer" label="Login" textWrapper="filled-enabled-with-and-without-icon-text-wrapper" />
@@ -375,6 +382,58 @@ export default function TopAppBar(props: any) {
                 </AlertDialog>
                 }
                 </div>
+                <div>
+                {createProfile &&
+                <AlertDialog>
+                    <AlertDialogTrigger>
+                        <ButtonWithOutIcon type="button" style="filled-enabled-with-and-without-icon" stateLayer="filled-enabled-without-icon-state-layer" label="Create Profile" textWrapper="filled-enabled-with-and-without-icon-text-wrapper" />
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogDescription>
+                                <Tabs defaultValue="createProfile" className="w-[400px]">
+                                    <TabsList>
+                                        <TabsTrigger value="createProfile">Login To Already Existing Account</TabsTrigger>
+                                        <TabsTrigger value="register">Create a New Account</TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent value="createProfile">
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>Create Profile</CardTitle>
+                                                <CardDescription>
+                                                    Make changes to your account here. Click save when you are done.
+                                                </CardDescription>
+                                            </CardHeader>
+                                            <CardContent className="space-y-2">
+                                                <div className="space-y-1">
+                                                    <Label htmlFor="name">Name</Label>
+                                                    <Input id="name" defaultValue="Pedro Duarte" />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <Label htmlFor="username">Username</Label>
+                                                    <Input id="username" defaultValue="@peduarte" />
+                                                </div>
+                                            </CardContent>
+                                            <CardFooter>
+                                                <Button>Save changes</Button>
+                                            </CardFooter>
+                                        </Card>
+
+                                    </TabsContent>
+                                    <TabsContent value="register">
+                                        <h2>Sign up Form Goes Here</h2>
+                                    </TabsContent>
+
+                                </Tabs>
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+                }
+                </div>
             
             {screenSize < 700 &&
                 <div>
@@ -383,7 +442,7 @@ export default function TopAppBar(props: any) {
                 }
                 </div>
             }
-            {session &&
+            {session || createProfile &&
             <DropdownMenu>
                 <DropdownMenuTrigger>
             <Avatar className = "p-0 bg-transparent hover:bg-gray-200" style = {{height:30, width:30}}>
@@ -394,7 +453,12 @@ export default function TopAppBar(props: any) {
     </Avatar>
     </DropdownMenuTrigger>
     <DropdownMenuContent>
+        {session && 
         <DropdownMenuItem>Edit Profile</DropdownMenuItem>
+        }
+        {createProfile && 
+        <DropdownMenuItem>Create Profile</DropdownMenuItem>
+        }
         <DropdownMenuItem>
             <ButtonWithOutIcon label = "Log Out" action = {handleLogout}/>
         </DropdownMenuItem>
