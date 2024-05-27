@@ -256,10 +256,10 @@ const InfiniteScroll = () => {
     }
 
 
-    const Follow = (followedUser:any) => {
+    const Follow = () => {
         if(session){
     
-            console.log("You just Followed "+followedUser)
+            console.log("You just Followed ")
         }else if(createProfile){
             alert("Update your profile first")
         }else{
@@ -341,7 +341,7 @@ const InfiniteScroll = () => {
                             <p style={{ fontSize: 14, color: 'gray', paddingLeft: 5, lineHeight: 1.2 }}>{post.Author_Course} {post.Author_Academic_Status}, {post.Author_School}</p>
                             <p style={{ fontSize: 14, color: 'gray', paddingLeft: 5, lineHeight: 1.2 }}>{post.Author_Type_Of_Study} ({post.Author_Level})</p>
                         </div>
-                        <ButtonWithIcon type="button" style="text-enabled-with-and-without-icon" stateLayer="text-enabled-with-icon-state-layer" icon={<FaPlus />} iconStyle="text-enabled-icon-styling" label="Follow" textWrapper="text-enabled-with-and-without-icon-text-wrapper" action = {Follow(post.Author_Username)}/>
+                        <ButtonWithIcon type="button" style="text-enabled-with-and-without-icon" stateLayer="text-enabled-with-icon-state-layer" icon={<FaPlus />} iconStyle="text-enabled-icon-styling" label="Follow" textWrapper="text-enabled-with-and-without-icon-text-wrapper" action = {Follow}/>
                     </div>
                     <div style={{ marginTop: 10 }}>
                         <p style={{ fontSize: 16, lineHeight: 1.3 }} className="post-description-text">{post.Post_Content}</p>
