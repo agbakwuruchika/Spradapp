@@ -1,8 +1,12 @@
+'use client'
 import React from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
 import SocialMediaPostCardTemplate from "./social-media-post-card-template";
+import { db } from '@/firebase/config';
+import { getDocs, collection, query, where, orderBy, updateDoc, doc } from 'firebase/firestore';
 import {
     Accordion,
     AccordionContent,
@@ -33,80 +37,13 @@ import {
 
 
 
-
-const privateUniversities = [
-    {
-        name: "Achievers University Owo (AUO)",
-        about: "Achievers University Owo (AUO) is a private Nigerian institution founded in 2007. Situated in Owo, Ondo State, it focuses on providing quality education in various disciplines, promoting research, and fostering character development among students",
-        abbreviation: "AUO",
-        logo: "/auo_logo.png",
-        page: "/achievers-university-owo",
-        state: "Ondo",
-        yearFounded: "2007",
-        schoolsInStateUrl: "/universities-in-ondo-state",
-        location: "Owo",
-        schoolsInLocationUrl: "/universities-in-owo",
-        ownership: "Private",
-        schoolsOfSameOwnershipUrl: "/private-universities-in-nigeria",
-        vc: "Samuel Olabanji Aje",
-        aboutVcUrl: "/achievers-university-vc",
-        ranking: "94th",
-        schoolsRankingUrl: "/university-ranking-in-nigeria",
-        numberOfCourses: 47,
-        listOfCoursesUrl: "/achievers-university-courses",
-        fees: "400k - 1.250m",
-        feesURL: "/achievers-university-school-fees",
-        jambCutOff: 140,
-        jambCutOffUrl: "/achievers-university-cut-off-mark",
-        hostel: "Yes",
-        hostelUrl: "/achievers-university-hostel",
-        admissionCapacity: "800",
-        admissionCapacityUrl: "/achievers-university-admission-capacity",
-        ID: "auo001",
-        hashtagID: "#auo001"
-
-    },
-    {
-        name: "Adeleke University (AU), Ede",
-        about: "Adeleke University in Ede,  Osun State, Nigeria, is a vibrant institution dedicated to quality education, research, and character formation. With a focus on holistic development, it offers diverse academic programs and a conducive learning environment.",
-        abbreviation: "AU",
-        logo: "/au-logo.jpg",
-        page: "/adeleke-university-ede",
-        state: "Osun",
-        yearFounded: "1962",
-        schoolsInStateUrl: "/universities-in-osun-state",
-        location: "Ede",
-        schoolsInLocationUrl: "/universities-in-ede",
-        ownership: "Private",
-        schoolsOfSameOwnershipUrl: "/private-universities-in-nigeria",
-        vc: "Solomon Ajayi Adebola",
-        aboutVcUrl: "/adeleke-university-vc",
-        ranking: "70th",
-        schoolsRankingUrl: "/university-ranking-in-nigeria",
-        numberOfCourses: 40,
-        listOfCoursesUrl: "/adeleke-university-courses",
-        fees: "1M - 2.1M",
-        feesURL: "/adeleke-university-school-fees",
-        jambCutOff: 160,
-        jambCutOffUrl: "/adeleke-university-cut-off-mark",
-        hostel: "Yes",
-        hostelUrl: "/adeleke-university-hostel",
-        admissionCapacity: "1.2k",
-        admissionCapacityUrl: "/adeleke-university-admission-capacity",
-        ID: "au002",
-        hashtagID: "#au002"
-    },
-    
-]
-
-
-const privateInfluencers = [
+const influencers = [
     {
         author: "Chika Agbakwuru",
         authorUsername: "@sixtusagba",
         authorStatus: "Student",
         authorCourse: "Philosophy",
-        authorSchool: "University of Lagos",
+        authorSchool: "abubakar tafawa balewa university",
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "300 Level",
         authorProfilePics: "/chika-agbakwuru.jpg",
@@ -114,15 +51,27 @@ const privateInfluencers = [
 
     },
     {
+        author: "Chika Agbakwuru",
+        authorUsername: "@sixtusagba",
+        authorStatus: "Student",
+        authorCourse: "Philosophy",
+        authorSchool: "ahmadu bello university",
+        authorTypeOfStudy: "Undergraduate",
+        authorLevel: "300 Level",
+        authorProfilePics: "/chika-agbakwuru.jpg",
+        authorID: 2
+
+    },
+    {
         author: "Tobiloba Chika",
         authorUsername: "@tobiano",
         authorStatus: "Student",
         authorCourse: "Accounting",
-        authorSchool: "Obafemi Awolowo University",
+        authorSchool: "obafemi awolowo university",
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "300 Level",
         authorProfilePics: "/unilag logo.png",
-        authorID: 2
+        authorID: 3
 
     },
     {
@@ -134,7 +83,7 @@ const privateInfluencers = [
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "100 Level",
         authorProfilePics: "/benjamin.jpg",
-        authorID: 3
+        authorID: 4
 
     },
     {
@@ -146,7 +95,7 @@ const privateInfluencers = [
         authorTypeOfStudy: "Undergraduate",
         authorLevel: "0 Level",
         authorProfilePics: "/davido.jpg",
-        authorID: 4
+        authorID: 5
 
     },
     {
@@ -158,130 +107,272 @@ const privateInfluencers = [
         authorTypeOfStudy: "Postgraduate",
         authorLevel: "500 Level",
         authorProfilePics: "/ini-edo.png",
-        authorID: 5
+        authorID: 6
 
     }
 ]
 
 
+
+async function FetchPrivateUniversities() {
+    const q = query(collection(db, "Schools in Nigeria"), where("Ownership", "==", "private"), orderBy("Name", "asc"));
+    const querySnapshot = await getDocs(q);
+    const data:any = [];
+    querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+}
+
+
+
+
+async function FetchInfluencers(influencerSchool:any) {
+    const q = query(collection(db, "Profiles"), where("School", "==", influencerSchool), orderBy("Followers", "desc"));
+    const querySnapshot = await getDocs(q);
+    const data:any = [];
+    querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+}
+
+
+
+
+
+interface School {
+    id: string;
+    Logo: string;
+    Name: string;
+    Description: string;
+    Acronym: string;
+    State: string;
+    SchoolsInSameState?: string;
+    Location: string;
+    SchoolsInSameLocation?: string;
+    Ownership: string;
+    schoolsOfSameOwnership?: string;
+    Year: number;
+    Head: string;
+    HeadPage?: string;
+    Ranking: number;
+    RankingPage?: string;
+    Courses: number;
+    CoursesPage?: string;
+    LowestFee: number;
+    FeesPage?: string;
+    JambCutOffLowest: number;
+    JambCutOffPage?: string;
+    Hostel: string;
+    HostelPage?: string;
+    Capacity: number;
+    CapacityPage?: string;
+}
+
+
+
+interface InfluencersToFollow {
+    id: string;
+    Course: string;
+    Followers?: string;
+    Level: number;
+    Name: string;
+    Picture: string;
+    School: string;
+    Status: string;
+    Type?: string;
+    Username: string;
+}
+
+
 export default function ListOfPrivateUniversitiesInNigeria(){
+    const [privateUniversities, setPrivateUniversities] = useState<School[]>([]);
+    const [schoolInfluencers, setSchoolInfluencers] = useState<InfluencersToFollow[]>([]);
+    const [numberOfPrivateUniversities, setNumberOfPrivateUniversities] = useState(0)
+
+
+    useEffect(()=>{
+        async function fetchData() {
+            const data: School[] = await FetchPrivateUniversities();
+            const modifiedData = data.map(school => ({
+                ...school,
+                Name: school.Name.replace(/-/g, ' ')
+            }));
+            setPrivateUniversities(modifiedData);
+        }
+        fetchData()
+    },[])
+
+
+    const fetchInfluencersForSchool = async (influencerSchool:any) => {
+        const influencers: InfluencersToFollow[] = await FetchInfluencers(influencerSchool);
+        // Do something with influencers data
+        const modifiedInfluencersData = influencers.map(influence =>({
+            ...influence,
+            Name: influence.Name.replace(/-/g, ' ')
+        }))
+        setSchoolInfluencers(modifiedInfluencersData)
+        console.log("Influencers for school", influencerSchool, influencers);
+    };
+
+
+
+    useEffect(()=>{
+        const updateNumber = () => {
+            setNumberOfPrivateUniversities(privateUniversities.length)
+        }
+
+        updateNumber()
+    }, [privateUniversities])
+
+
+
+console.log(privateUniversities)
     return(
         <div>
+            <h2 className = "text-2xl mt-2">List of Private Universities in Nigeria ({numberOfPrivateUniversities})</h2>
+            {privateUniversities.length > 0 ? (
             <Accordion type="single" collapsible className="w-full">
             <ol>
-                {privateUniversities.map((school)=>{
+                {privateUniversities.map((school:any)=>{
                     return(
-                        <AccordionItem key = {school.ID} value = {school.ID}>
-                            <AccordionTrigger>
-                        <li className = "flex items-center gap-x-2">
-                            <Image src = {school.logo} alt = {school.name} width = {40} height = {40} />
-                            {school.name}
+                        <AccordionItem key = {school.id} value = {school.id}>
+                            <AccordionTrigger onClick={() => fetchInfluencersForSchool(school.Name)}>
+                        <li className = "flex items-center gap-x-2 capitalize">
+                            <Image src = {school.Logo} alt = {school.Name} width = {40} height = {40} />
+                            {school.Name} <span className = "uppercase">({school.Acronym})</span>
                         </li>
                             </AccordionTrigger>
                             <AccordionContent>
-                                <p>{school.about}</p>
+                                <p>{school.Description}</p>
                                 <div className = "flex justify-start mt-2 gap-x-2">
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
-                                        <h3 className = "text-base font-medium">Abbreviation:</h3>
-                                        <p className = "mt-0">{school.abbreviation}</p>
-                                        <p>Learn more about <Link href = {school.page} className = "text-blue-600">{school.abbreviation}</Link></p>
+                                        <h3 className = "text-base font-medium">Acronym:</h3>
+                                        <p className = "uppercase mt-0">{school.Acronym}</p>
+                                        {school.SchoolPage &&
+                                        <p>Learn more about <Link href = {school.SchoolPage} className = "uppercase text-blue-600">{school.Acronym}</Link></p>
+                                        }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">State:</h3>
-                                        <p>{school.state}</p>
-                                        <p>See <Link href = {school.schoolsInStateUrl} className = "text-blue-600">List of Universities in {school.state}</Link></p>
+                                        <p className = "capitalize">{school.State}</p>
+                                        {school.SchoolsInSameState &&
+                                        <p>See <Link href = {school.SchoolsInSameState} className = "text-blue-600">List of Universities in <span className = "capitalize">{school.State}</span></Link></p>
+                                        }
                                     </div>
                                 </div>
                                 <div className = "flex justify-start mt-2 gap-x-2">
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Location:</h3>
-                                        <p className = "mt-0">{school.location}</p>
-                                        <p>See <Link href = {school.schoolsInLocationUrl} className = "text-blue-600">List of Universities in {school.location}</Link></p>
+                                        <p className = "mt-0 capitalize">{school.Location}</p>
+                                        {school.SchoolsInSameLocation &&
+                                        <p>See <Link href = {school.SchoolsInSameLocation} className = "text-blue-600">List of Universities in <span className = "capitalize">{school.Location}</span></Link></p>
+                                        }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Ownership:</h3>
-                                        <p>{school.ownership}</p>
-                                        <p>See <Link href = {school.schoolsOfSameOwnershipUrl} className = "text-blue-600">List of {school.ownership} Universities in Nigeria</Link></p>
+                                        <p className = "capitalize">{school.Ownership}</p>
+                                        {school.schoolsOfSameOwnership &&
+                                        <p>See <Link href = {school.schoolsOfSameOwnership} className = "text-blue-600">List of <span className = "capitalize">{school.Ownership}</span> Universities in Nigeria</Link></p>
+                                        }
                                     </div>
                                 </div>
                                 <div className = "flex justify-start mt-2 gap-x-2">
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Year Founded:</h3>
-                                        <p className = "mt-0">{school.yearFounded}</p>
-                                        <p>Learn more about <Link href = {school.page} className = "text-blue-600">{school.abbreviation} History</Link></p>
+                                        <p className = "mt-0">{school.Year}</p>
+                                        {school.SchoolPage &&
+                                        <p>Learn more about <Link href = {school.SchoolPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> History</Link></p>
+                                        }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Vice Chancellor:</h3>
-                                        <p>{school.vc}</p>
-                                        <p>Learn more about <Link href = {school.aboutVcUrl} className = "text-blue-600">{school.abbreviation} VC</Link></p>
+                                        <p className = "capitalize">{school.Head}</p>
+                                        {school.HeadPage &&
+                                        <p>Learn more about <Link href = {school.HeadPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> VC</Link></p>
+                                        }
                                     </div>
                                 </div>
                                 <div className = "flex justify-start mt-2 gap-x-2">
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Nigerian Ranking:</h3>
-                                        <p className = "mt-0">{school.ranking}</p>
-                                        <p>Check <Link href = {school.schoolsRankingUrl} className = "text-blue-600">University Ranking in Nigeria</Link> here</p>
+                                        <p className = "mt-0">{school.Ranking}</p>
+                                        {school.RankingPage &&
+                                        <p>Check <Link href = {school.RankingPage} className = "text-blue-600">University Ranking in Nigeria</Link> here</p>
+                                        }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Number of Courses:</h3>
-                                        <p>{school.numberOfCourses}</p>
-                                        <p>See full list of <Link href = {school.listOfCoursesUrl} className = "text-blue-600">{school.abbreviation} Courses</Link></p>
+                                        <p>{school.Courses}</p>
+                                        {school.CoursesPage &&
+                                        <p>See full list of <Link href = {school.CoursesPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> Courses</Link></p>
+                                        }
                                     </div>
                                 </div>
                                 <div className = "flex justify-start mt-2 gap-x-2">
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">School Fees:</h3>
-                                        <p className = "mt-0">{school.fees}</p>
-                                        <p>Learn more about <Link href = {school.feesURL} className = "text-blue-600">{school.abbreviation} School Fees</Link></p>
+                                        <p className = "mt-0">{school.LowestFee}</p>
+                                        {school.FeesPage &&
+                                        <p>Learn more about <Link href = {school.FeesPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> School Fees</Link></p>
+                                        }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">JAMB Cut Off:</h3>
-                                        <p>{school.jambCutOff}</p>
-                                        <p>Check <Link href = {school.jambCutOffUrl} className = "text-blue-600">{school.abbreviation} Cut Off Marks</Link> here</p>
+                                        <p>{school.JambCutOffLowest}</p>
+                                        {school.JambCutOffPage &&
+                                        <p>Check <Link href = {school.JambCutOffPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> Cut Off Marks</Link> here</p>
+                                        }
                                     </div>
                                 </div>
                                 <div className = "flex justify-start mt-2 gap-x-2">
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Hostel:</h3>
-                                        <p className = "mt-0">{school.hostel}</p>
-                                        <p>Learn more about <Link href = {school.hostelUrl} className = "text-blue-600">{school.abbreviation} Hostel</Link></p>
+                                        <p className = "capitalize mt-0">{school.Hostel}</p>
+                                        {school.HostelPage &&
+                                        <p>Learn more about <Link href = {school.HostelPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> Hostel</Link></p>
+                                        }
                                     </div>
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Admission Capacity:</h3>
-                                        <p>{school.admissionCapacity}</p>
-                                        <p>Learn more about <Link href = {school.admissionCapacityUrl} className = "text-blue-600">{school.abbreviation} Admission Capacity</Link></p>
+                                        <p>{school.Capacity}</p>
+                                        {school.CapacityPage &&
+                                        <p>Learn more about <Link href = {school.CapacityPage} className = "text-blue-600"><span className = "uppercase">{school.Acronym}</span> Admission Capacity</Link></p>
+                                        }
                                     </div>
                                 </div>
+                                {schoolInfluencers.length > 0 &&
                                 <div>
                                 <Card className = "mt-4 shadcn-card">
                                     <CardHeader>
-                                        <CardTitle>Follow To Connect With {school.abbreviation} Students/Aspirants</CardTitle>
+                                        <CardTitle>Follow To Connect With <span className = "uppercase">{school.Acronym}</span> Students/Aspirants</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                {privateInfluencers.map((influencer)=>{
+                {schoolInfluencers.map((influencer)=>{
                     return(
-                        <div key = {influencer.authorID} className = "flex mt-4 py-2 hover:bg-gray-200" style = {{gap:5}}>
+                        <div key = {influencer.id} className = "flex mt-4 py-2 hover:bg-gray-200" style = {{gap:5}}>
                             <div style = {{borderRadius:20, display:"flex", height:40, width:40}}>
-                                <Image src = {influencer.authorProfilePics} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
+                                <Image src = {influencer.Picture} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
                             </div>
                             <div className = "flex flex-col flex-grow">
                                 <HoverCard>
                                     <HoverCardTrigger asChild>
-                                        <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.author}</span> </p>
+                                        <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.Name}</span> </p>
                                     </HoverCardTrigger>
                                     <HoverCardContent className = "w-80">
                                         <div className = "flex justify-between space-x-4">
                                             <div style = {{borderRadius:20, display:"flex", height:40, width:40}}>
-                                                <Image src = {influencer.authorProfilePics} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
+                                                <Image src = {influencer.Picture} alt = "Profile Picture" height = {40} width = {40} style = {{borderRadius:20}}/>
                                             </div>
                                             <div className = "space-y-1">
-                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.author}</span> </p>
-                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.authorUsername}</span> </p>
+                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, fontWeight:"bold", paddingLeft:5}}>{influencer.Name}</span> </p>
+                                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.Username}</span> </p>
                                             </div>
                                         </div>
                                     </HoverCardContent>
                                 </HoverCard>
-                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.authorUsername}</span> </p>
+                                <p style = {{lineHeight:1.2}}><span style = {{fontSize:15, color:"gray", paddingLeft:5}}>{influencer.Username}</span> </p>
                             </div>
                             <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" stateLayer = "filled-enabled-with-icon-state-layer" icon = {<FaPlus />} iconStyle = "filled-enabled-icon-styling" label = "Follow" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
                         </div>
@@ -293,9 +384,10 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                     </CardContent>
                                 </Card>
                                 </div>
+                                }
                                 <Card className = "flex flex-col justify-center mt-4 shadcn-card">
                                     <CardHeader>
-                                        <CardTitle>Trending Posts on {school.abbreviation}</CardTitle>
+                                        <CardTitle>Trending Posts on <span className = "uppercase">{school.Acronym}</span></CardTitle>
                                     </CardHeader>
                                     <CardContent className = "flex justify-center">
                                 <Carousel className="md:w-full max-w-60 md:max-w-md">
@@ -304,7 +396,7 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                         <div className="p-1">
              
                 
-                <SocialMediaPostCardTemplate reasonForShowing = "Suggested" author = "Tony Elumelu" authorUsername = "@telumelu" authorSchool = {school.name} authorCourse = "Mass Communication" authorStatus = "Student" authorTypeOfStudy = "Undergraduate" authorProfilePics = "/chika-agbakwuru.jpg" postMedia = "/unilag-alumni.jpg" postLikes = {23} authorLevel = "200 Level" postDescription = "This picture was taken during the last General Meeting of UNILAG ALUMNI ASSOCIATION." comments = {45} shares = {81}/>
+                <SocialMediaPostCardTemplate reasonForShowing = "Suggested" author = "Tony Elumelu" authorUsername = "@telumelu" authorSchool = {school.Name} authorCourse = "Mass Communication" authorStatus = "Student" authorTypeOfStudy = "Undergraduate" authorProfilePics = "/chika-agbakwuru.jpg" postMedia = "/unilag-alumni.jpg" postLikes = {23} authorLevel = "200 Level" postDescription = "This picture was taken during the last General Meeting of UNILAG ALUMNI ASSOCIATION." comments = {45} shares = {81}/>
                
               
             </div>
@@ -313,7 +405,7 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                         </CarouselItem>
                                         <CarouselItem>
                                         <div className="p-1">
-                <SocialMediaPostCardTemplate reasonForShowing = "Suggested" author = "Tony Elumelu" authorUsername = "@telumelu" authorSchool = {school.name}/>
+                <SocialMediaPostCardTemplate reasonForShowing = "Suggested" author = "Tony Elumelu" authorUsername = "@telumelu" authorSchool = {school.Name}/>
             </div>
                                             
 
@@ -321,7 +413,7 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                         <CarouselItem >
                                         <div className="p-1">
               
-                <SocialMediaPostCardTemplate reasonForShowing = "Suggested" author = "Tony Elumelu" authorUsername = "@telumelu" authorSchool = {school.name}/>
+                <SocialMediaPostCardTemplate reasonForShowing = "Suggested" author = "Tony Elumelu" authorUsername = "@telumelu" authorSchool = {school.Name}/>
                 
             </div>
                                             
@@ -336,7 +428,7 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                 </Card>
                                 <Card className = "flex flex-col justify-center mt-4 shadcn-card">
                                     <CardHeader>
-                                        <CardTitle>{school.abbreviation} Latest News</CardTitle>
+                                        <CardTitle><span className = "uppercase">{school.Acronym}</span> Latest News</CardTitle>
                                     </CardHeader>
                                     <CardContent className = "flex flex-col justify-center">
                                     <div className = "flex flex-col md:flex-row justify-start mt-2 gap-y-2 md:gap-x-2">
@@ -347,7 +439,9 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                             </Link>
                                         </div>
                                         <div>
-                                        <h3 className = "text-base font-medium"><Link href = {school.page}>Learn more about {school.abbreviation} History</Link></h3>
+                                            {school.SchoolPage &&
+                                        <h3 className = "text-base font-medium"><Link href = {school.SchoolPage}>Learn more about <span className = "uppercase">{school.Acronym}</span> History</Link></h3>
+                                        }
                                         </div>
                                     </div>
                                     <div className = "flex items-center p-3 rounded-xl border hover:bg-gray-200 md:basis-1/2 gap-x-2">
@@ -357,7 +451,9 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                             </Link>
                                         </div>
                                         <div>
-                                        <h3 className = "text-base font-medium"><Link href = {school.page}>Learn more about {school.abbreviation} History</Link></h3>
+                                            {school.SchoolPage &&
+                                        <h3 className = "text-base font-medium"><Link href = {school.SchoolPage}>Learn more about <span className = "uppercase">{school.Acronym}</span> History</Link></h3>
+                                        }
                                         </div>
                                     </div>
                                 </div>
@@ -369,7 +465,9 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                             </Link>
                                         </div>
                                         <div>
-                                        <h3 className = "text-base font-medium"><Link href = {school.page}>Learn more about {school.abbreviation} History</Link></h3>
+                                            {school.SchoolPage &&
+                                        <h3 className = "text-base font-medium"><Link href = {school.SchoolPage}>Learn more about <span className = "uppercase">{school.Acronym}</span> History</Link></h3>
+                                    }
                                         </div>
                                     </div>
                                     <div className = "flex items-center p-3 rounded-xl border hover:bg-gray-200 md:basis-1/2 gap-x-2">
@@ -379,7 +477,9 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                                             </Link>
                                         </div>
                                         <div>
-                                        <h3 className = "text-base font-medium"><Link href = {school.page}>Learn more about {school.abbreviation} History</Link></h3>
+                                            {school.SchoolPage &&
+                                        <h3 className = "text-base font-medium"><Link href = {school.SchoolPage}>Learn more about <span className = "uppercase">{school.Acronym}</span> History</Link></h3>
+                                        }
                                         </div>
                                     </div>
                                 </div>
@@ -393,6 +493,9 @@ export default function ListOfPrivateUniversitiesInNigeria(){
                 })}
             </ol>
             </Accordion>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     )
 }

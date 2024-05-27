@@ -48,8 +48,9 @@ export default function UniversitiesInNigeria() {
           <div id = "stateUniversities">
           <ListOfStateUniversitiesInNigeria />
           </div>
-          <h3 className = "text-2xl mt-2" id = "stateUniversities">List of Private Universities in Nigeria</h3>
+          <div id = "privateUniversities">
           <ListOfPrivateUniversitiesInNigeria />
+          </div>
 
 
       

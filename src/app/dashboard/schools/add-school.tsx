@@ -878,6 +878,147 @@ import {
       location: "oyo",
       state: "oyo"
     },
+    {
+      value: "al-ansar-university",
+      label: "Al-Ansar University, Maiduguri (AUM)",
+      acronym: "aum",
+      location: "maiduguri",
+      state: "borno"
+    },
+    {
+      value: "al-hikmah-university",
+      label: "Al-Hikmah University, Ilorin (ALHIKMAH)",
+      acronym: "alhikmah",
+      location: "ilorin",
+      state: "kwara"
+    },
+    {
+      value: "al-istiqama-university",
+      label: "Al-Istiqama University, Sumaila (AUSU)",
+      acronym: "ausu",
+      location: "sumaila",
+      state: "kano"
+    },
+    {
+      value: "al-qalam-university",
+      label: "Al-Qalam University, Katsina (AUK)",
+      acronym: "auk",
+      location: "katsina",
+      state: "katsina"
+    },
+    {
+      value: "aletheia-university",
+      label: "Aletheia University, Ago-Iwoye (AUAI)",
+      acronym: "auai",
+      location: "ago-iwoye",
+      state: "ogun"
+    },
+    {
+      value: "american-university-of-nigeria",
+      label: "American University of Nigeria, Yola (AUN)",
+      acronym: "aun",
+      location: "yola",
+      state: "adamawa"
+    },
+    {
+      value: "anchor-university",
+      label: "Anchor University, Lagos (AUL)",
+      acronym: "aul",
+      location: "ayobo",
+      state: "lagos"
+    },
+    {
+      value: "arthur-jarvis-university",
+      label: "Arthur Jarvis University, Calabar (AJU)",
+      acronym: "aju",
+      location: "calabar",
+      state: "cross-river"
+    },
+    {
+      value: "atiba-university",
+      label: "Atiba University, Oyo (ATUOYO)",
+      acronym: "atuoyo",
+      location: "oyo",
+      state: "oyo"
+    },
+    {
+      value: "augustine-university",
+      label: "Augustine University, Ilara (AUI)",
+      acronym: "aui",
+      location: "ilara",
+      state: "lagos"
+    },
+
+    {
+      value: "ave-maria-university",
+      label: "Ave Maria University, Piyanko (AMU)",
+      acronym: "amu",
+      location: "piyanko",
+      state: "nasarawa"
+    },
+    {
+      value: "azman-university",
+      label: "Azman University, Kano (AZMAN)",
+      acronym: "azman",
+      location: "kano",
+      state: "kano"
+    },
+    {
+      value: "baba-ahmed-university",
+      label: "Baba Ahmed University, Kano (BAUK)",
+      acronym: "bauk",
+      location: "kano",
+      state: "kano"
+    },
+    {
+      value: "babcock-university",
+      label: "Babcock University, Ilishan-Remo (BU)",
+      acronym: "bu",
+      location: "ilishan-remo",
+      state: "ogun"
+    },
+    {
+      value: "baze-university",
+      label: "Baze University, Abuja (BAZE)",
+      acronym: "baze",
+      location: "abuja",
+      state: "abuja"
+    },
+    {
+      value: "bells-university-of-technology",
+      label: "Bells University of Technology, Ota (BUT)",
+      acronym: "but",
+      location: "ota",
+      state: "ogun"
+    },
+    {
+      value: "benson-idahosa-university",
+      label: "Benson Idahosa University, Benin (BIU)",
+      acronym: "biu",
+      location: "benin",
+      state: "edo"
+    },
+    {
+      value: "bingham-university",
+      label: "Bingham University, Karu (BHU)",
+      acronym: "bhu",
+      location: "karu",
+      state: "nasarawa"
+    },
+    {
+      value: "bowen-university",
+      label: "Bowen University, Iwo (BOWEN)",
+      acronym: "bowen",
+      location: "iwo",
+      state: "osun"
+    },
+    {
+      value: "british-canadian-university",
+      label: "British Canadian University, Obudu (BCU)",
+      acronym: "bcu",
+      location: "obudu",
+      state: "cross-river"
+    },
   ]
 
 
@@ -963,6 +1104,8 @@ export default function ProductOrderForm() {
     const [value, setValue] = React.useState("")
     const [openStateUniversity, setOpenStateUniversity] = React.useState(false)
     const [stateUniversityValue, setStateUniversityValue] = React.useState("")
+    const [openPrivateUniversity, setOpenPrivateUniversity] = React.useState(false)
+    const [privateUniversityValue, setPrivateUniversityValue] = React.useState("")
 
     const inputElement = useRef(null);
     
@@ -1003,11 +1146,23 @@ export default function ProductOrderForm() {
           
         }
       }
-      if(nameOfVCInput && nameOfRectorInput && nameOfProvostInput && nameOfDirectorInput){
-        if(nameOfVCInput !== null || nameOfRectorInput !== null || nameOfProvostInput !== null || nameOfDirectorInput !== null){
+      if(nameOfVCInput){
+        if(nameOfVCInput !== null){
           nameOfVCInput.value = "";
+        }
+      }
+      if(nameOfRectorInput){
+        if(nameOfRectorInput !== null){
           nameOfRectorInput.value = "";
+        }
+      }
+      if(nameOfProvostInput){
+        if(nameOfProvostInput !== null){
           nameOfProvostInput.value = "";
+        }
+      }
+      if(nameOfDirectorInput){
+        if(nameOfDirectorInput !== null){
           nameOfDirectorInput.value = "";
         }
       }
@@ -1211,7 +1366,7 @@ useEffect(()=>{
                     <form onSubmit={handleSubmit(handleOrder)}>
                     <div className = "flex mt-4 justify-between">
                                 <label htmlFor="institutionType" className="">Select Type of Institution</label>
-                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="institutionType" id="institutionType" onChange={(e) => {setInstitutionType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
+                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="institutionType" id="institutionType" onChange={(e) => {setInstitutionType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setPrivateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
                                     <option value = "Select">--select--</option>
                                     <option value = "universities">University</option>
                                     <option value = "polytechnics">Polytechnic</option>
@@ -1221,7 +1376,7 @@ useEffect(()=>{
                         </div>
                         <div className = "flex mt-4 justify-between">
                                 <label htmlFor="ownershipType" className="">Select Type of Ownership</label>
-                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="ownershipType" id="ownershipType" onChange={(e) => { setOwnershipType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
+                                <select className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" name="ownershipType" id="ownershipType" onChange={(e) => { setOwnershipType(e.currentTarget.value); setSchoolName(""); setSchoolAcronym(""); setLogoUrl(""); setValue(""); setStateUniversityValue(""); setPrivateUniversityValue(""); setSchoolPageUrl(""); setAreaLocated(""); setStateLocated(""); setSchoolsInSameStateUrl(""); setSchoolsInSameLocationUrl(""); setSchoolsCoursesPageUrl(""); setSchoolsFeesPageUrl(""); setSchoolsJambCutOffPageUrl(""); setSchoolsHostel(""); setSchoolsHostelPageUrl(""); setSchoolsAdmissionCapacity(0); setSchoolsAdmissionCapacityPageUrl(""); resetInput();}}>
                                     <option value = "select">--select--</option>
                                     <option value = "federal">Federal</option>
                                     <option value = "state">State</option>
@@ -1264,6 +1419,9 @@ useEffect(()=>{
                 setSchoolAcronym(framework.acronym)
                 setAreaLocated(framework.location)
                 setStateLocated(framework.state)
+                resetInput()
+                setSchoolHead("")
+                setSchoolDescription("")
                 setOpen(false)
               }}
             >
@@ -1324,6 +1482,9 @@ useEffect(()=>{
                 setSchoolAcronym(stateUni.acronym);
                 setAreaLocated(stateUni.location)
                 setStateLocated(stateUni.state)
+                resetInput()
+                setSchoolHead("")
+                setSchoolDescription("")
                 setOpenStateUniversity(false)
               }}
             >
@@ -1347,6 +1508,69 @@ useEffect(()=>{
   </Popover>
 }
 {/* CONDITIONAL RENDERING: FOR STATE UNIVERSITIES ENDS HERE */}
+
+{/* CONDITIONAL RENDERING: FOR PRIVATE UNIVERSITIES STARTS HERE */}
+{institutionType === "universities" && ownershipType === "private" &&
+  <Popover open={openPrivateUniversity} onOpenChange={setOpenPrivateUniversity}>
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        role="combobox"
+        aria-expanded={openPrivateUniversity}
+        className="mt-4 p-2 w-full justify-between"
+      >
+        <div className="truncate max-w-full">
+          {privateUniversityValue
+            ? listOfPrivateUniversities.find((privateUni) => privateUni.value === privateUniversityValue)?.label
+            : "Select private university..."}
+        </div>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-full p-0">
+      <Command>
+        <CommandInput placeholder="Search school..." className="h-9" />
+        <CommandEmpty>No schoool found.</CommandEmpty>
+        
+        <CommandGroup>
+        <CommandList>
+          {listOfPrivateUniversities.map((privateUni) => (
+            
+            <CommandItem
+              key={privateUni.value}
+              value={privateUni.value}
+              onSelect={(currentValue) => {
+                setPrivateUniversityValue(currentValue === value ? "" : currentValue);
+                setSchoolName(currentValue);
+                setSchoolAcronym(privateUni.acronym);
+                setAreaLocated(privateUni.location)
+                setStateLocated(privateUni.state)
+                resetInput()
+                setSchoolHead("")
+                setSchoolDescription("")
+                setOpenPrivateUniversity(false)
+              }}
+            >
+              <div className="truncate max-w-full">
+                {privateUni.label}
+              </div>
+              <CheckIcon
+                className={cn(
+                  "ml-auto h-4 w-4",
+                  value === privateUni.value ? "opacity-100" : "opacity-0"
+                )}
+              />
+            </CommandItem>
+            
+          ))}
+          </CommandList>
+        </CommandGroup>
+        
+      </Command>
+    </PopoverContent>
+  </Popover>
+}
+{/* CONDITIONAL RENDERING: FOR PRIVATE UNIVERSITIES ENDS HERE */}
 
 {logoUrl !== "" &&
     <div className="flex mt-4 justify-between">
