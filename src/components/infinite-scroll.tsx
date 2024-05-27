@@ -230,6 +230,43 @@ const InfiniteScroll = () => {
     }
 
 
+
+    const SavePost = () => {
+        if(session){
+    
+            console.log("You just saved a post")
+        }else if(createProfile){
+            alert("Update your profile first")
+        }else{
+            setLoginAndSignUpModal(true)
+        }
+    }
+
+
+
+    const SharePost = () => {
+        if(session){
+    
+            console.log("You just Shared a post")
+        }else if(createProfile){
+            alert("Update your profile first")
+        }else{
+            setLoginAndSignUpModal(true)
+        }
+    }
+
+
+    const Follow = (followedUser:any) => {
+        if(session){
+    
+            console.log("You just Followed "+followedUser)
+        }else if(createProfile){
+            alert("Update your profile first")
+        }else{
+            setLoginAndSignUpModal(true)
+        }
+    }
+
     return (
         <div>
             {posts.map((post) => (
@@ -304,7 +341,7 @@ const InfiniteScroll = () => {
                             <p style={{ fontSize: 14, color: 'gray', paddingLeft: 5, lineHeight: 1.2 }}>{post.Author_Course} {post.Author_Academic_Status}, {post.Author_School}</p>
                             <p style={{ fontSize: 14, color: 'gray', paddingLeft: 5, lineHeight: 1.2 }}>{post.Author_Type_Of_Study} ({post.Author_Level})</p>
                         </div>
-                        <ButtonWithIcon type="button" style="text-enabled-with-and-without-icon" stateLayer="text-enabled-with-icon-state-layer" icon={<FaPlus />} iconStyle="text-enabled-icon-styling" label="Follow" textWrapper="text-enabled-with-and-without-icon-text-wrapper" />
+                        <ButtonWithIcon type="button" style="text-enabled-with-and-without-icon" stateLayer="text-enabled-with-icon-state-layer" icon={<FaPlus />} iconStyle="text-enabled-icon-styling" label="Follow" textWrapper="text-enabled-with-and-without-icon-text-wrapper" action = {Follow(post.Author_Username)}/>
                     </div>
                     <div style={{ marginTop: 10 }}>
                         <p style={{ fontSize: 16, lineHeight: 1.3 }} className="post-description-text">{post.Post_Content}</p>
@@ -324,8 +361,8 @@ const InfiniteScroll = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
                         <ChipsWithIcon icon={<FaRegThumbsUp style={{ height: 18, width: 18 }} />} label="Like" action = {LikePost}/>
                         <ChipsWithIcon icon={<FaRegCommentDots style={{ height: 18, width: 18 }} />} label="Comment" action ={CommentOnPost}/>
-                        <ChipsWithIcon icon={<FaRegBookmark style={{ height: 18, width: 18 }} />} label="Save" />
-                        <ChipsWithIcon icon={<FaRegShareFromSquare style={{ height: 18, width: 18 }} />} label="Share" />
+                        <ChipsWithIcon icon={<FaRegBookmark style={{ height: 18, width: 18 }} />} label="Save" action = {SavePost}/>
+                        <ChipsWithIcon icon={<FaRegShareFromSquare style={{ height: 18, width: 18 }} />} label="Share" action = {SharePost}/>
                     </div>
                     {loginAndSignUpModal && 
                     <LoginAndSignupFormModal closeModal = {()=>{setLoginAndSignUpModal(false)}}/>
