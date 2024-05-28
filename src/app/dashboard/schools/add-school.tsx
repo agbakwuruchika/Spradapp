@@ -887,8 +887,8 @@ import {
     },
     {
       value: "al-hikmah-university",
-      label: "Al-Hikmah University, Ilorin (ALHIKMAH)",
-      acronym: "alhikmah",
+      label: "Al-Hikmah University, Ilorin (AHU)",
+      acronym: "ahu",
       location: "ilorin",
       state: "kwara"
     },
