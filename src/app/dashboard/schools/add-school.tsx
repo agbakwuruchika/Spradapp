@@ -1019,6 +1019,27 @@ import {
       location: "obudu",
       state: "cross-river"
     },
+    {
+      value: "caleb-university",
+      label: "Caleb University, Imota (CALEB)",
+      acronym: "caleb",
+      location: "imota",
+      state: "lagos"
+    },
+    {
+      value: "canadian-university-of-nigeria",
+      label: "Canadian University of Nigeria, abuja (CUN)",
+      acronym: "cun",
+      location: "abuja",
+      state: "abuja"
+    },
+    {
+      value: "capital-city-university",
+      label: "Capital City University, Kano (CCUK)",
+      acronym: "ccuk",
+      location: "kano",
+      state: "kano"
+    },
   ]
 
 
