@@ -1061,6 +1061,27 @@ import {
       location: "mowe",
       state: "ogun"
     },
+    {
+      value: "claretian-university-of-nigeria",
+      label: "Claretian University of Nigeria, Nekede (CLARETIAN)",
+      acronym: "claretian",
+      location: "nekede",
+      state: "imo"
+    },
+    {
+      value: "clifford-university",
+      label: "Clifford University, Owerrintta (CLU)",
+      acronym: "clu",
+      location: "owerrintta",
+      state: "abia"
+    },
+    {
+      value: "coal-city-university",
+      label: "Coal City University, Enugu (CCU)",
+      acronym: "ccu",
+      location: "enugu",
+      state: "enugu"
+    },
   ]
 
 
