@@ -1040,6 +1040,27 @@ import {
       location: "kano",
       state: "kano"
     },
+    {
+      value: "caritas-university",
+      label: "Caritas University, Amorji-Nike (CARITASUNI)",
+      acronym: "caritasuni",
+      location: "amorji-nike",
+      state: "enugu"
+    },
+    {
+      value: "chrisland-university",
+      label: "Chrisland University, Owode (CHRISLAND)",
+      acronym: "chrisland",
+      location: "owode",
+      state: "ogun"
+    },
+    {
+      value: "christopher-university",
+      label: "Christopher University, Mowe (UNICHRIS)",
+      acronym: "unichris",
+      location: "mowe",
+      state: "ogun"
+    },
   ]
 
 
