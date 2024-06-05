@@ -1082,6 +1082,27 @@ import {
       location: "enugu",
       state: "enugu"
     },
+    {
+      value: "cosmopolitan-university",
+      label: "Cosmopolitan University, Abuja (Cosmopolitan)",
+      acronym: "cosmopolitan",
+      location: "abuja",
+      state: "abuja"
+    },
+    {
+      value: "covenant-university",
+      label: "Covenant University, Ota (CU)",
+      acronym: "cu",
+      location: "ota",
+      state: "ogun"
+    },
+    {
+      value: "crawford-university",
+      label: "Crawford University, Igbesa (Crawford)",
+      acronym: "crawford",
+      location: "igbesa",
+      state: "ogun"
+    },
   ]
 
 
