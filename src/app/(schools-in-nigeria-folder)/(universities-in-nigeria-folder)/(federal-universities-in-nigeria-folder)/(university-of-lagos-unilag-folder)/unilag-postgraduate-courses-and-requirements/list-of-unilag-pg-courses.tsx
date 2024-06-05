@@ -156,7 +156,7 @@ export default function ListOfUNILAGPGDCourses() {
                                             <h3 className="text-base font-medium">NYSC Certificate Required:</h3>
                                             <p className="mt-0 capitalize">{course.NYSC_Certificate_Required}</p>
                                             {course.Apply_Without_NYSC_Link &&
-                                                <p>Don't have it? <Link href={course.Apply_Without_NYSC_Link} className="text-blue-600">Here is a way out</Link></p>
+                                                <p>Don&apos;t have it? <Link href={course.Apply_Without_NYSC_Link} className="text-blue-600">Here is a way out</Link></p>
                                             }
                                         </div>
                                         <div className="basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
@@ -179,7 +179,7 @@ export default function ListOfUNILAGPGDCourses() {
                                             <h3 className="text-base font-medium">Eligible Courses:</h3>
                                             <p className="capitalize">{course.Eligible_Courses}</p>
                                             {course.Course_Finder_Link &&
-                                                <p>Didn't see the course you studied, use Spradapp <Link href={course.Course_Finder_Link} className="text-blue-600">School and Course Finder</Link> to find it</p>
+                                                <p>Didn&apos;t see the course you studied, use Spradapp <Link href={course.Course_Finder_Link} className="text-blue-600">School and Course Finder</Link> to find it</p>
                                             }
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@ export default function ListOfUNILAGPGDCourses() {
                                             <h3 className="text-base font-medium">Entrance Exam:</h3>
                                             <p className="mt-0">{course.Entrance_Exam}</p>
                                             {course.PG_Courses_Without_Entrance_Exam_Link &&
-                                                <p>Don't want to write entrance exam? Here is the <Link href={course.PG_Courses_Without_Entrance_Exam_Link} className="text-blue-600">List of PG Courses Without Entrance Exam</Link></p>
+                                                <p>Don&apos;t want to write entrance exam? Here is the <Link href={course.PG_Courses_Without_Entrance_Exam_Link} className="text-blue-600">List of PG Courses Without Entrance Exam</Link></p>
                                             }
                                         </div>
                                         <div className="basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
