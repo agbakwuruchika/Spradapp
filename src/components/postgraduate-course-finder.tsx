@@ -1,13 +1,12 @@
-
-'use client'
-import React from "react";
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { FaPlus } from "react-icons/fa";
-import SocialMediaPostCardTemplate from "@/components/social-media-post-card-template";
+import SocialMediaPostCardTemplate from './social-media-post-card-template';
 import { db } from '@/firebase/config';
-import { getDocs, collection, query, where, orderBy, updateDoc, doc } from 'firebase/firestore';
+import { getDocs, collection, query, where, orderBy } from 'firebase/firestore';
+import ButtonWithOutIcon from './button-without-icon';
 import {
     Accordion,
     AccordionContent,
@@ -115,32 +114,42 @@ const influencers = [
 
 
 
-async function FetchUNILAGPGCourses() {
-    const q = query(collection(db, "Postgraduate Courses in Nigeria"), where("School_Name", "==", "university-of-lagos"), orderBy("Title", "asc"));
+async function FetchPostgraduateCourses(educationalQualification: any, cgpa: any, discipline: any) {
+    // Fetch courses matching educational qualification and CGPA
+    const baseQuery = query(
+        collection(db, "Postgraduate Courses in Nigeria"),
+        where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
+        where("Minimum_CGPA", "<=", cgpa),
+        orderBy("Title", "asc")
+    );
+
+    const baseSnapshot = await getDocs(baseQuery);
+    let baseData: any = [];
+    baseSnapshot.forEach((doc) => {
+        baseData.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Filter results in JavaScript for Eligible_Courses
+    const filteredData = baseData.filter((course: any) => 
+        course.Eligible_Courses.includes(discipline) || course.Eligible_Courses.includes("Any Discipline")
+    );
+
+    return filteredData;
+}
+
+async function FetchInfluencers(influencerCourse: any) {
+    const q = query(
+        collection(db, 'Profiles'),
+        where('Course', '==', influencerCourse),
+        orderBy('Followers', 'desc')
+    );
     const querySnapshot = await getDocs(q);
-    const data:any = [];
+    const data: any = [];
     querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
     });
     return data;
 }
-
-
-
-
-async function FetchInfluencers(influencerCourse:any) {
-    const q = query(collection(db, "Profiles"), where("Course", "==", influencerCourse), orderBy("Followers", "desc"));
-    const querySnapshot = await getDocs(q);
-    const data:any = [];
-    querySnapshot.forEach((doc) => {
-        data.push({ id: doc.id, ...doc.data() });
-    });
-    return data;
-}
-
-
-
-
 
 interface Courses {
     id: string;
@@ -174,8 +183,6 @@ interface Courses {
     School_Fees_Link: string;
 }
 
-
-
 interface InfluencersToFollow {
     id: string;
     Course: string;
@@ -189,24 +196,26 @@ interface InfluencersToFollow {
     Username: string;
 }
 
-
-export default function ListOfUNILAGPGDCourses(){
-    const [postgraduateCourses, setPostgraduateCourses] = useState<Courses[]>([]);
+export default function PostgraduateCourseFinder() {
+    const [recommendedPGCourses, setRecommendedPGCourses] = useState<Courses[]>([]);
     const [schoolInfluencers, setSchoolInfluencers] = useState<InfluencersToFollow[]>([]);
-    const [numberOfPostgraduateCourses, setNumberOfPostgraduateCourses] = useState(0)
+    const [numberOfPostgraduateCourses, setNumberOfPostgraduateCourses] = useState(0);
+    const [academicQualification, setAcademicQualification] = useState('');
+    const [programmeType, setProgrammeType] = useState('');
 
-
-    useEffect(()=>{
-        async function fetchData() {
-            const data: Courses[] = await FetchUNILAGPGCourses();
-            const modifiedData = data.map(course => ({
-                ...course,
-                School_Name: course.School_Name.replace(/-/g, ' ')
-            }));
-            setPostgraduateCourses(modifiedData);
+    async function fetchData(educationalQualification: any, cgpa: any, discipline: any) {
+        const data: Courses[] = await FetchPostgraduateCourses(educationalQualification, cgpa, discipline);
+        const modifiedData = data.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        setRecommendedPGCourses(modifiedData);
+        if(recommendedPGCourses.length > 0){
+            console.log(recommendedPGCourses);
         }
-        fetchData()
-    },[])
+        
+    }
+
 
 
     const fetchInfluencersForCourse = async (influencerCourse:any) => {
@@ -221,25 +230,57 @@ export default function ListOfUNILAGPGDCourses(){
     };
 
 
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        fetchData(academicQualification, 2.5, 'Accounting');
+    };
 
-    useEffect(()=>{
-        const updateNumber = () => {
-            setNumberOfPostgraduateCourses(postgraduateCourses.length)
-        }
-
-        updateNumber()
-    }, [postgraduateCourses])
-
-
-
-console.log(postgraduateCourses)
-    return(
+    return (
         <div>
-            <h2 className = "text-2xl mt-2">List of UNILAG Postgraduate Courses ({numberOfPostgraduateCourses})</h2>
-            {postgraduateCourses.length > 0 ? (
+            <h1 className="text-2xl mt-2">Spradapp Postgraduate Course Finder</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="flex mt-4 justify-between">
+                    <label htmlFor="programmeType" className="">
+                        Select Type of Programme You Want to Find
+                    </label>
+                    <select
+                        className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full"
+                        name="programmeType"
+                        id="programmeType"
+                        onChange={(e) => {
+                            setProgrammeType(e.currentTarget.value);
+                        }}
+                    >
+                        <option value="Select">--select--</option>
+                        <option value="Undergraduate Programme">Undergraduate Programme</option>
+                        <option value="Postgraduate Programme">Postgraduate Programme</option>
+                    </select>
+                </div>
+                {programmeType === 'Postgraduate Programme' && (
+                    <div className="flex mt-4 justify-between">
+                        <label htmlFor="academicQualification" className="">
+                            Select Your Academic Qualification
+                        </label>
+                        <select
+                            className="ms-3 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full"
+                            name="academicQualification"
+                            id="academicQualification"
+                            onChange={(e) => {
+                                setAcademicQualification(e.currentTarget.value);
+                            }}
+                        >
+                            <option value="Select">--select--</option>
+                            <option value="Bachelor Degree">Bachelor Degree</option>
+                            <option value="HND">HND</option>
+                        </select>
+                    </div>
+                )}
+                <ButtonWithOutIcon label="Find Courses" />
+            </form>
+            {recommendedPGCourses.length > 0 ? (
             <Accordion type="single" collapsible className="w-full">
             <ol>
-                {postgraduateCourses.map((course:any)=>{
+                {recommendedPGCourses.map((course:any)=>{
                     return(
                         <AccordionItem key = {course.id} value = {course.id}>
                             <AccordionTrigger onClick={() => fetchInfluencersForCourse(course.Title)}>
@@ -510,5 +551,5 @@ console.log(postgraduateCourses)
                 <p>Loading...</p>
             )}
         </div>
-    )
+    );
 }
