@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { FaPlus } from "react-icons/fa";
 import SocialMediaPostCardTemplate from './social-media-post-card-template';
 import { db } from '@/firebase/config';
@@ -202,6 +203,7 @@ export default function PostgraduateCourseFinder() {
     const [numberOfPostgraduateCourses, setNumberOfPostgraduateCourses] = useState(0);
     const [academicQualification, setAcademicQualification] = useState('');
     const [programmeType, setProgrammeType] = useState('');
+    const [processing, setProcessing] = useState(false)
 
     async function fetchData(educationalQualification: any, cgpa: any, discipline: any) {
         const data: Courses[] = await FetchPostgraduateCourses(educationalQualification, cgpa, discipline);
@@ -210,6 +212,7 @@ export default function PostgraduateCourseFinder() {
             School_Name: course.School_Name.replace(/-/g, ' '),
         }));
         setRecommendedPGCourses(modifiedData);
+        setProcessing(false);
         if(recommendedPGCourses.length > 0){
             console.log(recommendedPGCourses);
         }
@@ -232,6 +235,7 @@ export default function PostgraduateCourseFinder() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setProcessing(true);
         fetchData(academicQualification, 2.5, 'Accounting');
     };
 
@@ -275,9 +279,20 @@ export default function PostgraduateCourseFinder() {
                         </select>
                     </div>
                 )}
-                <ButtonWithOutIcon label="Find Courses" />
+                {academicQualification !== "" ?
+                        <div className="mt-2">
+                            {processing ? <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" icon = {<ClipLoader color='rgba(255, 255, 255, 1)'/>} iconStyle = "filled-enabled-icon-styling" label = "Processing..." stateLayer = "filled-enabled-with-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/> :
+                                <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Submit" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
+                            }
+                        </div> :
+                        <div className = "mt-2">
+                          <ButtonWithOutIcon type = "button" style = "filled-disabled-with-and-without-icon" label = "Submit" stateLayer = "filled-disabled-without-icon-state-layer" textWrapper = "filled-disabled-icon-text-wrapper"/>
+                        </div>
+                        }
             </form>
-            {recommendedPGCourses.length > 0 ? (
+            {recommendedPGCourses.length > 0 &&
+            <>
+            <h2 className = "text-2xl mt-4">List of <span className = "underline">UNILAG</span> Postgraduate Courses You Can Apply For With a CGPA of <span className = "underline">3.5</span> As a <span className = "underline">Bachelor Degree</span> Holder in <span className='underline'>Accounting</span></h2>
             <Accordion type="single" collapsible className="w-full">
             <ol>
                 {recommendedPGCourses.map((course:any)=>{
@@ -547,9 +562,8 @@ export default function PostgraduateCourseFinder() {
                 })}
             </ol>
             </Accordion>
-            ) : (
-                <p>Loading...</p>
-            )}
+            </>
+            }
         </div>
     );
 }
