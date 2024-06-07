@@ -1103,6 +1103,48 @@ import {
       location: "igbesa",
       state: "ogun"
     },
+    {
+      value: "crescent-university",
+      label: "Crescent University, Abeokuta (CUAB)",
+      acronym: "cuab",
+      location: "abeokuta",
+      state: "ogun"
+    },
+    {
+      value: "dagamas-college-of-health-science-and-technology",
+      label: "Dagama's College of Health Science and Technology, Zaria (DACAS)",
+      acronym: "dacas",
+      location: "zaria",
+      state: "kaduna"
+    },
+    {
+      value: "dominican-university",
+      label: "Dominican University, Ibadan (DUI)",
+      acronym: "dui",
+      location: "ibadan",
+      state: "oyo"
+    },
+    {
+      value: "dominion-university",
+      label: "Dominion University, Ibadan (DOMINION)",
+      acronym: "dominion",
+      location: "ibadan",
+      state: "oyo"
+    },
+    {
+      value: "edusoko-university",
+      label: "Edusoko University, Bida (EUB)",
+      acronym: "eub",
+      location: "bida",
+      state: "niger"
+    },
+    {
+      value: "edwin-clark-university",
+      label: "Edwin Clark University, Kiagbodo (ECU)",
+      acronym: "ecu",
+      location: "kiagbodo",
+      state: "delta"
+    },
   ]
 
 
