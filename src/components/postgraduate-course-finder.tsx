@@ -145,7 +145,7 @@ const influencers = [
 
 
 
-async function FetchPostgraduateCourses(educationalQualification: any, cgpa: any, discipline: any) {
+async function FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any) {
     // Fetch courses matching educational qualification and CGPA
     const baseQuery = query(
         collection(db, "Postgraduate Courses in Nigeria"),
@@ -162,7 +162,7 @@ async function FetchPostgraduateCourses(educationalQualification: any, cgpa: any
 
     // Filter results in JavaScript for Eligible_Courses
     const filteredData = baseData.filter((course: any) => 
-        course.Eligible_Courses.includes(discipline) || course.Eligible_Courses.includes("Any Discipline")
+        course.Eligible_Courses.includes(discipline) || course.Eligible_Courses.includes("any discipline")
     );
 
     return filteredData;
@@ -239,7 +239,7 @@ export default function PostgraduateCourseFinder() {
     const [value, setValue] = useState("")
 
     async function fetchData(educationalQualification: any, cgpa: any, discipline: any) {
-        const data: Courses[] = await FetchPostgraduateCourses(educationalQualification, cgpa, discipline);
+        const data: Courses[] = await FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline);
         const modifiedData = data.map((course) => ({
             ...course,
             School_Name: course.School_Name.replace(/-/g, ' '),
@@ -310,10 +310,13 @@ export default function PostgraduateCourseFinder() {
                             <option value="Select">--select--</option>
                             <option value="Bachelor Degree">Bachelor Degree</option>
                             <option value="HND">HND</option>
+                            <option value="PGD">PGD</option>
+                            <option value="Master Degree">Master Degree</option>
+                            <option value="Master of Philosophy">Master of Philosophy (MPhil)</option>
                         </select>
                     </div>
                     <div className="mt-2">
-                    <input type="number" id="cgpa" placeholder = "Enter Your CGPA" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" required onChange={(e) => { const gp = parseInt(e.currentTarget.value); setCgpa(isNaN(gp) ? 0 : gp); }} />
+                    <input type="number" step = "0.01" min = "0.00" max = "10.00" id="cgpa" placeholder = "Enter Your CGPA" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const gp = parseFloat(e.currentTarget.value); setCgpa(isNaN(gp) ? 0 : gp); }} />
                     
                 </div>
                 <Popover open={open} onOpenChange={setOpen}>
@@ -383,7 +386,7 @@ export default function PostgraduateCourseFinder() {
             </form>
             {recommendedPGCourses.length > 0 &&
             <>
-            <h2 className = "text-2xl mt-4">List of <span className = "underline">UNILAG</span> Postgraduate Courses You Can Apply For With a CGPA of <span className = "underline">3.5</span> As a <span className = "underline">Bachelor Degree</span> Holder in <span className='underline'>Accounting</span></h2>
+            <h2 className = "text-2xl mt-4">List of <span className = "underline">UNILAG</span> Postgraduate Courses You Can Apply For With a CGPA of <span className = "underline">{cgpa}</span> As a <span className = "underline">{academicQualification}</span> Holder in <span className='underline capitalize'>{value}</span></h2>
             <Accordion type="single" collapsible className="w-full">
             <ol>
                 {recommendedPGCourses.map((course:any)=>{
