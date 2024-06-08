@@ -35,7 +35,37 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
+  import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+  import {
+    Command,
+    CommandDialog,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandSeparator,
+    CommandShortcut,
+  } from "@/components/ui/command"
+  import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
 
+
+  const undergraduateCourses = [
+    {
+        value: "accounting",
+        label: "Accounting"
+    },
+    {
+        value: "business administration",
+        label: "Business Administration"
+    }
+  ]
 
 
 const influencers = [
@@ -204,6 +234,9 @@ export default function PostgraduateCourseFinder() {
     const [academicQualification, setAcademicQualification] = useState('');
     const [programmeType, setProgrammeType] = useState('');
     const [processing, setProcessing] = useState(false)
+    const [cgpa, setCgpa] = useState(0)
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState("")
 
     async function fetchData(educationalQualification: any, cgpa: any, discipline: any) {
         const data: Courses[] = await FetchPostgraduateCourses(educationalQualification, cgpa, discipline);
@@ -236,7 +269,7 @@ export default function PostgraduateCourseFinder() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setProcessing(true);
-        fetchData(academicQualification, 2.5, 'Accounting');
+        fetchData(academicQualification, cgpa, value);
     };
 
     return (
@@ -261,6 +294,7 @@ export default function PostgraduateCourseFinder() {
                     </select>
                 </div>
                 {programmeType === 'Postgraduate Programme' && (
+                    <>
                     <div className="flex mt-4 justify-between">
                         <label htmlFor="academicQualification" className="">
                             Select Your Academic Qualification
@@ -278,8 +312,65 @@ export default function PostgraduateCourseFinder() {
                             <option value="HND">HND</option>
                         </select>
                     </div>
+                    <div className="mt-2">
+                    <input type="number" id="cgpa" placeholder = "Enter Your CGPA" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" required onChange={(e) => { const gp = parseInt(e.currentTarget.value); setCgpa(isNaN(gp) ? 0 : gp); }} />
+                    
+                </div>
+                <Popover open={open} onOpenChange={setOpen}>
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        role="combobox"
+        aria-expanded={open}
+        className="mt-4 p-2 w-full justify-between"
+      >
+        <div className="truncate max-w-full">
+          {value
+            ? undergraduateCourses.find((course) => course.value === value)?.label
+            : "Select the course you studied..."}
+        </div>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-full p-0">
+      <Command>
+        <CommandInput placeholder="Search school..." className="h-9" />
+        <CommandEmpty>No course found.</CommandEmpty>
+        
+        <CommandGroup>
+        <CommandList>
+          {undergraduateCourses.map((framework) => (
+            
+            <CommandItem
+              key={framework.value}
+              value={framework.value}
+              onSelect={(currentValue:any) => {
+                setValue(currentValue === value ? "" : currentValue)
+                setOpen(false)
+              }}
+            >
+              <div className="truncate max-w-full">
+                {framework.label}
+              </div>
+              <CheckIcon
+                className={cn(
+                  "ml-auto h-4 w-4",
+                  value === framework.value ? "opacity-100" : "opacity-0"
                 )}
-                {academicQualification !== "" ?
+              />
+            </CommandItem>
+            
+          ))}
+          </CommandList>
+        </CommandGroup>
+        
+      </Command>
+    </PopoverContent>
+  </Popover>
+                </>
+                )}
+                
+                {academicQualification !== "" && cgpa > 0 && value !== "" ?
                         <div className="mt-2">
                             {processing ? <ButtonWithIcon type = "button" style = "filled-enabled-with-and-without-icon" icon = {<ClipLoader color='rgba(255, 255, 255, 1)'/>} iconStyle = "filled-enabled-icon-styling" label = "Processing..." stateLayer = "filled-enabled-with-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/> :
                                 <ButtonWithOutIcon type = "submit" style = "filled-enabled-with-and-without-icon" label = "Submit" statelayer = "filled-enabled-without-icon-state-layer" textWrapper = "filled-enabled-with-and-without-icon-text-wrapper"/>
