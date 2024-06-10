@@ -68,6 +68,18 @@ import { Button } from "@/components/ui/button"
   ]
 
 
+  const listOfProfessionalQualifications = [
+    {
+        value: "associate of the chartered institute of taxation of nigeria acti",
+        label: "Associate of the Chartered Institute of Taxation of Nigeria (ACTI)"
+    },
+    {
+        value: "associate chartered accountant aca",
+        label: "Associate Chartered Accountant (ACA)"
+    }
+  ]
+
+
 const influencers = [
     {
         author: "Chika Agbakwuru",
@@ -145,12 +157,13 @@ const influencers = [
 
 
 
-async function FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any) {
+async function FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any) {
     // Fetch courses matching educational qualification and CGPA
     const baseQuery = query(
         collection(db, "Postgraduate Courses in Nigeria"),
         where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
         where("Minimum_CGPA", "<=", cgpa),
+        where("Work_Experience", "<=", workExperience),
         orderBy("Title", "asc")
     );
 
@@ -162,7 +175,7 @@ async function FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfession
 
     // Filter results in JavaScript for Eligible_Courses
     const filteredData = baseData.filter((course: any) => 
-        course.Eligible_Courses.includes(discipline) || course.Eligible_Courses.includes("any discipline")
+        course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline")
     );
 
     return filteredData;
@@ -192,7 +205,7 @@ interface Courses {
     NYSC_Certificate_Required: boolean;
     Work_Experience: string;
     Professional_Qualification: string;
-    Eligible_Courses: string[];
+    Eligible_Courses_For_Bachelor_Degree_Holders: string[];
     Entrance_Exam: boolean;
     Postgraduate_Type: string;
     Learning_Option: string;
@@ -237,9 +250,13 @@ export default function PostgraduateCourseFinder() {
     const [cgpa, setCgpa] = useState(0)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
+    const [yearsOfExperience, setYearsOfExperience] = useState(0)
+    const [hasProfessionalQualification, setHasProfessionalQualification] = useState(false)
+    const [openProfessionalQualification, setOpenProfessionalQualification] = useState(false)
+    const [professionalQualificationValue, setProfessionalQualificationValue] = useState("")
 
-    async function fetchData(educationalQualification: any, cgpa: any, discipline: any) {
-        const data: Courses[] = await FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline);
+    async function fetchData(educationalQualification: any, cgpa: any, discipline: any, workExperience:any) {
+        const data: Courses[] = await FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
         const modifiedData = data.map((course) => ({
             ...course,
             School_Name: course.School_Name.replace(/-/g, ' '),
@@ -269,7 +286,7 @@ export default function PostgraduateCourseFinder() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setProcessing(true);
-        fetchData(academicQualification, cgpa, value);
+        fetchData(academicQualification, cgpa, value, yearsOfExperience);
     };
 
     return (
@@ -315,6 +332,8 @@ export default function PostgraduateCourseFinder() {
                             <option value="Master of Philosophy">Master of Philosophy (MPhil)</option>
                         </select>
                     </div>
+                    {academicQualification == "Bachelor Degree" &&
+                    <>
                     <div className="mt-2">
                     <input type="number" step = "0.01" min = "0.00" max = "10.00" id="cgpa" placeholder = "Enter Your CGPA" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const gp = parseFloat(e.currentTarget.value); setCgpa(isNaN(gp) ? 0 : gp); }} />
                     
@@ -370,6 +389,77 @@ export default function PostgraduateCourseFinder() {
       </Command>
     </PopoverContent>
   </Popover>
+  <div className="mt-2">
+                    <input type="number" id="yearsOfExperience" placeholder = "How Many Years of Work Experience Do You Have After Your Bachelor Degree?" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const experience = parseInt(e.currentTarget.value); setYearsOfExperience(isNaN(experience) ? 0 : experience); }} />
+                    
+                </div>
+                <div className = "mt-4 p-2 bg-white outline outline-2 outline-slate-100 rounded w-full">
+            <h2 className = "sign-up-input">Do You Have Any Professional Qualification?:</h2>
+                <div style = {{display:"flex", gap:5, marginBottom:5, marginTop:10}}>
+                    <input type = "radio" id = "Yes" name = "professionalQualification" value = "Yes" onClick ={()=>{setHasProfessionalQualification(true);}}/>
+                    <label htmlFor="Yes" className = "radio-button-label sign-up-input">Yes</label>
+                </div>
+                <div style = {{display:"flex", gap:5, marginBottom:5}}>
+                    <input type = "radio" id = "No" name = "professionalQualification" value = "No" onClick ={()=>{setHasProfessionalQualification(false); }}/>
+                    <label htmlFor="No" className = "radio-button-label sign-up-input">No</label>
+                </div>
+              </div>
+              {hasProfessionalQualification &&
+              <Popover open={openProfessionalQualification} onOpenChange={setOpenProfessionalQualification}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openProfessionalQualification}
+                  className="mt-4 p-2 w-full justify-between"
+                >
+                  <div className="truncate max-w-full">
+                    {professionalQualificationValue
+                      ? listOfProfessionalQualifications.find((qualification) => qualification.value === professionalQualificationValue)?.label
+                      : "Select professional qualification..."}
+                  </div>
+                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0">
+                <Command>
+                  <CommandInput placeholder="Search school..." className="h-9" />
+                  <CommandEmpty>No professional qualification found.</CommandEmpty>
+                  
+                  <CommandGroup>
+                  <CommandList>
+                    {listOfProfessionalQualifications.map((qualification) => (
+                      
+                      <CommandItem
+                        key={qualification.value}
+                        value={qualification.value}
+                        onSelect={(currentValue) => {
+                          setProfessionalQualificationValue(currentValue === value ? "" : currentValue);
+                          setOpenProfessionalQualification(false)
+                        }}
+                      >
+                        <div className="truncate max-w-full">
+                          {qualification.label}
+                        </div>
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            value === qualification.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                      
+                    ))}
+                    </CommandList>
+                  </CommandGroup>
+                  
+                </Command>
+              </PopoverContent>
+            </Popover>
+              }
+  </>
+  }
+  
                 </>
                 )}
                 
@@ -448,7 +538,7 @@ export default function PostgraduateCourseFinder() {
                                     <div className = "basis-1/2 p-3 rounded-xl border hover:bg-gray-200">
                                         <h3 className = "text-base font-medium">Eligible Courses:</h3>
                                         <ul className="list-disc ml-5 mt-2">
-                                                {course.Eligible_Courses.map((eligibleCourse:any, index:any) => (
+                                                {course.Eligible_Courses_For_Bachelor_Degree_Holders.map((eligibleCourse:any, index:any) => (
                                                     <li key={index} className="capitalize">{eligibleCourse}</li>
                                                 ))}
                                             </ul>
