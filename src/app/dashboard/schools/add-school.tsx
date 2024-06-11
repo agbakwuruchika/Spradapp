@@ -1145,6 +1145,98 @@ import {
       location: "kiagbodo",
       state: "delta"
     },
+    {
+      value: "eko-university-of-medicine-and-health-science",
+      label: "Eko University of Medicine and Health Science, Ojo (EkoUNIMED)",
+      acronym: "ekounimed",
+      location: "ojo",
+      state: "lagos"
+    },
+    {
+      value: "el-amin-university",
+      label: "El-Amin University, Minna (EL-AMIN)",
+      acronym: "el-amin",
+      location: "minna",
+      state: "niger"
+    },
+    {
+      value: "elizade-university",
+      label: "Elizade University, Ilara-Mokin (ELIZADE)",
+      acronym: "elizade",
+      location: "ilara-mokin",
+      state: "ondo"
+    },
+    {
+      value: "european-university-of-nigeria",
+      label: "European University of Nigeria, Duboyi (EUN)",
+      acronym: "eun",
+      location: "duboyi",
+      state: "abuja"
+    },
+    {
+      value: "evangel-university",
+      label: "Evangel University, Akaeze (EUA)",
+      acronym: "eua",
+      location: "akaeze",
+      state: "ebonyi"
+    },
+    {
+      value: "fountain-university",
+      label: "Fountain University, Osogbo (FUO)",
+      acronym: "fuo",
+      location: "osogbo",
+      state: "osun"
+    },
+    {
+      value: "franco-british-international-university",
+      label: "Franco-British International University, Kaduna (FBIU)",
+      acronym: "fbiu",
+      location: "kaduna",
+      state: "kaduna"
+    },
+    {
+      value: "gerar-university-of-medical-sciences",
+      label: "Gerar University of Medical Sciences, Ijebu Ode (GUMED)",
+      acronym: "gumed",
+      location: "ijebu-ode",
+      state: "ogun"
+    },
+    {
+      value: "godfrey-okoye-university",
+      label: "Godfrey Okoye University, Urgwuomu-nike (GOUNI)",
+      acronym: "gouni",
+      location: "urgwuomu-nike",
+      state: "enugu"
+    },
+    {
+      value: "greenfield-university",
+      label: "Greenfield University, Kaduna (GFU)",
+      acronym: "gfu",
+      location: "kaduna",
+      state: "Kaduna"
+    },
+    {
+      value: "gregory-university",
+      label: "Gregory University, Uturu (GUU)",
+      acronym: "guu",
+      location: "uturu",
+      state: "abia"
+    },
+
+    {
+      value: "hallmark-university",
+      label: "Hallmark University, Ijebu-Itele (HALLMARK)",
+      acronym: "hallmark",
+      location: "ijebu-itele",
+      state: "ogun"
+    },
+    {
+      value: "havilla-university",
+      label: "Havilla University, Nde-Ikom (HUNI)",
+      acronym: "huni",
+      location: "nde-ikom",
+      state: "cross-river"
+    },
   ]
 
 
