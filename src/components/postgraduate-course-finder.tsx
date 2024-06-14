@@ -181,6 +181,126 @@ async function FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfession
     return filteredData;
 }
 
+
+
+async function FetchPGDCoursesForThirdClassHolders(cgpa:any, discipline:any) {
+    const q = query(
+        collection(db, 'Postgraduate Courses in Nigeria'),
+        where('Course', '==', discipline),
+        where('Postgraduate_Type', '==', "PGD"),
+        where("Minimum_CGPA_For_Third_Class_Holders_In_The_Course", "<=", cgpa),
+        orderBy('Title', 'asc')
+    );
+    const querySnapshot = await getDocs(q);
+    const data: any = [];
+    querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+}
+
+
+async function FetchPostgraduateCoursesForBachelorDegreeHoldersWithProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any, professionalCertification:any) {
+    // Fetch courses matching educational qualification and CGPA
+    const baseQuery = query(
+        collection(db, "Postgraduate Courses in Nigeria"),
+        where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
+        where("Minimum_CGPA", "<=", cgpa),
+        where("Work_Experience", "<=", workExperience),
+        orderBy("Title", "asc")
+    );
+
+    const baseSnapshot = await getDocs(baseQuery);
+    let baseData: any = [];
+    baseSnapshot.forEach((doc) => {
+        baseData.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Filter results in JavaScript for Eligible_Courses
+    const filteredData = baseData.filter((course: any) => 
+        course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline") || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline + " with " + professionalCertification) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline " + "with " + professionalCertification)
+    );
+
+    return filteredData;
+}
+
+
+
+async function FetchPostgraduateCoursesForHNDHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any) {
+    // Fetch courses matching educational qualification and CGPA
+    const baseQuery = query(
+        collection(db, "Postgraduate Courses in Nigeria"),
+        where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
+        where("Minimum_CGPA_For_HND_Holders", "<=", cgpa),
+        where("Work_Experience", "<=", workExperience),
+        orderBy("Title", "asc")
+    );
+
+    const baseSnapshot = await getDocs(baseQuery);
+    let baseData: any = [];
+    baseSnapshot.forEach((doc) => {
+        baseData.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Filter results in JavaScript for Eligible_Courses
+    const filteredData = baseData.filter((course: any) => 
+        course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline")
+    );
+
+    return filteredData;
+}
+
+async function FetchPostgraduateCoursesForHNDHoldersWithProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any, professionalCertification:any) {
+    // Fetch courses matching educational qualification and CGPA
+    const baseQuery = query(
+        collection(db, "Postgraduate Courses in Nigeria"),
+        where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
+        where("Minimum_CGPA_For_HND_Holders", "<=", cgpa),
+        where("Work_Experience", "<=", workExperience),
+        orderBy("Title", "asc")
+    );
+
+    const baseSnapshot = await getDocs(baseQuery);
+    let baseData: any = [];
+    baseSnapshot.forEach((doc) => {
+        baseData.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Filter results in JavaScript for Eligible_Courses
+    const filteredData = baseData.filter((course: any) => 
+        course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline") || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline + " with " + professionalCertification) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline " + "with " + professionalCertification)
+    );
+
+    return filteredData;
+}
+
+
+async function FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any) {
+    // Fetch courses matching educational qualification and CGPA
+    const baseQuery = query(
+        collection(db, "Postgraduate Courses in Nigeria"),
+        where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
+        where("Minimum_CGPA", "<=", cgpa),
+        where("Work_Experience", "<=", workExperience),
+        orderBy("Title", "asc")
+    );
+
+    const baseSnapshot = await getDocs(baseQuery);
+    let baseData: any = [];
+    baseSnapshot.forEach((doc) => {
+        baseData.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Filter results in JavaScript for Eligible_Courses
+    const filteredData = baseData.filter((course: any) => 
+        course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline")
+    );
+
+    return filteredData;
+}
+
+
+
 async function FetchInfluencers(influencerCourse: any) {
     const q = query(
         collection(db, 'Profiles'),
@@ -255,8 +375,45 @@ export default function PostgraduateCourseFinder() {
     const [openProfessionalQualification, setOpenProfessionalQualification] = useState(false)
     const [professionalQualificationValue, setProfessionalQualificationValue] = useState("")
 
-    async function fetchData(educationalQualification: any, cgpa: any, discipline: any, workExperience:any) {
+    async function fetchData(educationalQualification: any, cgpa: any, discipline: any, workExperience:any, professionalCertification:any) {
+        if(academicQualification === "Bachelor Degree" && professionalQualificationValue === ""){
         const data: Courses[] = await FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
+        const data2: Courses[] = await FetchPGDCoursesForThirdClassHolders(cgpa, discipline)
+        const modifiedData = data.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        const modifiedData2 = data2.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        const modifiedData3 = [...modifiedData, ...modifiedData2];
+        const modifiedData4 = Array.from(new Map(modifiedData3.map(item => [item.id, item])).values());
+        setRecommendedPGCourses(modifiedData4);
+        setProcessing(false);
+        if(recommendedPGCourses.length > 0){
+            console.log(recommendedPGCourses);
+        }
+    }else if(academicQualification === "Bachelor Degree" && professionalQualificationValue !== ""){
+        const data: Courses[] = await FetchPostgraduateCoursesForBachelorDegreeHoldersWithProfessionalQualification(educationalQualification, cgpa, discipline, workExperience, professionalCertification);
+        const data2: Courses[] = await FetchPGDCoursesForThirdClassHolders(cgpa, discipline)
+        const modifiedData = data.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        const modifiedData2 = data2.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        const modifiedData3 = [...modifiedData, ...modifiedData2];
+        const modifiedData4 = Array.from(new Map(modifiedData3.map(item => [item.id, item])).values());
+        setRecommendedPGCourses(modifiedData4);
+        setProcessing(false);
+        if(recommendedPGCourses.length > 0){
+            console.log(recommendedPGCourses);
+        }
+    }else if(academicQualification === "HND" && professionalQualificationValue === ""){
+        const data: Courses[] = await FetchPostgraduateCoursesForHNDHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
         const modifiedData = data.map((course) => ({
             ...course,
             School_Name: course.School_Name.replace(/-/g, ' '),
@@ -266,6 +423,29 @@ export default function PostgraduateCourseFinder() {
         if(recommendedPGCourses.length > 0){
             console.log(recommendedPGCourses);
         }
+    }else if(academicQualification === "HND" && professionalQualificationValue !== ""){
+        const data: Courses[] = await FetchPostgraduateCoursesForHNDHoldersWithProfessionalQualification(educationalQualification, cgpa, discipline, workExperience, professionalCertification);
+        const modifiedData = data.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        setRecommendedPGCourses(modifiedData);
+        setProcessing(false);
+        if(recommendedPGCourses.length > 0){
+            console.log(recommendedPGCourses);
+        }
+    }else{
+        const data: Courses[] = await FetchPostgraduateCoursesForPGDDHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
+        const modifiedData = data.map((course) => ({
+            ...course,
+            School_Name: course.School_Name.replace(/-/g, ' '),
+        }));
+        setRecommendedPGCourses(modifiedData);
+        setProcessing(false);
+        if(recommendedPGCourses.length > 0){
+            console.log(recommendedPGCourses);
+        }
+    }
         
     }
 
