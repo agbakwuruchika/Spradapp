@@ -435,7 +435,7 @@ export default function PostgraduateCourseFinder() {
             console.log(recommendedPGCourses);
         }
     }else{
-        const data: Courses[] = await FetchPostgraduateCoursesForPGDDHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
+        const data: Courses[] = await FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
         const modifiedData = data.map((course) => ({
             ...course,
             School_Name: course.School_Name.replace(/-/g, ' '),
