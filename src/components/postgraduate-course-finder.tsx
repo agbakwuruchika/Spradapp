@@ -466,7 +466,7 @@ export default function PostgraduateCourseFinder() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setProcessing(true);
-        fetchData(academicQualification, cgpa, value, yearsOfExperience);
+        fetchData(academicQualification, cgpa, value, yearsOfExperience, professionalQualificationValue);
     };
 
     return (
