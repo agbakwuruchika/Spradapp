@@ -640,6 +640,135 @@ export default function PostgraduateCourseFinder() {
   </>
   }
   
+
+  {academicQualification == "HND" &&
+                    <>
+                    <div className="mt-2">
+                    <input type="number" step = "0.01" min = "0.00" max = "10.00" id="cgpa" placeholder = "Enter Your CGPA" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const gp = parseFloat(e.currentTarget.value); setCgpa(isNaN(gp) ? 0 : gp); }} />
+                    
+                </div>
+                <Popover open={open} onOpenChange={setOpen}>
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        role="combobox"
+        aria-expanded={open}
+        className="mt-4 p-2 w-full justify-between"
+      >
+        <div className="truncate max-w-full">
+          {value
+            ? undergraduateCourses.find((course) => course.value === value)?.label
+            : "Select the course you studied..."}
+        </div>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-full p-0">
+      <Command>
+        <CommandInput placeholder="Search school..." className="h-9" />
+        <CommandEmpty>No course found.</CommandEmpty>
+        
+        <CommandGroup>
+        <CommandList>
+          {undergraduateCourses.map((framework) => (
+            
+            <CommandItem
+              key={framework.value}
+              value={framework.value}
+              onSelect={(currentValue:any) => {
+                setValue(currentValue === value ? "" : currentValue)
+                setOpen(false)
+              }}
+            >
+              <div className="truncate max-w-full">
+                {framework.label}
+              </div>
+              <CheckIcon
+                className={cn(
+                  "ml-auto h-4 w-4",
+                  value === framework.value ? "opacity-100" : "opacity-0"
+                )}
+              />
+            </CommandItem>
+            
+          ))}
+          </CommandList>
+        </CommandGroup>
+        
+      </Command>
+    </PopoverContent>
+  </Popover>
+  <div className="mt-2">
+                    <input type="number" id="yearsOfExperience" placeholder = "How Many Years of Work Experience Do You Have After Your Bachelor Degree?" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const experience = parseInt(e.currentTarget.value); setYearsOfExperience(isNaN(experience) ? 0 : experience); }} />
+                    
+                </div>
+                <div className = "mt-4 p-2 bg-white outline outline-2 outline-slate-100 rounded w-full">
+            <h2 className = "sign-up-input">Do You Have Any Professional Qualification?:</h2>
+                <div style = {{display:"flex", gap:5, marginBottom:5, marginTop:10}}>
+                    <input type = "radio" id = "Yes" name = "professionalQualification" value = "Yes" onClick ={()=>{setHasProfessionalQualification(true);}}/>
+                    <label htmlFor="Yes" className = "radio-button-label sign-up-input">Yes</label>
+                </div>
+                <div style = {{display:"flex", gap:5, marginBottom:5}}>
+                    <input type = "radio" id = "No" name = "professionalQualification" value = "No" onClick ={()=>{setHasProfessionalQualification(false); }}/>
+                    <label htmlFor="No" className = "radio-button-label sign-up-input">No</label>
+                </div>
+              </div>
+              {hasProfessionalQualification &&
+              <Popover open={openProfessionalQualification} onOpenChange={setOpenProfessionalQualification}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openProfessionalQualification}
+                  className="mt-4 p-2 w-full justify-between"
+                >
+                  <div className="truncate max-w-full">
+                    {professionalQualificationValue
+                      ? listOfProfessionalQualifications.find((qualification) => qualification.value === professionalQualificationValue)?.label
+                      : "Select professional qualification..."}
+                  </div>
+                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0">
+                <Command>
+                  <CommandInput placeholder="Search school..." className="h-9" />
+                  <CommandEmpty>No professional qualification found.</CommandEmpty>
+                  
+                  <CommandGroup>
+                  <CommandList>
+                    {listOfProfessionalQualifications.map((qualification) => (
+                      
+                      <CommandItem
+                        key={qualification.value}
+                        value={qualification.value}
+                        onSelect={(currentValue) => {
+                          setProfessionalQualificationValue(currentValue === value ? "" : currentValue);
+                          setOpenProfessionalQualification(false)
+                        }}
+                      >
+                        <div className="truncate max-w-full">
+                          {qualification.label}
+                        </div>
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            value === qualification.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                      
+                    ))}
+                    </CommandList>
+                  </CommandGroup>
+                  
+                </Command>
+              </PopoverContent>
+            </Popover>
+              }
+  </>
+  }
+  
                 </>
                 )}
                 
