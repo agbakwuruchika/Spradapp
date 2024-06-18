@@ -250,7 +250,11 @@ console.log(postgraduateCourses)
                             </AccordionTrigger>
                             <AccordionContent>
                                 <p>{course.Course_Description}</p>
-                               {/* {course.Course_Requirements.map((requirement:any)=>{
+                                <h3 className = "mt-2">Requirements</h3>
+                                {course.Requirements.map((eligibleCourse:any, index:any) => (
+                                                    <li key={index} className="capitalize">{eligibleCourse}</li>
+                                                ))}
+                               {/* {course.CouRequirements.map((requirement:any)=>{
                                 return(
                                 <p>{requirement.Value}</p>
                                 )

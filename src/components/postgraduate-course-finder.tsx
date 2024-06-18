@@ -64,7 +64,104 @@ import { Button } from "@/components/ui/button"
     {
         value: "business administration",
         label: "Business Administration"
+    },
+    {
+        value: "pharmacy",
+        label: "Pharmacy"
+    },
+    {
+        value: "physiotherapy",
+        label: "Physiotherapy"
+    },
+    {
+        value: "medicine",
+        label: "Medicine"
+    },
+    {
+        value: "dentistry",
+        label: "Dentistry"
+    },
+    {
+        value: "veterinary medicine",
+        label: "Veterinary Medicine"
+    },
+    {
+        value: "biochemistry",
+        label: "Biochemistry"
+    },
+    {
+        value: "medical laboratory science",
+        label: "Medical Laboratory Science"
+    },
+    {
+        value: "pharmacology",
+        label: "Pharmacology"
+    },
+    {
+        value: "physiology",
+        label: "Physiology"
+    },
+    {
+        value: "biotechnology",
+        label: "Biotechnology"
+    },
+    {
+        value: "chemistry",
+        label: "Chemistry"
+    },
+    {
+        value: "chemical engineering",
+        label: "Chemical Engineering"
+    },
+    {
+        value: "economics",
+        label: "Economics"
+    },
+    {
+        value: "finance",
+        label: "Finance"
+    },
+    {
+        value: "actuarial science",
+        label: "Actuarial Science"
+    },
+    {
+        value: "insurance",
+        label: "Insurance"
+    },
+    {
+        value: "industrial relations",
+        label: "Industrial Relations"
+    },
+    {
+        value: "employment relations",
+        label: "Employment Relations"
+    },
+    {
+        value: "industrial relations and personnel management",
+        label: "Industrial Relations And Personnel Management"
+    },
+    {
+        value: "human resources management",
+        label: "Human Resources Management"
+    },
+    {
+        value: "mathematics",
+        label: "Mathematics"
+    },
+    {
+        value: "statistics",
+        label: "Statistics"
+    },
+    {
+        value: "business education",
+        label: "Business Education"
+    },
+    {
+        value: "accounting education",
+        label: "Accounting Education"
     }
+
   ]
 
 
@@ -275,12 +372,12 @@ async function FetchPostgraduateCoursesForHNDHoldersWithProfessionalQualificatio
 }
 
 
-async function FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any) {
+async function FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualification(educationalQualification: any, cgpa: any, discipline: any, workExperience:any, PGDDiscipline:any) {
     // Fetch courses matching educational qualification and CGPA
     const baseQuery = query(
         collection(db, "Postgraduate Courses in Nigeria"),
         where("Eligible_Educational_Qualification", "array-contains", educationalQualification),
-        where("Minimum_CGPA", "<=", cgpa),
+        where("Minimum_CGPA_For_PGD_Holders", "<=", cgpa),
         where("Work_Experience", "<=", workExperience),
         orderBy("Title", "asc")
     );
@@ -293,10 +390,14 @@ async function FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualifica
 
     // Filter results in JavaScript for Eligible_Courses
     const filteredData = baseData.filter((course: any) => 
-        course.Eligible_Courses_For_Bachelor_Degree_Holders.includes(discipline) || course.Eligible_Courses_For_Bachelor_Degree_Holders.includes("any discipline")
+        course.Eligible_Bachelor_Degree_Courses_For_PGD.includes(discipline) || course.Eligible_Bachelor_Degree_Courses_For_PGD.includes("any discipline")
     );
 
-    return filteredData;
+    const finalFilteredData = filteredData.filter((course: any) => 
+        course.Eligible_Courses_For_PGD_Holders.includes(PGDDiscipline) || course.Eligible_Courses_For_PGD_Holders.includes("any discipline")
+    );
+
+    return finalFilteredData;
 }
 
 
@@ -374,8 +475,10 @@ export default function PostgraduateCourseFinder() {
     const [hasProfessionalQualification, setHasProfessionalQualification] = useState(false)
     const [openProfessionalQualification, setOpenProfessionalQualification] = useState(false)
     const [professionalQualificationValue, setProfessionalQualificationValue] = useState("")
+    const [pgdCourseValue, setPgdCourseValue] = useState("")
+    const [openPgdCourses, setOpenPgdCourses] = useState(false)
 
-    async function fetchData(educationalQualification: any, cgpa: any, discipline: any, workExperience:any, professionalCertification:any) {
+    async function fetchData(educationalQualification: any, cgpa: any, discipline: any, workExperience:any, professionalCertification:any, PGDDiscipline:any) {
         if(academicQualification === "Bachelor Degree" && professionalQualificationValue === ""){
         const data: Courses[] = await FetchPostgraduateCoursesForBachelorDegreeHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
         const data2: Courses[] = await FetchPGDCoursesForThirdClassHolders(cgpa, discipline)
@@ -434,8 +537,8 @@ export default function PostgraduateCourseFinder() {
         if(recommendedPGCourses.length > 0){
             console.log(recommendedPGCourses);
         }
-    }else{
-        const data: Courses[] = await FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience);
+    }else if(academicQualification === "PGD" && professionalQualificationValue === ""){
+        const data: Courses[] = await FetchPostgraduateCoursesForPGDHoldersWithoutProfessionalQualification(educationalQualification, cgpa, discipline, workExperience, PGDDiscipline);
         const modifiedData = data.map((course) => ({
             ...course,
             School_Name: course.School_Name.replace(/-/g, ' '),
@@ -445,6 +548,8 @@ export default function PostgraduateCourseFinder() {
         if(recommendedPGCourses.length > 0){
             console.log(recommendedPGCourses);
         }
+    }else{
+
     }
         
     }
@@ -466,7 +571,7 @@ export default function PostgraduateCourseFinder() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setProcessing(true);
-        fetchData(academicQualification, cgpa, value, yearsOfExperience, professionalQualificationValue);
+        fetchData(academicQualification, cgpa, value, yearsOfExperience, professionalQualificationValue, pgdCourseValue);
     };
 
     return (
@@ -678,6 +783,187 @@ export default function PostgraduateCourseFinder() {
               onSelect={(currentValue:any) => {
                 setValue(currentValue === value ? "" : currentValue)
                 setOpen(false)
+              }}
+            >
+              <div className="truncate max-w-full">
+                {framework.label}
+              </div>
+              <CheckIcon
+                className={cn(
+                  "ml-auto h-4 w-4",
+                  value === framework.value ? "opacity-100" : "opacity-0"
+                )}
+              />
+            </CommandItem>
+            
+          ))}
+          </CommandList>
+        </CommandGroup>
+        
+      </Command>
+    </PopoverContent>
+  </Popover>
+  <div className="mt-2">
+                    <input type="number" id="yearsOfExperience" placeholder = "How Many Years of Work Experience Do You Have After Your Bachelor Degree?" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const experience = parseInt(e.currentTarget.value); setYearsOfExperience(isNaN(experience) ? 0 : experience); }} />
+                    
+                </div>
+                <div className = "mt-4 p-2 bg-white outline outline-2 outline-slate-100 rounded w-full">
+            <h2 className = "sign-up-input">Do You Have Any Professional Qualification?:</h2>
+                <div style = {{display:"flex", gap:5, marginBottom:5, marginTop:10}}>
+                    <input type = "radio" id = "Yes" name = "professionalQualification" value = "Yes" onClick ={()=>{setHasProfessionalQualification(true);}}/>
+                    <label htmlFor="Yes" className = "radio-button-label sign-up-input">Yes</label>
+                </div>
+                <div style = {{display:"flex", gap:5, marginBottom:5}}>
+                    <input type = "radio" id = "No" name = "professionalQualification" value = "No" onClick ={()=>{setHasProfessionalQualification(false); }}/>
+                    <label htmlFor="No" className = "radio-button-label sign-up-input">No</label>
+                </div>
+              </div>
+              {hasProfessionalQualification &&
+              <Popover open={openProfessionalQualification} onOpenChange={setOpenProfessionalQualification}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openProfessionalQualification}
+                  className="mt-4 p-2 w-full justify-between"
+                >
+                  <div className="truncate max-w-full">
+                    {professionalQualificationValue
+                      ? listOfProfessionalQualifications.find((qualification) => qualification.value === professionalQualificationValue)?.label
+                      : "Select professional qualification..."}
+                  </div>
+                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0">
+                <Command>
+                  <CommandInput placeholder="Search school..." className="h-9" />
+                  <CommandEmpty>No professional qualification found.</CommandEmpty>
+                  
+                  <CommandGroup>
+                  <CommandList>
+                    {listOfProfessionalQualifications.map((qualification) => (
+                      
+                      <CommandItem
+                        key={qualification.value}
+                        value={qualification.value}
+                        onSelect={(currentValue) => {
+                          setProfessionalQualificationValue(currentValue === value ? "" : currentValue);
+                          setOpenProfessionalQualification(false)
+                        }}
+                      >
+                        <div className="truncate max-w-full">
+                          {qualification.label}
+                        </div>
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            value === qualification.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                      
+                    ))}
+                    </CommandList>
+                  </CommandGroup>
+                  
+                </Command>
+              </PopoverContent>
+            </Popover>
+              }
+  </>
+  }
+
+
+  {academicQualification == "PGD" &&
+                    <>
+                    <div className="mt-2">
+                    <input type="number" step = "0.01" min = "0.00" max = "10.00" id="cgpa" placeholder = "Enter Your CGPA" className="mt-4 p-2 h-10 outline outline-2 outline-slate-100 rounded w-full" onChange={(e) => { const gp = parseFloat(e.currentTarget.value); setCgpa(isNaN(gp) ? 0 : gp); }} />
+                    
+                </div>
+                <Popover open={open} onOpenChange={setOpen}>
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        role="combobox"
+        aria-expanded={open}
+        className="mt-4 p-2 w-full justify-between"
+      >
+        <div className="truncate max-w-full">
+          {value
+            ? undergraduateCourses.find((course) => course.value === value)?.label
+            : "Select the course you studied..."}
+        </div>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-full p-0">
+      <Command>
+        <CommandInput placeholder="Search school..." className="h-9" />
+        <CommandEmpty>No course found.</CommandEmpty>
+        
+        <CommandGroup>
+        <CommandList>
+          {undergraduateCourses.map((framework) => (
+            
+            <CommandItem
+              key={framework.value}
+              value={framework.value}
+              onSelect={(currentValue:any) => {
+                setValue(currentValue === value ? "" : currentValue)
+                setOpen(false)
+              }}
+            >
+              <div className="truncate max-w-full">
+                {framework.label}
+              </div>
+              <CheckIcon
+                className={cn(
+                  "ml-auto h-4 w-4",
+                  value === framework.value ? "opacity-100" : "opacity-0"
+                )}
+              />
+            </CommandItem>
+            
+          ))}
+          </CommandList>
+        </CommandGroup>
+        
+      </Command>
+    </PopoverContent>
+  </Popover>
+
+  <Popover open={openPgdCourses} onOpenChange={setOpenPgdCourses} className = "mt-2">
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        role="combobox"
+        aria-expanded={openPgdCourses}
+        className="mt-4 p-2 w-full justify-between"
+      >
+        <div className="truncate max-w-full">
+          {pgdCourseValue
+            ? undergraduateCourses.find((course) => course.value === pgdCourseValue)?.label
+            : "Select the course you studied..."}
+        </div>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-full p-0">
+      <Command>
+        <CommandInput placeholder="Search school..." className="h-9" />
+        <CommandEmpty>No course found.</CommandEmpty>
+        
+        <CommandGroup>
+        <CommandList>
+          {undergraduateCourses.map((framework) => (
+            
+            <CommandItem
+              key={framework.value}
+              value={framework.value}
+              onSelect={(currentValue:any) => {
+                setPgdCourseValue(currentValue === value ? "" : currentValue)
+                setOpenPgdCourses(false)
               }}
             >
               <div className="truncate max-w-full">
