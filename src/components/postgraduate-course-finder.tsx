@@ -167,11 +167,11 @@ import { Button } from "@/components/ui/button"
 
   const listOfProfessionalQualifications = [
     {
-        value: "associate of the chartered institute of taxation of nigeria acti",
+        value: "acti",
         label: "Associate of the Chartered Institute of Taxation of Nigeria (ACTI)"
     },
     {
-        value: "associate chartered accountant aca",
+        value: "aca",
         label: "Associate Chartered Accountant (ACA)"
     }
   ]
