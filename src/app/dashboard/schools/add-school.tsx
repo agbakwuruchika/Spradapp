@@ -1237,6 +1237,76 @@ import {
       location: "nde-ikom",
       state: "cross-river"
     },
+    {
+      value: "hensard-university",
+      label: "Hensard University, Toru-Orua (HENSARD)",
+      acronym: "hensard",
+      location: "toru-orua",
+      state: "bayelsa"
+    },
+    {
+      value: "hezekiah-university",
+      label: "Hezekiah University, Umudi (HEZEKIAH)",
+      acronym: "hezekiah",
+      location: "umudi",
+      state: "imo"
+    },
+    {
+      value: "hillside-university-of-science-and-technology",
+      label: "Hillside University of Science and Technology, Okemesi-Ekiti (HUST)",
+      acronym: "hust",
+      location: "okemesi-ekiti",
+      state: "ekiti"
+    },
+    {
+      value: "huda-university",
+      label: "Huda University, Gusau (HUG)",
+      acronym: "hug",
+      location: "gusau",
+      state: "zamfara"
+    },
+    {
+      value: "igbinedion-university",
+      label: "Igbinedion University, Okada (IUOKADA)",
+      acronym: "iuokada",
+      location: "okada",
+      state: "edo"
+    },
+    {
+      value: "jewel-university",
+      label: "Jewel University, Gombe (JUG)",
+      acronym: "jug",
+      location: "gombe",
+      state: "gombe"
+    },
+    {
+      value: "joseph-ayo-babalola-university",
+      label: "Joseph Ayo Babalola University, Ikeji-Arakeji (JABU)",
+      acronym: "jabu",
+      location: "ikeji-arakeji",
+      state: "osun"
+    },
+    {
+      value: "karl-kumm-university",
+      label: "Karl Kumm University, Vom (KKU)",
+      acronym: "kku",
+      location: "vom",
+      state: "plateau"
+    },
+    {
+      value: "khadija-university",
+      label: "Khadija University, Majia (KUM)",
+      acronym: "kum",
+      location: "majia",
+      state: "jigawa"
+    },
+    {
+      value: "khalifa-isyaku-rabiu-university",
+      label: "Khalifa Isyaku Rabiu University, Kano (KHAIRUN)",
+      acronym: "khairun",
+      location: "kano",
+      state: "kano"
+    },
   ]
 
 
