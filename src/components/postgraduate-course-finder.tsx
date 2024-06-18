@@ -933,7 +933,7 @@ export default function PostgraduateCourseFinder() {
     </PopoverContent>
   </Popover>
 
-  <Popover open={openPgdCourses} onOpenChange={setOpenPgdCourses} className = "mt-2">
+  <Popover open={openPgdCourses} onOpenChange={setOpenPgdCourses}>
     <PopoverTrigger asChild>
       <Button
         variant="outline"
